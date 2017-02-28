@@ -1,0 +1,538 @@
+<!DOCTYPE html>
+<html><head><meta http-equiv="refresh" content="0; URL='http://gaozhiyan.com/blog'" />
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
+		<title>Zhiyan Gao</title>
+		<style>
+		@font-face{
+			font-family:"DoulosSIL-R";
+			src:url(font/DoulosSIL-R.ttf);
+			}
+			html, body {
+				height: 100%;
+			}
+
+			body {
+				background-color: #000000;
+				margin: 0;
+				font-family: Helvetica, sans-serif, DoulosSIL-R;;
+				overflow: hidden;
+			}
+
+			a {
+				color: #ffffff;
+			}
+
+			#info {
+				position: absolute;
+				width: 100%;
+				color: #ffffff;
+				padding: 5px;
+				font-family: Monospace;
+				font-size: 13px;
+				font-weight: bold;
+				z-index: 1;
+				display:none;
+			}
+			
+			h1 {
+	text-align:center;
+	background:transparent;
+}
+			#top{
+	text-align:left;
+	top: 20px;
+	width: 100%;
+	position:absolute;
+}
+
+			#menu {
+				position: absolute;
+				bottom: 20px;
+				width: 100%;
+				text-align: left;
+			}
+
+			.element {
+				width: 120px;
+				height: 160px;
+				box-shadow: 0px 0px 12px rgba(0,255,255,0.5);
+				border: 1px solid rgba(127,255,255,0.25);
+				text-align: center;
+				cursor: default;
+			}
+
+			.element:hover {
+				box-shadow: 0px 0px 12px rgba(0,255,255,0.75);
+				border: 1px solid rgba(127,255,255,0.75);
+			}
+
+				.element .number {
+					position: absolute;
+					top: 20px;
+					right: 20px;
+					font-size: 12px;
+					color: rgba(127,255,255,0.75);
+				}
+
+				.element .symbol {
+					position: absolute;
+					top: 40px;
+					left: 0px;
+					right: 0px;
+					font-size: 60px;
+					font-weight: bold;
+					color: rgba(255,255,255,0.75);
+					text-shadow: 0 0 10px rgba(0,255,255,0.95);
+				}
+
+				.element .details {
+					position: absolute;
+					bottom: 15px;
+					left: 0px;
+					right: 0px;
+					font-size: 12px;
+					color: rgba(127,255,255,0.75);
+				}
+
+			button {
+				color: rgba(127,255,255,0.75);
+				background: transparent;
+				outline: 1px solid rgba(127,255,255,0.75);
+				border: 0px;
+				padding: 5px 10px;
+				cursor: pointer;
+				text-decoration:none;
+				width:150px;
+			}
+			button:hover {
+				background-color: rgba(0,255,255,0.5);
+			}
+			button:active {
+				color: #000000;
+				background-color: rgba(0,255,255,0.75);
+			}
+			a{
+	text-decoration:none;
+	color:rgba(0,255,255,0.75);
+
+}
+#info{
+	top:100px;
+}
+		</style>
+	<style type="text/css">
+	.auto-style1 {
+		text-align: center;
+	}
+	</style></head>
+	<body>
+		<script src="./index/three.min.js"></script>
+		<script src="./index/tween.min.js"></script>
+		<script src="./index/TrackballControls.js"></script>
+		<script src="./index/CSS3DRenderer.js"></script>
+ <link rel="stylesheet" href="css/style.css" media="screen" type="text/css" />
+ <link rel="stylesheet" href="css/style.css" media="screen" type="text/css" />
+		
+<script src='http://codepen.io/assets/libs/fullpage/jquery.js'></script>
+  <script src='js/kdcch.js'></script>
+
+  <script src="js/index.js"></script>
+
+
+<div id="info" style="text-align:left"><div id="console_window">
+  <div id="console_systembar">Zhiyan's Website__Drag Here</div>
+  <div id="console_content">
+    <div id="console_output"></div>
+    <div id="console_input"></div>
+    <div id="console_cursor">_</div>
+  </div>
+</div></div>
+
+		<div id="container" class="auto-style1">
+		</div>
+		<div id="top">
+			<li><button id="enter" style="width:150px">ABOUT</button></li>
+			<li><button id="ipa" style="width:150px">WELCOME</button></li>
+			<li><button id="slides" style="width:150px"><a href="https://gaozhiyan.wordpress.com" target="_blank">BLOG</a></button></li>
+		</div>
+
+		<div id="menu">
+			<li><button id="table">TABLE</button></li>
+			<li><button id="sphere">SPHERE</button></li>
+			<li><button id="helix">HELIX</button></li>
+			<li><button id="grid">GRID</button></li>
+		</div>
+
+		<script>
+
+			var table = [
+				"p", "Bilabial", "Voiceless-Stop", 1, 4,
+				"b", "Bilabial", "Voiced-Stop", 2, 4,
+				"t", "Alveolar", "Voiceless-Stop", 7, 4,
+				"d", "Alveolar", "Voiced-Stop", 8, 4,
+				"ʈ", "Retroflex", "Voiceless-Stop", 11, 4,
+				"ɖ", "Retroflex", "Voiced-Stop", 12, 4,
+				"c", "Palatal", "Voiceless-Stop", 13, 4,
+				"ɟ", "Palatal", "Voiced-Stop", 14, 4,
+				"k", "Velar", "Voiceless-Stop", 15, 4,
+				"ɡ", "Velar", "Voiced-Stop", 16, 4,
+				"q", "Uvular", "Voiceless-Stop", 17, 4,
+				"ɢ", "Uvular", "Voiced-Stop", 18, 4,
+				"ʔ", "Glottal", "Voiceless-Stop", 21, 4,
+				"m", "Bilabial", "Nasal", 2, 5,
+				"ɱ", "Labio-Dental", "Nasal", 4, 5,
+				"n", "Alveolar", "Nasal", 8, 5,
+				"ɳ", "Retroflex", "Nasal", 12, 5,
+				"ɲ", "Palatal", "Nasal", 14, 5,
+				"ŋ", "Velar", "Nasal", 16, 5,
+				"ɴ", "Uvular", "Nasal", 18, 5,
+				"ʙ", "Bilabial", "Trill", 2, 6,
+				"r", "Alveolar", "Trill", 8, 6,
+				"ʀ", "Uvular", "Trill", 18, 6,
+				"ⱱ", "Labio-Dental", "Flap", 4, 7,
+				"ɾ", "Alveolar", "Flap", 8, 7,
+				"ɽ", "Retroflex", "Flap", 12, 7,
+				"ɸ", "Bilabial", "Voiceless-Fricative", 1, 8,
+				"β", "Bilabial", "Voiced-Fricative", 2, 8,
+				"f", "Labio-Dental", "Voiceless-Fricative", 3, 8,
+				"v", "Labio-Dental", "Voiced-Fricative",4, 8,
+				"θ", "Dental", "Voiceless-Fricative", 5, 8,
+				"ð", "Dental", "Voiced-Fricative", 6, 8,
+				"s", "Alveolar", "Voiceless-Fricative", 7, 8,
+				"z", "Alveolar", "Voiced-Fricative", 8, 8,
+				"ʃ", "Post-Alveolar", "Voiceless-Fricative", 9, 8,
+				"ʒ", "Post-Alveolar", "Voiced-Fricative", 10, 8,
+				"ç", "Palatal", "Voiceless-Fricative", 13, 8,
+				"ʝ", "Palatal", "Voiced-Fricative", 14, 8,
+				"ʂ", "Retroflex", "Voiceless-Fricative", 11, 8,
+				"ʐ", "Retroflex", "Voiced-Fricative", 12, 8,
+				"x", "Velar", "Voiceless-Fricative", 15, 8,
+				"ɣ", "Velar", "Voiced-Fricative", 16, 8,
+				"χ", "Uvular", "Voiceless-Fricative", 17, 8,
+				"ʁ", "Uvular", "Voiced-Fricative", 18, 8,
+				"ħ", "Pharyngeal", "Voiceless-Fricative", 19, 8,
+				"ʕ", "Pharyngeal", "Voiced-Fricative", 20, 8,
+				"h", "Glottal", "Voiceless-Fricative", 21, 8,
+				"ɦ", "Glottal", "Voiced-Fricative", 22, 8,
+				"ɬ", "Alveolar", "Voiceless Lateral Fricative", 7, 9,
+				"ɮ", "Alveolar", "Voiced Lateral Fricative", 8, 9,
+				"ʋ", "Labio-Dental", "Approximant", 4, 10,
+				"ɹ", "Alveolar", "Approximant", 8, 10,
+				"ɻ", "Retroflex", "Approximant", 12, 10,
+				"j", "Palatal", "Approximant", 14, 10,
+				"ɰ", "Velar", "Approximant", 16, 10,
+				"l", "Alveolar", "Lateral-Approximant", 8, 11,
+				"ɭ", "Retroflex", "Lateral-Approximant", 12, 11,
+				"ʟ", "Retroflex", "Lateral-Approximant", 16, 11,
+				"ʈʂ","Retroflex","Affricate", 6, 0,
+				"ʐ", "Retroflex","Fricative", 7,0,
+				"j","Alveolar","Glide",9,0,
+				"ɛ","Open-mid","Front",10,0,
+				"n","Alveolar","Nasal",11,0,
+				"k","Velar","Voiceless-Stop",13,0,
+				"a","Open","Front",14,0,
+				"ʊ","Close","Back",15,0,
+				
+				"aɪ","Diphthong","Rising",2,1,		
+				"æ","Open","Front",4,1,
+				"m","Bilabial","Nasal",5,1,
+				"ə","Open","Central", 7,1,
+				"pʰ","Bilabial","Voiceless-Stop", 9,1,	
+				"i:","Close","Front",10,1,
+				"ei","Diphtong","Rising",11,1,
+				"tʃ","Alveolar","Affricate",12,1,
+				"d","Alveolar","Voiced-Stop",13,1,
+				"i:","Close","Front",14,1,
+				"s","Alveolar","Fricative",16,1,
+				"t","Alveolar","Voiceless-Stop",17,1,
+				"j","Palatal","Approximant",18,1,
+				"u:","Close","Back",19,1,
+				"d","Alveolar","Voiced-Stop",20,1,
+				"ə̃","Open","Central",21,1,
+				"n","Alveolar","Nasal",22,1,
+				"t","Alveolar","Voiceless-Stop",23,1,
+				
+				
+				
+				"ɪ̃","Close","Front",-1,2,
+				"n","Alveolar","Nasal",0,2,
+				"θ","Dental","Fricative",2,2,
+				"i","Open","Front",3,2,
+				"l","Alveolar","Approximant",5,2,
+				"ɪ̃","Close","Front",6,2,
+				"ŋ","Velar","Nasal",7,2,
+				"ɡ","Velar","Voiced-Stop",8,2,
+				"w","Velar","Approximant",9,2,
+				"ɪ","Close","Front",10,2,
+				"s","Velar","Voiceless-Fricative",11,2,
+				"t","Alveolar","Voiceless-Stop",12,2,
+				"ɪ","Close","Front",13,2,
+				"k","Velar","Voiceless-Stop",14,2,
+				"s","Alveolar","Voiceless-Fricative",15,2,
+				"pʰ","Bilabial","Voiceless-Stop",17,2,
+				"ɹ","Alveolar","Approximant",18,2,
+				"əʊ","Diphtong","Rising",19,2,
+				"ɡ","Velar","Voiced-Stop",20,2,
+				"ɹ","Alveolar","Approximant",21,2,
+				"æ̃","Open","Front",22,2,
+				"m","Bilabial","Nasal",23,2,
+				
+				
+				
+				
+				
+				
+				"æ","Open","Front",-1,3,
+				"t","Alveolar","Voiceless-Stop",0,3,
+				"dʒ","Alveolar","Voiced-Affricate",2,3,
+				"ɔ","Open-Mid","Back",3,3,
+				"ɹ","Alveolar","Approximant",4,3,
+				"dʒ","Alveolar","Voiced-Affricate",5,3,
+				"m","Bilabial","Nasal",7,3,
+				"eɪ","Diphthong","Rising",8,3,
+				"s","Alveolar","Voiceless-Fricative",9,3,
+				"ə̃","Open","Central",10,3,
+				"n","Alveolar","Nasal",11,3,
+				"j","Palatal","Approximant",13,3,
+				"u:","Close","Back",14,3,
+				"n","Alveolar","Nasal",15,3,
+				"ə","Open","Central",16,3,
+				"v","Labial-Dental","Voiced-Fricative",17,3,
+				"ə","Open","Central",18,3,
+				"ɹ","Alveolar","Approximant",19,3,
+				"s","Alveolar","Voiceless-Fricative",20,3,
+				"ɪ","Close","Front",21,3,
+				"t","Alveolar","Voiceless-Stop",22,3,
+				"i:","Close","Front",23,3,
+
+							];
+
+			var camera, scene, renderer;
+			var controls;
+
+			var objects = [];
+			var targets = { table: [], sphere: [], helix: [], grid: [] };
+
+			init();
+			animate();
+
+			function init() {
+
+				camera = new THREE.PerspectiveCamera( 40, window.innerWidth / window.innerHeight, 1, 10000 );
+				camera.position.z = 3000;
+
+				scene = new THREE.Scene();
+
+				// table
+
+				for ( var i = 0; i < table.length; i += 5 ) {
+
+					var element = document.createElement( 'div' );
+					element.className = 'element';
+					element.style.backgroundColor = 'rgba(0,127,127,' + ( Math.random() * 0.5 + 0.25 ) + ')';
+
+					var number = document.createElement( 'div' );
+					number.className = 'number';
+					number.textContent = i + 1;
+					element.appendChild( number );
+
+					var symbol = document.createElement( 'div' );
+					symbol.className = 'symbol';
+					symbol.textContent = table[ i ];
+					element.appendChild( symbol );
+
+					var details = document.createElement( 'div' );
+					details.className = 'details';
+					details.innerHTML = table[ i + 1 ] + '<br>' + table[ i + 2 ];
+					element.appendChild( details );
+
+					var object = new THREE.CSS3DObject( element );
+					object.position.x = Math.random() * 4000 - 2000;
+					object.position.y = Math.random() * 4000 - 2000;
+					object.position.z = Math.random() * 4000 - 2000;
+					scene.add( object );
+
+					objects.push( object );
+
+					//
+
+					var object = new THREE.Object3D();
+					object.position.x = ( table[ i + 3 ] * 140 ) - 1330;
+					object.position.y = - ( table[ i + 4 ] * 180 ) + 990;
+
+					targets.table.push( object );
+
+				}
+
+				// sphere
+
+				var vector = new THREE.Vector3();
+
+				for ( var i = 0, l = objects.length; i < l; i ++ ) {
+
+					var phi = Math.acos( -1 + ( 2 * i ) / l );
+					var theta = Math.sqrt( l * Math.PI ) * phi;
+
+					var object = new THREE.Object3D();
+
+					object.position.x = 800 * Math.cos( theta ) * Math.sin( phi );
+					object.position.y = 800 * Math.sin( theta ) * Math.sin( phi );
+					object.position.z = 800 * Math.cos( phi );
+
+					vector.copy( object.position ).multiplyScalar( 2 );
+
+					object.lookAt( vector );
+
+					targets.sphere.push( object );
+
+				}
+
+				// helix
+
+				var vector = new THREE.Vector3();
+
+				for ( var i = 0, l = objects.length; i < l; i ++ ) {
+
+					var phi = i * 0.175 + Math.PI;
+
+					var object = new THREE.Object3D();
+
+					object.position.x = 900 * Math.sin( phi );
+					object.position.y = - ( i * 8 ) + 450;
+					object.position.z = 900 * Math.cos( phi );
+
+					vector.x = object.position.x * 2;
+					vector.y = object.position.y;
+					vector.z = object.position.z * 2;
+
+					object.lookAt( vector );
+
+					targets.helix.push( object );
+
+				}
+
+				// grid
+
+				for ( var i = 0; i < objects.length; i ++ ) {
+
+					var object = new THREE.Object3D();
+
+					object.position.x = ( ( i % 5 ) * 400 ) - 800;
+					object.position.y = ( - ( Math.floor( i / 5 ) % 5 ) * 400 ) + 800;
+					object.position.z = ( Math.floor( i / 25 ) ) * 1000 - 2000;
+
+					targets.grid.push( object );
+
+				}
+
+				//
+
+				renderer = new THREE.CSS3DRenderer();
+				renderer.setSize( window.innerWidth, window.innerHeight );
+				renderer.domElement.style.position = 'absolute';
+				document.getElementById( 'container' ).appendChild( renderer.domElement );
+
+				//
+
+				controls = new THREE.TrackballControls( camera, renderer.domElement );
+				controls.rotateSpeed = 0.5;
+				controls.minDistance = 500;
+				controls.maxDistance = 6000;
+				controls.addEventListener( 'change', render );
+
+				var button = document.getElementById( 'table' );
+				button.addEventListener( 'click', function ( event ) {
+
+					transform( targets.table, 2000 );
+
+				}, false );
+
+				var button = document.getElementById( 'sphere' );
+				button.addEventListener( 'click', function ( event ) {
+
+					transform( targets.sphere, 2000 );
+
+				}, false );
+
+				var button = document.getElementById( 'helix' );
+				button.addEventListener( 'click', function ( event ) {
+
+					transform( targets.helix, 2000 );
+
+				}, false );
+
+				var button = document.getElementById( 'grid' );
+				button.addEventListener( 'click', function ( event ) {
+
+					transform( targets.grid, 2000 );
+
+				}, false );
+
+				transform( targets.table, 5000 );
+
+				//
+
+				window.addEventListener( 'resize', onWindowResize, false );
+
+			}
+
+			function transform( targets, duration ) {
+
+				TWEEN.removeAll();
+
+				for ( var i = 0; i < objects.length; i ++ ) {
+
+					var object = objects[ i ];
+					var target = targets[ i ];
+
+					new TWEEN.Tween( object.position )
+						.to( { x: target.position.x, y: target.position.y, z: target.position.z }, Math.random() * duration + duration )
+						.easing( TWEEN.Easing.Exponential.InOut )
+						.start();
+
+					new TWEEN.Tween( object.rotation )
+						.to( { x: target.rotation.x, y: target.rotation.y, z: target.rotation.z }, Math.random() * duration + duration )
+						.easing( TWEEN.Easing.Exponential.InOut )
+						.start();
+
+				}
+
+				new TWEEN.Tween( this )
+					.to( {}, duration * 2 )
+					.onUpdate( render )
+					.start();
+
+			}
+
+			function onWindowResize() {
+
+				camera.aspect = window.innerWidth / window.innerHeight;
+				camera.updateProjectionMatrix();
+
+				renderer.setSize( window.innerWidth, window.innerHeight );
+
+				render();
+
+			}
+
+			function animate() {
+
+				requestAnimationFrame( animate );
+
+				TWEEN.update();
+
+				controls.update();
+
+			}
+
+			function render() {
+
+				renderer.render( scene, camera );
+
+			}
+
+		</script>
+	</body>
+</html>
