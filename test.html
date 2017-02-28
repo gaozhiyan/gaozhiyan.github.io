@@ -1,0 +1,123 @@
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
+<script src="https://timbrady.org/turk/TimTurkTools.js"></script>
+<script>
+var order = new Array(4, 3, 2, 1);
+order = Shuffle(order);
+var currentTrial = 0; // changed from 1 to 0!
+
+$(document).ready(function(){
+	ShowTrial(currentTrial);
+	$("#submitButton").hide();
+});
+
+function ShowTrial(which) {
+	if (which >= order.length) {
+		$("#submitButton").show();
+	} else {
+		$("#page" + order[which]).show();
+		var showTrial = which+1; // 0 indexed to 1 indexed
+		$(".currentTrialIndicator").text("Current trial: " + showTrial + " of " + order.length);	
+	}
+}
+
+function NextTrial() {
+	var checkedValue = $("input[type=radio]:checked", 
+		"#page" + order[currentTrial]).val();
+	if (checkedValue) {
+		$("#page" + order[currentTrial]).hide();
+		currentTrial++;
+		ShowTrial(currentTrial);
+	} else {
+		alert('Please answer the question before moving on!');
+	}
+}
+</script>
+<style>
+body { 
+	font-family: Arial;
+}
+
+.page {
+	display: none;
+	margin-top: 30px;
+}
+
+.page p {
+	margin-top: -8px;
+	font-weight: bold;
+}
+
+img:hover {
+	width: 500px;
+}
+
+.currentTrialIndicator {
+	font-family: Arial;
+	font-size: 9pt;
+	padding-left: 10px;
+}
+
+.nextLink {
+	background: gray;
+	border: 3px outset black;
+	padding: 8px;
+	color: white;
+	font-family: Arial;
+	font-size: 14pt;
+}
+</style>
+
+<h3>Judge these images</h3>
+<p>Please rate how interesting each of these four images is, on a scale from 1-5,  where 5 is the most interesting. There are no wrong answers, just go with your instinct. Pass your mouse over the image for a larger view of it.</p>
+<FORM METHOD='post' ACTION='http://www.goeritz.net/brmic/generic.php'>
+<div class="page" id="page1">
+<p><img src="http://timbrady.org/turk/images/aquarium.jpg" width="300" alt="" /></p>
+<p><input type="radio" name="aquariumI" value="1" /> 1</p>
+<p><input type="radio" name="aquariumI" value="2" /> 2</p>
+<p><input type="radio" name="aquariumI" value="3" /> 3</p>
+<p><input type="radio" name="aquariumI" value="4" /> 4</p>
+<p><input type="radio" name="aquariumI" value="5" /> 5</p>
+<p>&nbsp;</p>
+<a class="nextLink" href="javascript:NextTrial()">Next trial</a> <span class="currentTrialIndicator">&nbsp;</span>
+</div>
+
+<div class="page" id="page2">
+<p><img src="http://timbrady.org/turk/images/field.jpg" width="300" alt="" /></p>
+<p><input type="radio" name="fieldI" value="1" /> 1</p>
+<p><input type="radio" name="fieldI" value="2" /> 2</p>
+<p><input type="radio" name="fieldI" value="3" /> 3</p>
+<p><input type="radio" name="fieldI" value="4" /> 4</p>
+<p><input type="radio" name="fieldI" value="5" /> 5</p>
+<p>&nbsp;</p>
+<a class="nextLink" href="javascript:NextTrial()">Next trial</a> <span class="currentTrialIndicator">&nbsp;</span>
+</div>
+
+<div class="page" id="page3">
+<p><img src="http://timbrady.org/turk/images/valley.jpg" width="300" alt="" /></p>
+<p><input type="radio" name="valleyI" value="1" /> 1</p>
+<p><input type="radio" name="valleyI" value="2" /> 2</p>
+<p><input type="radio" name="valleyI" value="3" /> 3</p>
+<p><input type="radio" name="valleyI" value="4" /> 4</p>
+<p><input type="radio" name="valleyI" value="5" /> 5</p>
+<p>&nbsp;</p>
+<a class="nextLink" href="javascript:NextTrial()">Next trial</a> <span class="currentTrialIndicator">&nbsp;</span>
+</div>
+
+<div class="page" id="page4">
+<p><img src="http://timbrady.org/turk/images/ballpit.jpg" width="300" alt="" /></p>
+<p><input type="radio" name="ballpitI" value="1" /> 1</p>
+<p><input type="radio" name="ballpitI" value="2" /> 2</p>
+<p><input type="radio" name="ballpitI" value="3" /> 3</p>
+<p><input type="radio" name="ballpitI" value="4" /> 4</p>
+<p><input type="radio" name="ballpitI" value="5" /> 5</p>
+<p>&nbsp;</p>
+<a class="nextLink" href="javascript:NextTrial()">Next trial</a> <span class="currentTrialIndicator">&nbsp;</span>
+</div>
+
+<div class="page" id="page5">
+<p>How did you like this HIT?</p>
+<p><input type="text" name="howLike" value="" /></p>
+<p>&nbsp;</p>
+</div>
+
+<input type="submit" id="submitButton">
