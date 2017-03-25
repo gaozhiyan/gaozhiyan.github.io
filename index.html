@@ -1,92 +1,123 @@
 <!DOCTYPE HTML>
-<!--
-	Free for personal and commercial use under the CCA 3.0 license (html5up.net/license)
--->
 <html>
 	<head>
 		<title>Zhiyan Gao 高志晏</title>
 		<meta charset="utf-8" />
+        <meta name="keywords" content="Zhiyan, Zhiyan Gao, 高志晏，Linguistics, George Mason,语言学，乔治梅森大学">
+        <meta name="author" content="Zhiyan Gao">
+        <meta name="description" content="Zhiyan Gao's Personal Website">
 		<meta name="viewport" content="width=device-width, initial-scale=1" />
-		<!--[if lte IE 8]><script src="assets/js/ie/html5shiv.js"></script><![endif]-->
+		<!--[if lte IE 8]><script src="assets/js/html5shiv.js"></script><![endif]-->
 		<link rel="stylesheet" href="assets/css/main.css" />
-		<!--[if lte IE 8]><link rel="stylesheet" href="assets/css/ie8.css" /><![endif]-->
 		<!--[if lte IE 9]><link rel="stylesheet" href="assets/css/ie9.css" /><![endif]-->
+		<!--[if lte IE 8]><link rel="stylesheet" href="assets/css/ie8.css" /><![endif]-->
+		<noscript><link rel="stylesheet" href="assets/css/noscript.css" /></noscript>
 	</head>
-	<body class="loading">
-		<div id="wrapper">
-			<div id="bg"></div>
-			<div id="overlay"></div>
-			<div id="main">
+	<body class="is-loading">
 
-				<!-- Header -->
-					<header id="header">
-						<h1>Zhiyan Gao </h1>
-                        <br>
-                        <h1>高志晏</h1>
-						<p>PhD Student &nbsp;&bull;&nbsp; Linguistics Program &nbsp;&bull;&nbsp; George Mason University</p>
-						<nav>
-							<ul>
-                     
-								<li><a href="http://gaozhiyan.wordpress.com" class="icon fa-wordpress" target="_blank"><span class="label"></span></a>Blog</li>
-								<li><a href="docs/zgao_cv_2016.pdf" class="icon fa-file-pdf-o" target="_blank"><span class="label"></span></a>CV</li>
-                                				<!--<li><a href="#" class="icon fa-bar-chart-o"></a><h2>Projects</h2></li>-->
-								<li><a href="https://www.linkedin.com/pub/zhiyan-gao/18/aa9/7bb" class="icon fa-linkedin" target="_blank"><span class="label">linkedin</span></a>LinkedIn</li>
-								<li><a href="https://gaozhiyan.wordpress.com/contact-me/" class="icon fa-envelope-o" target="_blank"><span class="label">Email</span></a>Contact Me</li>
-							</ul>
-						</nav>
-                        <!-- main wavesurfer.js lib -->
+		<!-- Wrapper -->
+			<div id="wrapper">
+
+				<!-- Main -->
+					<section id="main">
+						<header>
+							<h1>Zhiyan Gao</h1>
+                            <h1 font-family="Microsoft YaHei">高志晏</h1>
+							
+                            <!-- main wavesurfer.js lib -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/wavesurfer.js/1.2.3/wavesurfer.min.js"></script>
 
-<div id="waveform"></div>
+<style>
+.tooltip {
+    position: relative;
+    display: inline-block;
+}
 
-<div style="text-align: center">
+.tooltip .tooltiptext {
+    visibility: hidden;
+    text-align: center;
+		text-decoration: none;
+		white-space: nowrap;
+    
+    font-size: 12px;
+    font-style: bold;
+    background-color: transparent;
+		border-radius: 4px;
+		/*border: solid 1px #c8cccf;*/
+		color: #414f57 !important;
+		cursor: pointer;
+
+    /* Position the tooltip */
+    position: absolute;
+    z-index: 1;
+   
+}
+
+.tooltip:hover .tooltiptext {
+    visibility: visible;
+}
+</style>
+
+<div id="waveform"></div>
+<div id="waveform-timeline"></div>
+
+<p align="center">
   <button class="btn btn-primary" onclick="wavesurfer.playPause()">
     <i class="glyphicon glyphicon-play"></i>
-    Play
+   &#9655; Play | Pause
   </button>
-
-  <p class="row">
-    <div class="col-xs-1">
-      <i class="glyphicon glyphicon-zoom-in"></i>
-    </div>
-
-    <div class="col-xs-10">
-      <input id="slider" type="range" min="1" max="200" value="1" style="width: 100%" />
-    </div>
-
-    <div class="col-xs-1">
-      <i class="glyphicon glyphicon-zoom-out"></i>
-    </div>
-  </p>
-</div>
-					</header>
-
-				<!-- Footer -->
-					<footer id="footer">
+</p>
+<p>PhD Student &bull; Linguistics Program <br> George Mason University</p>
+						</header>
 						
-					</footer>
+						<footer>
+							<ul class="icons">
+                                <li>
+                                    <div class="tooltip">
+                                        <a href="http://gaozhiyan.wordpress.com" class="icon fa-wordpress" target="_blank"></a>
+                                      <span class="tooltiptext">Blog</span>
+                                    </div>
+                                </li>
+								<li>
+                                    <div class="tooltip">
+                                        <a href="docs/zgao_cv_2016.pdf" class="icon fa-file-pdf-o" target="_blank"></a>
+                                        <span class="tooltiptext">CV</span>
+                                    </div>
+                                </li>
+                                <li>
+                                    <div class="tooltip">
+                                    <a href="https://www.linkedin.com/pub/zhiyan-gao/18/aa9/7bb" class="icon fa-linkedin" target="_blank"></a>
+                                        <span class="tooltiptext">linkedin</span>
+                                    </div>
+                                </li>
+								<li> 
+                                    <div class="tooltip">
+                                    <a href="https://gaozhiyan.wordpress.com/contact-me/" class="icon fa-envelope-o" target="_blank"></a>
+                                    <span class="tooltiptext">Contact Me</span>
+                                    </div>
+                                </li>
+							</ul>
+						</footer>
+					</section>
+
 
 			</div>
-		</div>
-		<!--[if lte IE 8]><script src="assets/js/ie/respond.min.js"></script><![endif]-->
-		<script>
-			window.onload = function() { document.body.className = ''; }
-			window.ontouchmove = function() { return false; }
-			window.onorientationchange = function() { document.body.scrollTop = 0; }
-            var wavesurfer = WaveSurfer.create({
-  container: '#waveform',
-  waveColor: 'red',
-  progressColor: 'purple'
-});
 
-wavesurfer.load('https://gaozhiyan.github.io/audio/gaozhiyan.mp3');
+		<!-- Scripts -->
+			<!--[if lte IE 8]><script src="assets/js/respond.min.js"></script><![endif]-->
+			<script>
+				if ('addEventListener' in window) {
+					window.addEventListener('load', function() { document.body.className = document.body.className.replace(/\bis-loading\b/, ''); });
+					document.body.className += (navigator.userAgent.match(/(MSIE|rv:11\.0)/) ? ' is-ie' : '');
+				}
+		var wavesurfer = WaveSurfer.create({ 
+            container: '#waveform', 
+            waveColor: 'purple' 
+        });
+wavesurfer.load('https://gaozhiyan.github.io/audio/gaozhiyan.wav')
 
-var slider = document.querySelector('#slider');
+	
+        </script>
 
-slider.oninput = function () {
-  var zoomLevel = Number(slider.value);
-  wavesurfer.zoom(zoomLevel);
-};
-		</script>
 	</body>
 </html>
