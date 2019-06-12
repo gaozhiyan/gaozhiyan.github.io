@@ -26,9 +26,9 @@
 
 form Save intervals to small WAV sound files
 	comment Which IntervalTier in this TextGrid would you like to process?
-	integer Tier 1
-	sentence Sound_folder C:\Users\George\Desktop\longfiles\
-	sentence TextGrid_folder C:\Users\George\Desktop\longfiles\
+	integer Tier 3
+	sentence Sound_folder /Users/zhiyangao/Desktop/englishFiles/longfiles/male/
+	sentence TextGrid_folder /Users/zhiyangao/Desktop/englishFiles/longfiles/male/
 	comment Starting and ending at which interval? 
 	integer Start_from 1
 	integer End_at_(0=last) 0
@@ -38,7 +38,7 @@ form Save intervals to small WAV sound files
 	comment Give a small margin for the files if you like:
 	positive Margin_(seconds) 0.01
 	comment Give the folder where to save the sound files:
-	sentence Folder C:\Users\George\Desktop\longfiles\test\
+	sentence Folder /Users/zhiyangao/Desktop/englishFiles/longfiles/phrase_dtw/male/
 	comment Give an optional prefix for all filenames:
 	sentence Prefix 
 	comment Give an optional suffix for all filenames (.wav will be added anyway):
