@@ -1,9 +1,3 @@
----
-output:
-  html_document:
-    css: style2.css
----
-
 
 ## Current Projects
 #### Zhiyan Gao
