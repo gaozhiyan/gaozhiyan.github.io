@@ -1,0 +1,85 @@
+img {
+  width: 276px;
+  height: 400px;
+  object-fit: cover;
+}
+table, th, td {
+  text-align: center;
+  margin-left: 2em;
+}
+body {
+font-family:Microsoft Yahei, Times, Times New Roman;
+ background: #eee;
+    background-image:
+        -webkit-gradient(
+            radial, 
+            50% -50, 
+            300, 
+            50% 0, 
+            0, 
+            from(rgba(230, 237, 241, 0)), 
+            to(rgba(230, 237, 241, 0.8)));
+font-size:17px;
+}
+
+.form-group shiny-input-container{
+	font-size: 20px;
+}
+
+.shiny-output-error { visibility: hidden; }
+.shiny-output-error:before { visibility: hidden; }
+#header{
+  display: none;
+}
+#intro{
+	display: block;
+  margin-left: auto;
+  margin-right: auto;
+  width: 90%;
+  position: relative;
+    border-radius: 3px;
+    background: #fff;
+    border-top: 3px solid #d2d6de;
+    margin-bottom: 20px;
+    -webkit-box-shadow: 3px 3px 5px 6px #ccc;  /* Safari 3-4, iOS 4.0.2 - 4.2, Android 2.3+ */
+  -moz-box-shadow:    3px 3px 5px 6px #ccc;  /* Firefox 3.5 - 3.6 */
+  box-shadow:         3px 3px 5px 6px #ccc;
+}
+
+p {
+	padding: 10px 10px 10px 10px;
+
+}
+
+
+.main-header .logo {
+  font-family: "Georgia", Times, "Times New Roman", serif;
+  font-weight: bold;
+  font-size: 24px;
+}
+
+.box-header .box-title{
+font-family: Times;
+}
+h2{
+font-family: Times;
+text-align: center;
+    color: rgba(0,0,0,0.6);
+    text-shadow: 2px 8px 6px rgba(0,0,0,0.2), 0px -5px 35px rgba(255,255,255,0.3);
+    font-size: 25px;
+    font-family: microsoft yahei;
+    margin-top: 30px;
+    display: block;
+    -webkit-margin-before: 0.83em;
+    -webkit-margin-after: 0.83em;
+    -webkit-margin-start: 0px;
+    -webkit-margin-end: 0px;
+    font-weight: bold;
+
+}
+h5,h4{
+font-family: Times;
+text-align: center;
+}
+
+

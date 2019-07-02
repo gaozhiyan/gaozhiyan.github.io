@@ -4,29 +4,23 @@ output:
     css: style2.css
 ---
 
-```{r setup, include=FALSE}
-knitr::opts_chunk$set(echo = TRUE)
-library(knitr)
-```
 
-## Project Model
+## Current Projects
 #### Zhiyan Gao
 #### June 10, 2019
 
-The current project considers three member sequences of a word as cues and the word as the outcome. For example. Someone pronounced the word "ask" as [æsk], then the lexical outcome is "ask", while its cues are #æs, æsk, sk#, where the "#" represent word boundaries. Another person might pronounces the word "ask" as [æks], then the lexical outcome is still "ask", but the cues are #æk, æks, ks#. We have speech data from 100 native English speakers. Although most pronounced "ask" as [æsk], some people have pronunced it as [æks], In other words, the association strength from cues #sk to the outcome might be stronger than the association strength from #ks to the outcome. We used the `estimateWeight()` function in the `ndl` package to calculate the association strengths.The function was based on the Dank (2003)'s equilibrium equation. Table 1 shows the results for "ask" and "her"
+* <b>Perception of Foreign Accentedness</b> (with Prof. Steven Weinberger)<br>
+This project focused on native English speakers’ perception of L2 speech errors. L2 errors were ranked according to their perceptual accentedness. A Naive Discrimination Model (NDL) was build to approximate accentedness. Preliminary results were published [here](https://content.sciendo.com/view/journals/rela/16/2/article-p135.xml). A [web application](https://gaozhiyan.shinyapps.io/ndl_calculator/) was developed to implement the NDL method.
 
-```{r echo=FALSE}
-data<-data.frame(
-  Outcomes=c("ask","ask","ask","her","her","her"),
-  Cues=c("#æk", "æks", "ks#","#ɚ#","#hɚ","hɚ#"),
-  Association_Strength=c("0.166","0.167","0.667","1.000","0.500","0.500")
-)
-kable(data,caption = "Table 1: Association Strength")
+* <b>Crowd-sourcing Tools for Phonetic Transcriptions</b> (with Prof. Steven Weinberger, Prof. Jill Nelson & Dr. Steven Kunath) <br>
+This project developed an online web interface that allows a great number of people to transcribe short English utterances. The tool itself facilitates the learning of phonetics symbols. The differences and similarities between transcribers provide great insights into speech perception. By observing multiple submissions of the same group of transcribers, one could further investigate various learning theories. Try out the web tool [here](http://www.phonetictranscriber.org/transcribe_sample)
 
-```
+* <b>The effect of language experience on lexical tone perception</b> (with Dr. Xianzhuo Li) <br>
+The current study focused on the identification and discrimination of Mandarin lexical tones by 3 groups of listeners, namely, native speakers of Mandarin Chinese (tonal language), native speakers of Lao (tonal language), and native speakers of Uzbek (non-tonal language). Native mandarin speakers were better at Mandarin tone discrimination than Lao speakers, who were better than Uzbek speakers. There also seems to be an ordering effect with regard to the presentation of the stimuli. [Preliminary results](https://asa.scitation.org/doi/abs/10.1121/1.5068200) were reported at the 176th meeting of the Acoustical Society of America. Further results are still pending.
 
-Table 1 shows that “sk#” has a higher association strength than “#æs” or “æsk”. It is understandable given the fact the selected 100 native American English speakers did not always pronounce the “a” in “ask” as /æ/. They do, however, almost always pronounce the “sk” in “ask” as /sk/. In other words, the pronunciations of “a” is more variable than pronunciations of “sk”.  Given the calculated associated strengths, the association strength from [æsk.ɚ] to the outcome “ask her” is 1.000, which is calculated by summing up association strengths of all the tri-gram cues (i.e. #æs, æsk, sk#, #ɚ#) and then divide it by the number of words, which is two in this case. For L2 productions containing cues that are not observed in native speech data, the association strengths for the unobserved cues were defined as 0. For example, L2 production [ask.hɚ] contains cues #as, ask, sk#, #hɚ, hɚ#. Since “#as” and “ask” are not observed in native speech data, their association strengths are considered 0. The association strength from [ask.hɚ] to its outcome “ask her” is therefore $$(0+0+0.667+0.500+0.500)\div{2} = 0.834$$ The association strength for an L2 production could therefore be intuitively interpreted as how much the L2 production meets the native standard or how much the L2 production resembles its L1 target production.  For example, [ask.hɚ] resembles 83.4% of a typical L1 production for “ask her”. 
+* <b>Comparisons between Nantong Chinese and Middle Chinese</b><br>
+Nantong Chinese is my native language, with approximately one million native speakers according to a 2010 census report. Middle Chinese was a language spoken in 7th century China. It has long been a tradition in Chinese historical linguistics to assume that most varieties of modern Chinese dialects are, to some degree, descendants of Middle Chinese. Following such a tradition, I developed a [web application](https://nantonghua.shinyapps.io/nantonghua/) to observe how Middle Chinese phonemes morphed into Nantong Chinese phonemes. I am not a historical linguist. This project was conducted purely for fun.
 
-It is not desirable to include speech samples from all the 100 native speakers in modelling native speakers, because such treatment will increase the chance of overfitting. The current study opted to run the model estimation for 100 times, a practice advocated by Wieling (2013). Each time, a different set of 50 native American English speakers would be randomly chosen to build a slightly different native production model, which would generate a slightly different association strength for each tri-gram cue. Consequently, the phonological similarity between an L2 production to its L1 target was slightly different each time the model estimation was run. The averaged phonological similarity scores (NDL-scores henceforth) across 100 runs were recorded for further analysis as approximations for dsimilarity. 
-
-
+ |<a href="https://gaozhiyan.shinyapps.io/ndl_calculator">![](https://gaozhiyan.github.io/images/ndl.jpg)</a>|<a href="http://www.phonetictranscriber.org/">![](https://gaozhiyan.github.io/images/crowd.jpg)</a>|<a href="https://nantonghua.shinyapps.io/nantonghua">![](https://gaozhiyan.github.io/images/nth.jpg)</a>|
+|----------|-----|----|
+| [NDL Calculator](https://gaozhiyan.shinyapps.io/ndl_calculator)  | [Mass Transcribers](http://www.phonetictranscriber.org/)| [Nantong Chinese](https://nantonghua.shinyapps.io/nantonghua)  |
