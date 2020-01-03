@@ -26,9 +26,9 @@
 
 form Save intervals to small WAV sound files
 	comment Which IntervalTier in this TextGrid would you like to process?
-	integer Tier 3
-	sentence Sound_folder /Users/zhiyangao/Desktop/englishFiles/longfiles/male/
-	sentence TextGrid_folder /Users/zhiyangao/Desktop/englishFiles/longfiles/male/
+	integer Tier 1
+	sentence Sound_folder /Users/zhiyangao/Desktop/english/praatcut
+	sentence TextGrid_folder /Users/zhiyangao/Desktop/english/praatcut/
 	comment Starting and ending at which interval? 
 	integer Start_from 1
 	integer End_at_(0=last) 0
@@ -38,7 +38,7 @@ form Save intervals to small WAV sound files
 	comment Give a small margin for the files if you like:
 	positive Margin_(seconds) 0.01
 	comment Give the folder where to save the sound files:
-	sentence Folder /Users/zhiyangao/Desktop/englishFiles/longfiles/phrase_dtw/male/
+	sentence Folder /Users/zhiyangao/Desktop/mfcc/files_native/smallplastic/
 	comment Give an optional prefix for all filenames:
 	sentence Prefix 
 	comment Give an optional suffix for all filenames (.wav will be added anyway):
@@ -109,7 +109,7 @@ procedure treatment
 		endif
 	endfor
 	interval = 1
-	pause 'files' sound files will be saved. Continue?
+	#pause 'files' sound files will be saved. Continue?
 
 	# Loop through all intervals in the selected tier of the TextGrid
 	for interval from start_from to end_at
@@ -126,7 +126,8 @@ procedure treatment
 		if left$ (intname$,1) = "." and exclude_intervals_starting_with_dot = 1
 			check = 1
 		endif
-		if check = 0
+		if intname$ == "smallplastic"
+#check = 0
 			intervalstart = Get starting point... tier interval
 				if intervalstart > margin
 					intervalstart = intervalstart - margin
