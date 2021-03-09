@@ -1,0 +1,360 @@
+<html>
+
+
+<body>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<STYLE>
+
+
+div.words {
+    border: 1px outset;
+    background-color: #EFEFEF;
+    width: 150px;
+   display: inline-block;
+	font-family:Microsoft YaHei;
+	text-align:center;
+}
+input[type="button"],
+button {
+   margin-bottom: 20px;
+   padding: 10px 20px;
+	background-color: #289dcc;
+	border: 0px;
+	transition: background-color 0.3s linear 0s;
+   -webkit-border-radius: 3px;
+	-moz-border-radius: 3px;
+	border-radius:3px;
+   font-size: 16px;
+   -moz-appearance: none !important;
+	-webkit-appearance: none !important;
+	appearance: none !important;
+	cursor: pointer;
+	display:inline-block;
+   color: #FFFFFF;
+}
+input[type="button"]:hover,
+button:hover {
+	background-color: #33363B;
+}
+
+input[type="button"]:active,{
+	-webkit-box-shadow: inset 0 0 10px rgba(0, 0, 0, 0.3);
+	-moz-box-shadow: inset 0 0 10px rgba(0, 0, 0, 0.3);
+	box-shadow: inset 0 0 10px rgba(0, 0, 0, 0.3);
+}
+
+
+
+.percents{line-height:22px;height:24px;}
+.percent_name{font-size:12;line-height:20px;text-align:right;width:200px;height:22px;}
+.percent_box{position:relative;top:-20px;left:210px;height:22px;width:500px;padding:1px;border:1px solid #E5E5E5;}
+.percent_current1{background-color:#FF8080;height:20px;}
+.percent_current2{background-color:#CACACA;height:20px;}
+.percent_current3{background-color:#58A0EC;height:20px;}
+      
+#text::selection {
+  background-color: blue;
+  color:white;
+}
+p {
+	text-indent: 2em;
+}
+#article{
+	border-style: solid;
+	border-width: 1px;
+	border-radius: 5px;
+	padding: 15px;
+	margin-top: 20px
+}
+table td{
+	
+	border: solid 1px;
+	padding: 15px;
+	align:center;
+}
+
+
+#main{
+	margin: 50px;
+	width:45%;
+}
+
+
+#right{
+	float: right;
+	display: block;
+	width: 45%
+}
+#addText td{
+	width: 200px;
+}
+.highlight{
+	background: yellow;
+}
+#new{
+	background-color: grey;
+	color:white;
+	padding: 5px 10px;
+	margin-top: 0px;
+		margin-bottom: 0px;
+
+   font-size: 14px;
+
+}
+#disc{
+	display:none;
+}
+#GEDC{
+	display: block;
+}
+#right{
+	
+	margin:50px;
+	width: 100%;
+	display: none;
+}
+</style>
+<div id="right">
+正确语法点<br>
+
+原句:<br>
+<p id="orig"></p>
+<br>
+<div align=center>
+<button onclick="getSelectedText()">选择文本</button>
+</div>
+
+
+<div id="wordContainer" ></div>
+<div align=center>
+<button onclick="addGram()">选择语言点</button>
+</div>
+
+ <table id="addText">
+ 	<tr><td>文本</td><td>语言点</td><td></td></tr>
+ 	
+ 	
+ </table>
+</div>
+
+
+<div id="main">
+
+<div>
+
+题目要求:
+<br> 地球是我们的家园，好好保护地球是我们每个人的责任。作为中学生，我们应该怎样做？请写一篇短文，内容包括 
+1.	节约用水 给出2点理由
+2.	节约纸张 列出实例说明
+3.	节约粮食 说说其意义
+
+</div>
+
+<div id="article">
+正文：
+
+<p>
+	<span id="s1" class="highlight">The earth is our home.</span>
+	<span id="s2">It’s our duty to protect it well. </span>
+	<span id="s3">As middle school students, what should we do? </span>
+	<span id="s4">First, we should save water. </span>
+	<span id="s5">As we know, all the living things can’t live without water. </span>
+	<span id="s6">As the pollution is getting more and more serious, the clean water on earth is becoming less and less</span>. 
+</p>
+<p>
+	<span id="s7">Second, it’s necessary for us to save paper. </span>
+	<span id="s8">All the used textbooks, books and newspapers should be recycled. </span>
+	<span id="s9">In this way, fewer trees will be cut down. </span>
+	<span id="s10">Third, I think we should not waste food. </span>
+	<span id="s11">Don’t throw away rice and dishes which we can’t finish. </span>
+	<span id="s12">Saving food means reducing the land used. Then we can grow more plants. </span>
+</p>
+</div>
+
+
+
+<div style="margin-top: 10px; ">
+	
+	<table id="disc">
+	<tr>
+		<td style="border:0px"><b>内容属性：</b>
+
+<form >
+	<input type="radio" name="choice" value="Scripting"> 标题
+<input type="radio" name="choice" value="Scripting"> 主题句
+<input type="radio" name="choice" value="Programming"> 主要观点
+<input type="radio" name="choice" value="Application"> 相关细节
+<input type="radio" name="choice" value="None of These"> 结论/结尾
+<input type="radio" name="choice" value="None of These"> 无关内容
+</form>
+
+
+		</td>
+	</tr>
+
+	<tr>
+		<td style="border:0px" colspan="2"><b>与题目要求相关度：</b>
+
+<form >
+<input type="radio" name="choice" value="Scripting"> 高
+<input type="radio" name="choice" value="Programming"> 低
+<input type="radio" name="choice" value="Application"> 无
+</form>
+		</td>
+		
+	</tr>
+	</table>
+	<table id="GEDC">
+	<tr>
+		<td style="border:0px"><b>是否有错</b>
+
+<form >
+<input type="radio" name="choice" value="Scripting"> 正确
+<input type="radio" name="choice" value="Programming"> 错误可纠正
+<input type="radio" name="choice" value="Application"> 无法纠正
+<input type="radio" name="choice" value="None of These"> 丢弃
+</form>
+		</td>
+	</tr>
+
+	<tr>
+		<td style="border:0px" ><b>人工改写</b>：<br><textarea cols="50" value=""></textarea>	</td>
+		<td style="border:0px"><button id="new">- 删除</button></td>
+<br>
+			
+		
+	</tr>
+	<tr>
+		<td style="border:0px"><button id="new">+ 新增</button></td>
+	</tr>
+	</table>
+</div>
+
+</div>
+
+
+<div align="center" style="margin-top: 50px">
+	<button onclick="submit()" >提交</button><button onclick="clearUp()" style="margin-left: 20px" >清空</button><button style="margin-left: 20px" onclick="next()" >下一句</button>
+</div>
+</body>
+<script>
+	var s = 1;
+var sen = "#s";
+$( document ).ready(function() {
+	
+    
+    	$("#s1").clone().appendTo(orig)
+
+    
+});
+
+
+function next(){
+
+	s = s +1
+	var senId = sen.concat("",s);
+	var senIdp = sen.concat("",s-1);
+	$("#orig span").remove()
+	$(senId).addClass('highlight');
+	$(senIdp).removeClass("highlight");
+	$(senId).clone().appendTo(orig);
+	for(var i=0;i<15;i++)
+      {
+        $("input[type=checkbox]")[i].checked=false;
+      //document.getElementById('addText').deleteRow(i+1);
+
+        
+      } 
+
+}
+
+function clearUp(){
+	for (i = 1; i < 14; i++){
+		document.getElementById('addText').deleteRow(i);
+	}
+}
+var f = 1;
+var row = "row";
+function getSelectedText() { 
+				rowId = row.concat('_',f);
+                var selectedText = ''; 
+  				
+                // window.getSelection 
+                if (window.getSelection) { 
+                    selectedText = window.getSelection(); 
+                } 
+                // document.getSelection 
+                else if (document.getSelection) { 
+                    selectedText = document.getSelection(); 
+                } 
+                // document.selection 
+                else if (document.selection) { 
+                    selectedText =  
+                    document.selection.createRange().text; 
+                } else return; 
+                // To write the selected text into the textarea 
+               // document.testform.selectedtext.value = selectedText; 
+               if(selectedText!=""){
+               	
+                $("#addText").append("<tr  id="+rowId+"><td ><textarea style='border:0px'>"+selectedText+"</textarea></td>");
+            f = f+1;
+      
+            }
+            } 
+  
+  var words=new Array(
+  "比较级","最高级","现在时表规律习惯","被动语态","动名词","祈使句","特殊疑问句","一般疑问句","状语从句","宾语从句","定语从句",
+"主语从句","同位语从句","无上述语言点","不明","连接词不当","连接词得当"
+  );
+
+
+
+  var i;
+  
+
+
+
+  for(i = 0; i < 17; i++)
+  {
+    
+    
+    
+    jQuery("#wordContainer").append('<div id='+i+' class="words"><input style="margin-right:5px;" type="checkbox" name="checkbox" id=c'+i+'><span>'+words[i]+'</span></input></div>');
+  }
+
+
+
+
+
+
+
+function addGram(){
+	var grams =[]
+	for (i = 0; i<17; i++){
+	if ($("input[type=checkbox]")[i].checked ){
+		grams.push(words[i])
+		
+	};
+
+
+}
+var rows = document.getElementById(rowId)
+
+if (grams.length==0){
+	alert("请选择语言点");
+}else{
+var x =rows.insertCell(1);
+
+x.innerHTML="<td ><textarea style='border:0px'>"+grams+"</textarea></td></tr>"
+var y = rows.insertCell(2);
+y.innerHTML="<td style='border:0px'><button id='new'>- 删除</button></td>";
+          for(var i=0;i<17;i++)
+      {
+        jQuery("input[type=checkbox]")[i].checked=false;
+        
+      }; 
+      grams = []  
+}
+}
+</script>
+<html>
