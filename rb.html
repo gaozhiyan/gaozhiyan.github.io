@@ -1,0 +1,319 @@
+
+<div class='such_ball_much_wow'>
+  <img src='https://lh3.googleusercontent.com/kUyuK6v6xOJTeXrRM5l-gkCDtMxUoZKo0RHaRFklRpJZRueQDJtneYHK-rTkI8Z8oAD-xGTf27G5dM1M2btrcQDqa3oRk3H6b2carMH29G6yKgI5EouNiJEfSFfyHPo7a6PtcPQBEAn9YaAIxFCIZ_KD4DocOJPAl-J7BDHODR5Skzg1_Cak19A_YDmuIpCw3hOu1mRcKwxitGnI4TD40HuiF_h9pWmH2dUJQP9SZQjgtbjnlEkAyJvHYueAwXMMu_eKljNDSx2CqGwMWUOkvqd3hDLNveOlpDBSDGYl9wSahBKigw8YrR4o3fuIde1c2Es0UhK_FFRiDlnRJLV4OU2xhXbFz5y299RNo9neq-EGYxxG9d65UXP5PXRWuJl7w1cJu_oDGlpGn6cR-zt8mL14L57dNCY2qhW9LCSXagZm2i88iQL1baDmvadRUsYbA2S2q68kPoAfCA-qr0iBrSYAj0LYh220-_qItwmG6fmVonRq22vyN3g_WuaWK9cjR8s03O0voDfQQVZmxMb0_mFEz_CVwbh2nAXWlrFlMVuQJWa6_dDH_KnjGlvI6EwdMUq1=w120-h90-no'/>
+</div>
+
+<section class='main'>
+  <div class='text'>
+    <h1>Device Motion Demo</h1>
+    <p>This demo uses HTML5's Device Orientation API to move the <span class='wowCircle'>"Wow!"</span> circle across the screen according to the data it gets from your device's motion detector.</p>
+    
+    <div class='output-info'>
+      <ul>
+        <li class='x_axis'><b>x</b> <span class='value'>0.00</span></li>
+        <li class='y_axis'><b>y</b> <span class='value'>0.00</span></li>
+        <li class='z_axis'><b>z</b> <span class='value'>0.00</span></li>
+      </ul>
+    </div>
+    
+    <p class='wowauthor'>A demo by <a href='http://www.stramaxon.com' title='Deepak Kamat Web Developer' target='_blank'>Deepak Kamat</a> - <a href='https://www.twitter.com/xxxdepy' target='_blank' title='Deepak Kamat on Twitter'>@xxxdepy</a></p>
+  </div>
+</section>
+
+<div class='wow-overlay'>
+  <div class='wow wow-1'>such motion</div>
+  <div class='wow wow-2'>very hardware</div>
+  <div class='wow wow-3'>so html5</div>
+  <div class='wow wow-4'>much testing demo</div>
+  <div class='wow wow-5'>wow!!!</div>
+  <div class='wow wow-6'>much code</div>
+</div>
+
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-55924503-1', 'auto');
+  ga('send', 'pageview');
+
+</script>
+<style>
+  body {
+  background-color:#f1f1f1;
+  font:24px/1.8 normal normal  'Droid Serif', serif;
+  padding:20px;
+}
+
+body .main .text {
+  max-width:620px;
+  min-width:320px;
+  margin:0 auto;
+  text-align:center;
+  color:#666;
+}
+
+
+body .main .text h1 {
+  padding:10px 20px;
+  background-color:#F4617B;
+  border-radius:10px;
+  color:#fff;
+  text-shadow:2px 2px 5px rgba(0,0,0,0.2);
+}
+
+body .main .text .wowauthor {
+  font-size:18px;
+  padding:10px 0;
+  font-family:"Consolas", monaco, monospace;
+}
+
+body .main .text .wowauthor a {
+  color:#26C544;
+  text-decoration:none;
+  border-bottom:1px dashed;
+}
+
+body .main .text .output-info {
+  font-size:24px;
+  margin:10px 0;
+  text-align:left;
+  font-family: Consolas, monaco, monospace;
+}
+
+body .main .text .output-info ul {
+  list-style-type:none;
+  padding:0 25px;
+  text-align:center;
+}
+
+body .main .text .output-info ul li {
+  display:block;
+  margin:15px 0;
+}
+
+body .main .text .output-info ul li b {
+  display:inline-block;
+  border:4px solid rgba(0,0,0,0.2);
+  border-radius:10px;
+  width:60px;
+  text-align:center;
+  
+  color:#fff;
+  
+  background-color:#40C469;
+  box-shadow:inset 0 4px 5px rgba(255,255,255,0.5), 2px 2px 2px rgba(0,0,0,0.2);
+  text-shadow:2px 2px 0 rgba(0,0,0,0.2);
+}
+
+body .main .text .output-info ul li.y_axis b {
+  background-color:#478FF0;
+}
+
+body .main .text .output-info ul li.z_axis b {
+  background-color:#FDB830;
+}
+
+body .main .text .output-info ul li .value {
+  text-align:right;
+  display:inline-block;
+  width:140px;
+}
+
+
+.such_ball_much_wow {
+  border-radius:50%;
+  width:100px;
+  height:100px;
+  overflow:hidden;
+  
+  border:4px solid rgba(255,255,255,0.4);
+  box-shadow:2px 2px 10px rgba(0,0,0,0.1);
+  
+  position:fixed;
+  right:80%;
+  top:80%;
+  
+  margin-left:-50px; 
+  margin-top:-50px;
+  
+  -webkit-transition:0.4s opacity ease-in;
+  -moz-transition:0.4s opacity ease-in;
+  transition:0.4s opacity ease-in;
+}
+
+.such_ball_much_wow:hover {
+  opacity:0.1;
+}
+
+
+.such_ball_much_wow img {
+  width:140%;
+  position:relative;
+  left:-20px;
+  height:auto;
+  display:block;
+}
+
+
+.wowCircle {
+  font-weight:800;
+  font-family:"Comic Sans MS", 'Comic Sans';
+  color:#EFA71E;
+  cursor:pointer;
+}
+
+
+/* Wow Overlay */
+.wow-overlay {
+  background-color:rgba(255,255,255,0.1);
+  font-family:"Comic Sans MS", sans-serif;
+  display:none;
+}
+
+.wow-overlay .wow {
+  color:#FF6A19;
+  position:absolute;
+  z-index:99;
+  text-shadow:1px 1px 0px rgba(0,0,0,0.0); 
+}
+
+.wow-overlay .wow.wow-1 {
+  top:56px;
+  left:10px;
+  -webkit-transform:rotate(-45deg);
+  -moz-transform:rotate(-45deg);
+}
+
+.wow-overlay .wow.wow-2 {
+  color:#0AA2FA;
+  top:156px;
+  left:310px;
+  -webkit-transform:rotate(15deg);
+  -moz-transform:rotate(15deg);
+}
+
+
+.wow-overlay .wow.wow-3 {
+  color:#0AFA48;
+  top:456px;
+  left:110px;
+  -webkit-transform:rotate(-30deg);
+  -moz-transform:rotate(-30deg);
+}
+
+
+.wow-overlay .wow.wow-4 {
+  color:#FF0E16;
+  top:50%;
+  left:50%;
+  -webkit-transform:rotate(-25deg);
+  -moz-transform:rotate(-25deg);
+}
+
+
+.wow-overlay .wow.wow-5 {
+  color:#FFDA0E;
+  top:8%;
+  left:80%;
+  -webkit-transform:rotate(15deg);
+  -moz-transform:rotate(15deg);
+}
+
+
+.wow-overlay .wow.wow-6 {
+  color:#FF11D8;
+  top:90%;
+  left:310px;
+  -webkit-transform:rotate(-10deg);
+  -moz-transform:rotate(-10deg);
+}
+
+
+</style>
+<script type="text/javascript">
+  $(document).ready(function(){
+
+  /********************
+  TEST BRO
+  ********************/
+
+  function handleMotionEvent(event) {
+    var x = event.accelerationIncludingGravity.x;
+    var y = event.accelerationIncludingGravity.y;
+    var z = event.accelerationIncludingGravity.z;
+    x = oneDecimal(x);  y = oneDecimal(y);  z = oneDecimal(z);
+    
+    // Show motion info
+    $('.x_axis .value').text(x);
+    $('.y_axis .value').text(y);
+    $('.z_axis .value').text(z);
+    
+    
+    // Now animate the .thePlayer
+    var plyr = $('.such_ball_much_wow');
+
+    var winWidth  = $(window).width();
+    var winHeight = $(window).height();
+    
+    var _pos = {
+      'x': winWidth  / (100 / toPercentage(x, 1)),
+      'y': winHeight / (100 / toPercentage(y, 1))
+    };
+
+    $(plyr).css({
+      'right' : _pos.x,
+      'top'   : _pos.y
+    });
+    
+
+  }
+
+  window.addEventListener("devicemotion", handleMotionEvent, true);
+
+
+  function oneDecimal(n) {
+    var number = n;
+    var rounded = Math.round( number * 10 ) / 10;
+    return rounded;
+  }
+
+  function toPercentage(x, n) {
+    var p = 0;
+    if (n) {
+      p = ((x + 10) / 20) * 100;
+    }
+    else {
+      p = ((x + 10) / 20);
+    }
+    return oneDecimal(p);
+  }
+  
+  
+  
+  
+  
+  // Animations with the wows!
+  var animations = ['flash'];
+  var animationName = '';
+  // Show the wows
+  $('.wowCircle').on('mouseenter', function(){
+    animationName = animations[randInt(0, animations.length - 1)];
+    
+    $('.wow-overlay').show();
+    $('.wow-overlay .wow').addClass('animated ' + animationName);
+  });
+  
+  $('.wowCircle').on('mouseleave', function(){
+    $('.wow-overlay').hide();
+    $('.wow-overlay .wow').removeClass('animated ' + animationName);
+  });
+  
+  function randInt(min, max) {
+    return Math.floor(Math.random() * (max - min + 1)) + min;
+  }
+  
+});
+  
+</script>
