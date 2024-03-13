@@ -3,12 +3,12 @@ body {
     background-color: #f4f5f7;
     color: #424242;
     margin: 0;
-    padding: 0; /* Removed the padding to allow full use of flex */
+    padding: 0;
     display: flex;
-    flex-direction: column; /* Stack items vertically */
-    justify-content: center; /* Center horizontally */
-    align-items: center; /* Center vertically */
-    height: 100vh; /* Full view height */
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh; /* Use min-height instead of height to avoid overflow */
 }
 
 .version-select-container {
@@ -45,20 +45,20 @@ body {
 }
 
 .survey-container {
-    width: 100%; /* Use full width of screen */
-    max-width: 800px; /* Increased max-width for a larger container */
+    width: 90%; /* Use a percentage to adapt to various screen sizes */
+    max-width: 800px;
     background-color: #ffffff;
-    padding: 3rem; /* More padding for a spacious feel */
+    padding: 2rem;
     border-radius: 10px;
     box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
-    margin-top: 60px; /* Compensate for fixed progress bar */
-    margin-bottom: 60px; /* Space at the bottom */
+    margin-top: 40px; /* Adjust top margin */
+    margin-bottom: 40px;
 }
 
 /* Logo Image Styles */
 .logo-image {
-    max-width: 200px; /* Adjust maximum width as desired */
-    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1); /* Subtle shadow for depth */
+    max-width: 80%; /* Relative size to container */
+    height: auto; 
     border-radius: 4px; /* Slight rounding of edges */
     display: block; /* Ensure it's a block element to center correctly */
     margin: 0 auto 20px; /* Auto margins to center horizontally and margin-bottom for spacing */
@@ -154,4 +154,55 @@ body {
     border-radius: 8px;
     box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
     /* Add any additional styling you want for this score display */
+}
+
+@media only screen and (max-width: 768px) {
+    /* For tablets and smaller */
+    .survey-container {
+        padding: 1.5rem; /* Smaller padding for smaller screens */
+    }
+
+    .chinese-listening-test-title {
+        font-size: 24px; /* Smaller font size for smaller screens */
+    }
+
+    .question-text {
+        font-size: 18px;
+    }
+
+    .nav-button {
+        padding: 10px 20px;
+    }
+}
+
+@media only screen and (max-width: 480px) {
+    /* For mobile phones and smaller */
+    .survey-container {
+        margin-top: 20px;
+        margin-bottom: 20px;
+        padding: 1rem; /* Even smaller padding for mobile phones */
+    }
+
+    .chinese-listening-test-title {
+        font-size: 20px; /* Even smaller font size for very small screens */
+        margin-top: 10px;
+        margin-bottom: 10px;
+    }
+
+    .question-text {
+        font-size: 16px;
+    }
+
+    .nav-button {
+        padding: 8px 16px;
+        font-size: 12px; /* Smaller font size */
+    }
+    
+    .score-display {
+        padding: 1rem;
+        margin-top: 1rem;
+        font-size: 1.5em;
+    }
+    
+    /* Adjust your element sizes and spacing as needed */
 }

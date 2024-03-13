@@ -2,7 +2,7 @@ const csvFilePath = 'type2.csv';
 let currentQuestionIndex = 0; // Tracks the current question index
 let questionsData = []; // Will hold the fetched questions data
 let userAnswers = [];  // Array to store user answers
-const BASE_AUDIO_PATH = "type2/"
+const BASE_AUDIO_PATH = "https://mandarin-test.oss-cn-beijing.aliyuncs.com/type2/"
 
 document.addEventListener('DOMContentLoaded', function() {
     // Initialize the quiz
