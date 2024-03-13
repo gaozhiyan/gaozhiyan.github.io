@@ -3,12 +3,12 @@ body {
     background-color: #f4f5f7;
     color: #424242;
     margin: 0;
-    padding: 0;
+    padding: 0; /* Removed the padding to allow full use of flex */
     display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    min-height: 100vh; /* Use min-height instead of height to avoid overflow */
+    flex-direction: column; /* Stack items vertically */
+    justify-content: center; /* Center horizontally */
+    align-items: center; /* Center vertically */
+    height: 100vh; /* Full view height */
 }
 
 .version-select-container {
@@ -45,23 +45,31 @@ body {
 }
 
 .survey-container {
-    width: 90%; /* Use a percentage to adapt to various screen sizes */
-    max-width: 800px;
+    width: 100%; /* Use full width of screen */
+    max-width: 800px; /* Increased max-width for a larger container */
     background-color: #ffffff;
-    padding: 2rem;
+    padding: 3rem; /* More padding for a spacious feel */
     border-radius: 10px;
     box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
-    margin-top: 40px; /* Adjust top margin */
-    margin-bottom: 40px;
+    margin-top: 60px; /* Compensate for fixed progress bar */
+    margin-bottom: 60px; /* Space at the bottom */
 }
 
 /* Logo Image Styles */
 .logo-image {
-    max-width: 80%; /* Relative size to container */
-    height: auto; 
+    max-width: 200px; /* Adjust maximum width as desired */
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1); /* Subtle shadow for depth */
     border-radius: 4px; /* Slight rounding of edges */
     display: block; /* Ensure it's a block element to center correctly */
     margin: 0 auto 20px; /* Auto margins to center horizontally and margin-bottom for spacing */
+    border-bottom: 2px solid;
+}
+
+.contact-info {
+    text-align: left; /* Center the text within the survey-container */
+    margin-top: 20px; /* Spacing from the last element of the survey */
+    font-size: 0.9em; /* Adjust the font size as needed */
+    color: #333; /* Adjust the color to your preference */
 }
 
 .question-container {
@@ -156,53 +164,72 @@ body {
     /* Add any additional styling you want for this score display */
 }
 
-@media only screen and (max-width: 768px) {
-    /* For tablets and smaller */
-    .survey-container {
-        padding: 1.5rem; /* Smaller padding for smaller screens */
+@media (max-width: 768px) {
+    .welcome-screen, .survey-container {
+        padding: 1em;
+        width: 100%;
+        margin: 10px 0;
+        box-sizing: border-box;
     }
 
-    .chinese-listening-test-title {
-        font-size: 24px; /* Smaller font size for smaller screens */
-    }
-
-    .question-text {
-        font-size: 18px;
-    }
-
+    .student-info-form label,
+    .student-info-form input,
+    .student-info-form button,
     .nav-button {
-        padding: 10px 20px;
+        font-size: 0.9em;
     }
 }
 
-@media only screen and (max-width: 480px) {
-    /* For mobile phones and smaller */
-    .survey-container {
-        margin-top: 20px;
-        margin-bottom: 20px;
-        padding: 1rem; /* Even smaller padding for mobile phones */
-    }
+.logo-container {
+    margin-top: 1em;
+    text-align: center;
+}
 
-    .chinese-listening-test-title {
-        font-size: 20px; /* Even smaller font size for very small screens */
-        margin-top: 10px;
-        margin-bottom: 10px;
-    }
+.chinese-listening-test-title {
+    color: #333;
+    margin: 0.5em 0;
+}
 
-    .question-text {
-        font-size: 16px;
-    }
+.welcome-screen, .survey-container {
+    background-color: white;
+    padding: 2em;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    width: 90%;
+    max-width: 600px;
+    margin: 20px;
+}
 
-    .nav-button {
-        padding: 8px 16px;
-        font-size: 12px; /* Smaller font size */
-    }
-    
-    .score-display {
-        padding: 1rem;
-        margin-top: 1rem;
-        font-size: 1.5em;
-    }
-    
-    /* Adjust your element sizes and spacing as needed */
+.student-info-form {
+    display: flex;
+    flex-direction: column;
+}
+
+.student-info-form label {
+    font-size: 1em;
+    color: #555;
+    margin-bottom: 0.5em;
+}
+
+.student-info-form input {
+    font-size: 1em;
+    padding: 10px;
+    margin-bottom: 1em;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+}
+
+.student-info-form button {
+    font-size: 1em;
+    padding: 10px 20px;
+    background-color: #5cb85c;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    margin-top: 10px;
+}
+
+.student-info-form button:hover {
+    background-color: #4cae4c;
 }

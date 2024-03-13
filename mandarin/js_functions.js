@@ -67,7 +67,7 @@ function validateAndProceed() {
 
     // Check if an option is selected for the current question
     if (currentChoices.length === 0) {
-        alert('Please select an option before moving on.');
+        alert('请选择一个答案.');
         return;
     }
 
@@ -118,13 +118,14 @@ function updateProgressBar(currentIndex, totalQuestions) {
 async function fetchAndCreateQuestions() {
     try {
         const response = await fetch(csvFilePath);
-
         const csvText = await response.text();
-        questionsData = parseCSVToJSON(csvText);
-        userAnswers = new Array(questionsData.length).fill(null); // Initialize userAnswers with null
-        //questionsData = await response.json();
+        let allQuestionsData = parseCSVToJSON(csvText);
+        // Shuffle the array to randomize the questions
+        allQuestionsData = shuffleArray(allQuestionsData);
+        // Then slice it to get only 10 questions
+        questionsData = allQuestionsData.slice(0, 10); // Retrieve randomly selected 10 questions
+        userAnswers = new Array(questionsData.length).fill(null); // Reinitialize userAnswers for 10 questions
 
-        //userAnswers = questionsData.map(() => null);
 
         // Create HTML for each question
         questionsData.forEach((question, index) => {
