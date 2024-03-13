@@ -1,0 +1,35 @@
+[
+  {
+    "id": "q0",
+    "text": "锅贴",
+    "audio": "type2_096.mp3",
+    "options": [
+      "guō tiè",
+      "guǒ tiē",
+      "guò tiè",
+      "guō tiē"
+    ]
+},
+  {
+    "id": "q98",
+    "text": "搂抱",
+    "audio": "type2_098.mp3",
+    "options": [
+      "lòu bào",
+      "lǒu bào",
+      "lòu báo",
+      "lòu bào"
+    ]
+},
+  {
+    "id": "q99",
+    "text": "观光",
+    "audio": "type2_082.mp3",
+    "options": [
+      "guān'guāng",
+      "guāng guāng",
+      "guān guān",
+      "guān guāng"
+    ]
+  }
+]

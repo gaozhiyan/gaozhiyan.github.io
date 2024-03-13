@@ -1,0 +1,1102 @@
+[
+  {
+    "id": "q0",
+    "text": "锅贴",
+    "audio": "type2_096.mp3",
+    "options": [
+      "guō tiè",
+      "guǒ tiē",
+      "guò tiè",
+      "guō tiē"
+    ]
+},
+  {
+    "id": "q1",
+    "text": "交通",
+    "audio": "type2_076.mp3",
+    "options": [
+      "jiāo tōng",
+      "jiào tōng",
+      "jiáo tùng",
+      "jiāo tǔng"
+    ]
+},
+  {
+    "id": "q2",
+    "text": "而且",
+    "audio": "type2_083.mp3",
+    "options": [
+      "é chě",
+      "ér chiě",
+      "é qiě",
+      "ér qiě"
+    ]
+},
+  {
+    "id": "q3",
+    "text": "嘴唇",
+    "audio": "type2_036.mp3",
+    "options": [
+      "zuǎi chuán",
+      "zuǐ chún",
+      "zuěi quán",
+      "zuǐ qún"
+    ]
+},
+  {
+    "id": "q4",
+    "text": "忽略",
+    "audio": "type2_039.mp3",
+    "options": [
+      "hū luè",
+      "hù luì",
+      "hū lüè",
+      "hū lüì"
+    ]
+},
+  {
+    "id": "q5",
+    "text": "勤快",
+    "audio": "type2_071.mp3",
+    "options": [
+      "chín kuài",
+      "āng zāng",
+      "qín kuài",
+      "qín kuì"
+    ]
+},
+  {
+    "id": "q6",
+    "text": "整齐",
+    "audio": "type2_089.mp3",
+    "options": [
+      "zhǔng chí",
+      "zhǔng qí",
+      "zhěng qí",
+      "zhěng chí"
+    ]
+},
+  {
+    "id": "q7",
+    "text": "语言",
+    "audio": "type2_042.mp3",
+    "options": [
+      "wǔ yán",
+      "yǔ yán",
+      "wǔ yuán",
+      "yǔ yén"
+    ]
+},
+  {
+    "id": "q8",
+    "text": "佛教",
+    "audio": "type2_100.mp3",
+    "options": [
+      "fuó jiào",
+      "fuó zhào",
+      "fó qiào",
+      "fó jiào"
+    ]
+},
+  {
+    "id": "q9",
+    "text": "肮脏",
+    "audio": "type2_070.mp3",
+    "options": [
+      "ān zhāng",
+      "āng zāng",
+      "āng zhāng",
+      "ān zāng"
+    ]
+},
+  {
+    "id": "q10",
+    "text": "吹牛",
+    "audio": "type2_061.mp3",
+    "options": [
+      "chuì niù",
+      "chuī niù",
+      "chuí niǔ",
+      "chuī niú"
+    ]
+},
+  {
+    "id": "q11",
+    "text": "下雪",
+    "audio": "type2_020.mp3",
+    "options": [
+      "shià shuě",
+      "xià xuě",
+      "shà shuǐ",
+      "shà xuě"
+    ]
+},
+  {
+    "id": "q12",
+    "text": "将军",
+    "audio": "type2_055.mp3",
+    "options": [
+      "jiōng jūn",
+      "jiān jūn",
+      "jāng jūn",
+      "jiāng jūn"
+    ]
+},
+  {
+    "id": "q13",
+    "text": "啤酒",
+    "audio": "type2_015.mp3",
+    "options": [
+      "pí jiǒu",
+      "pí jiǒ",
+      "pí joě",
+      "pí jiǔ"
+    ]
+},
+  {
+    "id": "q14",
+    "text": "软弱",
+    "audio": "type2_046.mp3",
+    "options": [
+      "rǎn ruò",
+      "ruǎn ruò",
+      "ruǎn ròu",
+      "rǎn rò"
+    ]
+},
+  {
+    "id": "q15",
+    "text": "奋斗",
+    "audio": "type2_027.mp3",
+    "options": [
+      "fèng dòu",
+      "fèn dòu",
+      "fùn dòu",
+      "fùng dòu"
+    ]
+},
+  {
+    "id": "q16",
+    "text": "热情",
+    "audio": "type2_051.mp3",
+    "options": [
+      "rè chíng",
+      "rè qíng",
+      "rì chíng",
+      "rì qíng"
+    ]
+},
+  {
+    "id": "q17",
+    "text": "累积",
+    "audio": "type2_067.mp3",
+    "options": [
+      "lǎi jī",
+      "lǎi gī",
+      "lěi jī",
+      "lěi gī"
+    ]
+},
+  {
+    "id": "q18",
+    "text": "瓷器",
+    "audio": "type2_095.mp3",
+    "options": [
+      "zí qì",
+      "cí qì",
+      "zí chì",
+      "cí chì"
+    ]
+},
+  {
+    "id": "q19",
+    "text": "赞成",
+    "audio": "type2_019.mp3",
+    "options": [
+      "càn chūng",
+      "zàn chúng",
+      "zàn chéng",
+      "càn chéng"
+    ]
+},
+  {
+    "id": "q20",
+    "text": "种田",
+    "audio": "type2_040.mp3",
+    "options": [
+      "zòng tián",
+      "zòng tién",
+      "zhùng tién",
+      "zhòng tián"
+    ]
+},
+  {
+    "id": "q21",
+    "text": "圆圈",
+    "audio": "type2_080.mp3",
+    "options": [
+      "yuán quān",
+      "yuén chuēn",
+      "yuán quàn",
+      "yuén quēn"
+    ]
+},
+  {
+    "id": "q22",
+    "text": "香水",
+    "audio": "type2_041.mp3",
+    "options": [
+      "xiāng shuǐ",
+      "shāng shuǎi",
+      "xiāng shuě",
+      "shāng shuǐ"
+    ]
+},
+  {
+    "id": "q23",
+    "text": "煮饭",
+    "audio": "type2_053.mp3",
+    "options": [
+      "jǔ fàn",
+      "zhǔ fàn",
+      "jǔ fàng",
+      "zhǔ fàng"
+    ]
+},
+  {
+    "id": "q24",
+    "text": "混乱",
+    "audio": "type2_075.mp3",
+    "options": [
+      "huèn luèn",
+      "hùn luèn",
+      "hùn luàn",
+      "huàn luàn"
+    ]
+},
+  {
+    "id": "q25",
+    "text": "寻找",
+    "audio": "type2_063.mp3",
+    "options": [
+      "xuán jiǎo",
+      "xuén zhǎo",
+      "xún zhǎo",
+      "xún jiǎo"
+    ]
+},
+  {
+    "id": "q26",
+    "text": "龙虾",
+    "audio": "type2_014.mp3",
+    "options": [
+      "lúng shā",
+      "lóng shiā",
+      "lúng xiā",
+      "lóng xiā"
+    ]
+},
+  {
+    "id": "q27",
+    "text": "责任",
+    "audio": "type2_044.mp3",
+    "options": [
+      "cé rèn",
+      "cé yèn",
+      "zé jèn",
+      "zé rèn"
+    ]
+},
+  {
+    "id": "q28",
+    "text": "研究",
+    "audio": "type2_048.mp3",
+    "options": [
+      "yén jòu",
+      "yén jiù",
+      "yán jiòu",
+      "yán jiū"
+    ]
+},
+  {
+    "id": "q29",
+    "text": "搜索",
+    "audio": "type2_091.mp3",
+    "options": [
+      "sòu suó",
+      "sōu suǒ",
+      "sòu suǒ",
+      "sóu suò"
+    ]
+},
+  {
+    "id": "q30",
+    "text": "冒险",
+    "audio": "type2_030.mp3",
+    "options": [
+      "mào xiěn",
+      "mào xiǎn",
+      "mào shěn",
+      "mào shiǎn"
+    ]
+},
+  {
+    "id": "q31",
+    "text": "尺寸",
+    "audio": "type2_085.mp3",
+    "options": [
+      "chǐ chèn",
+      "chǐ cùn",
+      "chě cùn",
+      "chě chùn"
+    ]
+},
+  {
+    "id": "q32",
+    "text": "背书",
+    "audio": "type2_008.mp3",
+    "options": [
+      "bèi shū",
+      "pèi xū",
+      "bèi xū",
+      "pèi shū"
+    ]
+},
+  {
+    "id": "q33",
+    "text": "孝顺",
+    "audio": "type2_038.mp3",
+    "options": [
+      "shào shùn",
+      "xiào shùn",
+      "xiào shuèn",
+      "shào shuàn"
+    ]
+},
+  {
+    "id": "q34",
+    "text": "瑞典",
+    "audio": "type2_007.mp3",
+    "options": [
+      "rày diěn",
+      "ruì diǎn",
+      "rèi diěn",
+      "rài diǎn"
+    ]
+},
+  {
+    "id": "q35",
+    "text": "文化",
+    "audio": "type2_012.mp3",
+    "options": [
+      "wén hwà",
+      "wén huà",
+      "wún hwà",
+      "wún huà"
+    ]
+},
+  {
+    "id": "q36",
+    "text": "剥夺",
+    "audio": "type2_003.mp3",
+    "options": [
+      "bō dóu",
+      "buō duó",
+      "bō duó",
+      "buō dó"
+    ]
+},
+  {
+    "id": "q37",
+    "text": "餐厅",
+    "audio": "type2_090.mp3",
+    "options": [
+      "sān tīng",
+      "zān tīng",
+      "chān tīng",
+      "cān tīng"
+    ]
+},
+  {
+    "id": "q38",
+    "text": "作者",
+    "audio": "type2_021.mp3",
+    "options": [
+      "zuò zhě",
+      "zuò zhǐ",
+      "zòu zhě",
+      "zòu zhǐ"
+    ]
+},
+  {
+    "id": "q39",
+    "text": "杂志",
+    "audio": "type2_074.mp3",
+    "options": [
+      "jiá zhì",
+      "jiá jì",
+      "zá jì",
+      "zá zhì"
+    ]
+},
+  {
+    "id": "q40",
+    "text": "信封",
+    "audio": "type2_093.mp3",
+    "options": [
+      "shìn fūng",
+      "xìn fēng",
+      "shìn fēng",
+      "xìn fūng"
+    ]
+},
+  {
+    "id": "q41",
+    "text": "旋转",
+    "audio": "type2_017.mp3",
+    "options": [
+      "xuán zhuǎn",
+      "xuén juǎn",
+      "shuán zhuǎn",
+      "shuén juǎn"
+    ]
+},
+  {
+    "id": "q42",
+    "text": "自由",
+    "audio": "type2_092.mp3",
+    "options": [
+      "cì yú",
+      "cì yóu",
+      "zì yóu",
+      "zì yó"
+    ]
+},
+  {
+    "id": "q43",
+    "text": "摩擦",
+    "audio": "type2_033.mp3",
+    "options": [
+      "mó chā",
+      "muó cā",
+      "mó cā",
+      "móu chā"
+    ]
+},
+  {
+    "id": "q44",
+    "text": "解决",
+    "audio": "type2_087.mp3",
+    "options": [
+      "jiǔ jué",
+      "jiě jué",
+      "jiě zhuí",
+      "juě zhué"
+    ]
+},
+  {
+    "id": "q45",
+    "text": "知道",
+    "audio": "type2_001.mp3",
+    "options": [
+      "zhī dào",
+      "zhī dòu",
+      "zhē dào",
+      "zhē daù"
+    ]
+},
+  {
+    "id": "q46",
+    "text": "建设",
+    "audio": "type2_011.mp3",
+    "options": [
+      "jiàn shè",
+      "jièn shì",
+      "jiàn shì",
+      "jièn shè"
+    ]
+},
+  {
+    "id": "q47",
+    "text": "忏悔",
+    "audio": "type2_084.mp3",
+    "options": [
+      "chàng huǎi",
+      "chàng huǐ",
+      "chàn huǐ",
+      "chàn huěi"
+    ]
+},
+  {
+    "id": "q48",
+    "text": "稀奇",
+    "audio": "type2_037.mp3",
+    "options": [
+      "xī qí",
+      "xī chí",
+      "shī qí",
+      "shī chí"
+    ]
+},
+  {
+    "id": "q49",
+    "text": "打架",
+    "audio": "type2_002.mp3",
+    "options": [
+      "dǎ zhà",
+      "dǎ jià",
+      "tǎ qià",
+      "tǎ zhà"
+    ]
+},
+  {
+    "id": "q50",
+    "text": "口语",
+    "audio": "type2_009.mp3",
+    "options": [
+      "kuǒ wǔ",
+      "kǒ yǔ",
+      "kǒu yǔ",
+      "kǒu wǔ"
+    ]
+},
+  {
+    "id": "q51",
+    "text": "宣传",
+    "audio": "type2_073.mp3",
+    "options": [
+      "shuēn chuán",
+      "shuān quán",
+      "xuān quán",
+      "xuān chuán"
+    ]
+},
+  {
+    "id": "q52",
+    "text": "温暖",
+    "audio": "type2_029.mp3",
+    "options": [
+      "wūn nuǎn",
+      "wēn nuǎn",
+      "wùn nuǎn",
+      "wěn nuán"
+    ]
+},
+  {
+    "id": "q53",
+    "text": "韩国",
+    "audio": "type2_079.mp3",
+    "options": [
+      "hán'guó",
+      "hán guó",
+      "háng guó",
+      "hán'guó"
+    ]
+},
+  {
+    "id": "q54",
+    "text": "选择",
+    "audio": "type2_066.mp3",
+    "options": [
+      "xuǎn zí",
+      "xuǎn zé",
+      "xǔn zí",
+      "zuěn zé"
+    ]
+},
+  {
+    "id": "q55",
+    "text": "劝告",
+    "audio": "type2_032.mp3",
+    "options": [
+      "quān gáo",
+      "quàn gáo",
+      "quàn gào",
+      "quàn gǎo"
+    ]
+},
+  {
+    "id": "q56",
+    "text": "选举",
+    "audio": "type2_013.mp3",
+    "options": [
+      "shuǎn zhǔ",
+      "xuěn zhǔ",
+      "xuǎn jǔ",
+      "shuǎn jǔ"
+    ]
+},
+  {
+    "id": "q57",
+    "text": "昆虫",
+    "audio": "type2_068.mp3",
+    "options": [
+      "kuēn qióng",
+      "kūn chung2",
+      "kuān chóng",
+      "kūn chóng"
+    ]
+},
+  {
+    "id": "q58",
+    "text": "张口",
+    "audio": "type2_005.mp3",
+    "options": [
+      "zhōng kǒu",
+      "zhāng kǒ",
+      "zhāng kuǒ",
+      "zhāng kǒu"
+    ]
+},
+  {
+    "id": "q59",
+    "text": "纽约",
+    "audio": "type2_028.mp3",
+    "options": [
+      "niù yué",
+      "niù yuè",
+      "niǔ yuè",
+      "niǔ yuē"
+    ]
+},
+  {
+    "id": "q60",
+    "text": "捐款",
+    "audio": "type2_078.mp3",
+    "options": [
+      "juān kuǎn",
+      "juēn kuǎn",
+      "juān kǔn",
+      "juēn kuěn"
+    ]
+},
+  {
+    "id": "q61",
+    "text": "穷困",
+    "audio": "type2_056.mp3",
+    "options": [
+      "qióng kùn",
+      "chóng kùn",
+      "qiáng kuèn",
+      "chióng kuàn"
+    ]
+},
+  {
+    "id": "q62",
+    "text": "忧愁",
+    "audio": "type2_062.mp3",
+    "options": [
+      "yū chóu",
+      "yōu chóu",
+      "yū qióu",
+      "yōu qiú"
+    ]
+},
+  {
+    "id": "q63",
+    "text": "成功",
+    "audio": "type2_034.mp3",
+    "options": [
+      "chúng gōng",
+      "chúng gūng",
+      "chéng gūng",
+      "chéng gōng"
+    ]
+},
+  {
+    "id": "q64",
+    "text": "暑假",
+    "audio": "type2_035.mp3",
+    "options": [
+      "xǔ jià",
+      "xǔ jà",
+      "shǔ jià",
+      "shǔ jà"
+    ]
+},
+  {
+    "id": "q65",
+    "text": "后悔",
+    "audio": "type2_024.mp3",
+    "options": [
+      "huò huǎi",
+      "huò huǐ",
+      "hòu huǐ",
+      "hòu huěi"
+    ]
+},
+  {
+    "id": "q66",
+    "text": "日记",
+    "audio": "type2_049.mp3",
+    "options": [
+      "rè jì",
+      "èr jì",
+      "yì jì",
+      "rì jì"
+    ]
+},
+  {
+    "id": "q67",
+    "text": "许愿",
+    "audio": "type2_022.mp3",
+    "options": [
+      "xǔ yuàn",
+      "shǔ yuàn",
+      "xǔ yuèn",
+      "shǔ yuèn"
+    ]
+},
+  {
+    "id": "q68",
+    "text": "秋千",
+    "audio": "type2_060.mp3",
+    "options": [
+      "chiū chiān",
+      "chiū quān",
+      "qiū chīn",
+      "qiū qiān"
+    ]
+},
+  {
+    "id": "q69",
+    "text": "层次",
+    "audio": "type2_052.mp3",
+    "options": [
+      "céng cì",
+      "cén cè",
+      "cún cì",
+      "cúng cè"
+    ]
+},
+  {
+    "id": "q70",
+    "text": "居住",
+    "audio": "type2_064.mp3",
+    "options": [
+      "zhū jù",
+      "jū juè",
+      "zhū juè",
+      "jū zhù"
+    ]
+},
+  {
+    "id": "q71",
+    "text": "教训",
+    "audio": "type2_057.mp3",
+    "options": [
+      "jiào xùn",
+      "jiào shùn",
+      "zhào xùn",
+      "zhào shùn"
+    ]
+},
+  {
+    "id": "q72",
+    "text": "桑椹",
+    "audio": "type2_081.mp3",
+    "options": [
+      "sān chèn",
+      "sān shèn",
+      "sāng chèn",
+      "sāng shèn"
+    ]
+},
+  {
+    "id": "q73",
+    "text": "多少",
+    "audio": "type2_006.mp3",
+    "options": [
+      "dō shǎo",
+      "dōu shǎo",
+      "duō shǎo",
+      "dōu shǒu"
+    ]
+},
+  {
+    "id": "q74",
+    "text": "结婚",
+    "audio": "type2_058.mp3",
+    "options": [
+      "jié huān",
+      "jiào shùn",
+      "jié hūn",
+      "jié hwēn"
+    ]
+},
+  {
+    "id": "q75",
+    "text": "衬衫",
+    "audio": "type2_077.mp3",
+    "options": [
+      "chèn shān",
+      "chèn shēn",
+      "chàn shēn",
+      "chàn shān"
+    ]
+},
+  {
+    "id": "q76",
+    "text": "完全",
+    "audio": "type2_004.mp3",
+    "options": [
+      "wán chuán",
+      "wáng qún",
+      "wáng chún",
+      "wán quán"
+    ]
+},
+  {
+    "id": "q77",
+    "text": "根本",
+    "audio": "type2_097.mp3",
+    "options": [
+      "gūn bǔn",
+      "gēn běn",
+      "gūn běn",
+      "gēn bǔn"
+    ]
+},
+  {
+    "id": "q78",
+    "text": "球队",
+    "audio": "type2_018.mp3",
+    "options": [
+      "chiú duì",
+      "chiú diù",
+      "qiú duèi",
+      "qiú duì"
+    ]
+},
+  {
+    "id": "q79",
+    "text": "家具",
+    "audio": "type2_072.mp3",
+    "options": [
+      "jā jiù",
+      "jā zhù",
+      "jiā zhù",
+      "jiā jù"
+    ]
+},
+  {
+    "id": "q80",
+    "text": "介绍",
+    "audio": "type2_010.mp3",
+    "options": [
+      "juè shào",
+      "jiè shào",
+      "jèi shào",
+      "jè shào"
+    ]
+},
+  {
+    "id": "q81",
+    "text": "破坏",
+    "audio": "type2_094.mp3",
+    "options": [
+      "pò huài",
+      "può huì",
+      "pòu huài",
+      "può huèi"
+    ]
+},
+  {
+    "id": "q82",
+    "text": "坚强",
+    "audio": "type2_043.mp3",
+    "options": [
+      "jiēn cháng",
+      "jiān cháng",
+      "jiān qiáng",
+      "jiēn qiáng"
+    ]
+},
+  {
+    "id": "q83",
+    "text": "安慰",
+    "audio": "type2_016.mp3",
+    "options": [
+      "āng wèi",
+      "ān wài",
+      "ān wèi",
+      "āng wèi"
+    ]
+},
+  {
+    "id": "q84",
+    "text": "其实",
+    "audio": "type2_086.mp3",
+    "options": [
+      "qí shí",
+      "chí shí",
+      "qí shé",
+      "chí shé"
+    ]
+},
+  {
+    "id": "q85",
+    "text": "吞咽",
+    "audio": "type2_088.mp3",
+    "options": [
+      "tuān yèn",
+      "tūn yàn",
+      "tuēn yàn",
+      "tūn yèn"
+    ]
+},
+  {
+    "id": "q86",
+    "text": "怀孕",
+    "audio": "type2_026.mp3",
+    "options": [
+      "huí yuàn",
+      "huí yuèn",
+      "huái yùn",
+      "huái yuèn"
+    ]
+},
+  {
+    "id": "q87",
+    "text": "传奇",
+    "audio": "type2_045.mp3",
+    "options": [
+      "chuán qí",
+      "chuán chí",
+      "quán qí",
+      "quán chí"
+    ]
+},
+  {
+    "id": "q88",
+    "text": "富翁",
+    "audio": "type2_099.mp3",
+    "options": [
+      "fù wūng",
+      "fù wūn",
+      "fù wōng",
+      "fù wēng"
+    ]
+},
+  {
+    "id": "q89",
+    "text": "闰年",
+    "audio": "type2_047.mp3",
+    "options": [
+      "rèn nián",
+      "ruèn nián",
+      "rùn nián",
+      "ruàn nián"
+    ]
+},
+  {
+    "id": "q90",
+    "text": "轮流",
+    "audio": "type2_065.mp3",
+    "options": [
+      "lún liú",
+      "luén lió",
+      "luán lióu",
+      "lún lióu"
+    ]
+},
+  {
+    "id": "q91",
+    "text": "团圆",
+    "audio": "type2_059.mp3",
+    "options": [
+      "tuán yuén",
+      "tún yuén",
+      "tuán yuán",
+      "tuén yuén"
+    ]
+},
+  {
+    "id": "q92",
+    "text": "欠债",
+    "audio": "type2_025.mp3",
+    "options": [
+      "chièn zhài",
+      "qièn jài",
+      "qiàn jài",
+      "qiàn zhài"
+    ]
+},
+  {
+    "id": "q93",
+    "text": "约会",
+    "audio": "type2_069.mp3",
+    "options": [
+      "yuē huài",
+      "wuē huì",
+      "yuē huì",
+      "wuē huèi"
+    ]
+},
+  {
+    "id": "q94",
+    "text": "仔细",
+    "audio": "type2_054.mp3",
+    "options": [
+      "zě shì",
+      "zǐ shì",
+      "zǐ xì",
+      "zě xì"
+    ]
+},
+  {
+    "id": "q95",
+    "text": "群众",
+    "audio": "type2_023.mp3",
+    "options": [
+      "chún zhòng",
+      "qún zhòng",
+      "chún zhùng",
+      "quén zhòng"
+    ]
+},
+  {
+    "id": "q96",
+    "text": "学习",
+    "audio": "type2_050.mp3",
+    "options": [
+      "shué shí",
+      "shuí xí",
+      "xué xí",
+      "xué shí"
+    ]
+},
+  {
+    "id": "q97",
+    "text": "出去",
+    "audio": "type2_031.mp3",
+    "options": [
+      "chū qù",
+      "qū chù",
+      "chū chuè",
+      "chū què"
+    ]
+},
+  {
+    "id": "q98",
+    "text": "搂抱",
+    "audio": "type2_098.mp3",
+    "options": [
+      "lòu bào",
+      "lǒu bào",
+      "lòu báo",
+      "lòu bào"
+    ]
+},
+  {
+    "id": "q99",
+    "text": "观光",
+    "audio": "type2_082.mp3",
+    "options": [
+      "guān'guāng",
+      "guāng guāng",
+      "guān guān",
+      "guān guāng"
+    ]
+  }
+]

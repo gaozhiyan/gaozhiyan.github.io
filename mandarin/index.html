@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css">
+    <link rel="stylesheet" href="quiz.css">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="js_functions.js"></script>
+    <title>Quiz Interface</title>
+    <div class="logo-container">
+        <a href="/">
+            <img src="https://www.jssc.edu.cn/_upload/tpl/00/ab/171/template171/images/logo.png" alt="Organization Logo">
+        </a>
+    </div>
+</head>
+<body>
+
+<h1 class="chinese-listening-test-title">初级汉语听力课堂测试</h1>
+
+<div class="survey-container">
+    <div id="question-container"><!-- Questions will be injected here by JavaScript --></div>
+    <button id="prev-button" class="nav-button">Previous</button>
+    <button id="next-button" class="nav-button">Next</button>
+    <button id="submit-button" class="nav-button">Submit Survey</button>
+</div>
+<div id="progress-container">
+    <div id="progress-bar" style="width: 0%;"></div>
+</div>
+</body>
+</html>
