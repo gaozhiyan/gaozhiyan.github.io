@@ -23,20 +23,10 @@ document.addEventListener('DOMContentLoaded', function() {
 
 
 function shuffleArray(array) {
-    let currentIndex = array.length, temporaryValue, randomIndex;
-
-    // While there remain elements to shuffle...
-    while (0 !== currentIndex) {
-        // Pick a remaining element...
-        randomIndex = Math.floor(Math.random() * currentIndex);
-        currentIndex -= 1;
-
-        // And swap it with the current element.
-        temporaryValue = array[currentIndex];
-        array[currentIndex] = array[randomIndex];
-        array[randomIndex] = temporaryValue;
+    for (let i = array.length - 1; i > 0; i--) {
+        const randomIndex = Math.floor(Math.random() * (i + 1));
+        [array[i], array[randomIndex]] = [array[randomIndex], array[i]]; // ES6 destructuring swap
     }
-
     return array;
 }
 
@@ -67,7 +57,7 @@ function validateAndProceed() {
 
     // Check if an option is selected for the current question
     if (currentChoices.length === 0) {
-        alert('请选择一个答案.');
+        alert('Please select an option before moving on.');
         return;
     }
 
@@ -118,13 +108,15 @@ function updateProgressBar(currentIndex, totalQuestions) {
 async function fetchAndCreateQuestions() {
     try {
         const response = await fetch(csvFilePath);
+
         const csvText = await response.text();
-        let allQuestionsData = parseCSVToJSON(csvText);
-        // Shuffle the array to randomize the questions
-        allQuestionsData = shuffleArray(allQuestionsData);
-        // Then slice it to get only 10 questions
-        questionsData = allQuestionsData.slice(0, 10); // Retrieve randomly selected 10 questions
-        userAnswers = new Array(questionsData.length).fill(null); // Reinitialize userAnswers for 10 questions
+        let parsedData = parseCSVToJSON(csvText);
+
+        // Randomly select 2 unique questions
+        questionsData = selectRandomQuestions(parsedData, 10);
+
+        // Do other initializations if necessary
+        userAnswers = new Array(questionsData.length).fill(null); // Initialize userAnswers with null
 
 
         // Create HTML for each question
@@ -222,6 +214,22 @@ function displayQuestion(index) {
     updateButtonVisibility(index);
 }
 
+function selectRandomQuestions(dataArray, n) {
+    let shuffled = dataArray.slice();
+    let selected = [];
+
+    // Fisher-Yates Shuffle (modern algorithm)
+    for (let i = shuffled.length - 1; i > 0; i--) {
+        const randomIndex = Math.floor(Math.random() * (i + 1));
+        [shuffled[i], shuffled[randomIndex]] = [shuffled[randomIndex], shuffled[i]];
+    }
+
+    // Select the first n elements after shuffle
+    for (let i = 0; i < n && i < shuffled.length; i++) {
+        selected.push(shuffled[i]);
+    }
+    return selected;
+}
 
 function displayScore(score, totalQuestions) {
     // Hide the questionnaire
@@ -234,6 +242,26 @@ function displayScore(score, totalQuestions) {
     
     // Append score div to the body or a specific container
     document.body.appendChild(scoreDiv);
+}
+
+function displayIncorrectAnswers() {
+    let incorrectAnswersList = document.createElement('ul');
+    incorrectAnswersList.classList.add('incorrect-answers-list');
+    
+    questionsData.forEach((question, index) => {
+        if (userAnswers[index] !== question.answer) {
+            let listItem = document.createElement('li');
+            listItem.innerHTML = `<strong>问题 ${index + 1}:</strong> ${question.text} <br> 你的答案: ${userAnswers[index] || "No answer"} <br> Correct answer: ${question.answer}`;
+            incorrectAnswersList.appendChild(listItem);
+        }
+    });
+    
+    // Check if there are any incorrect answers to display
+    if (incorrectAnswersList.children.length > 0) {
+        let resultsContainer = document.getElementById('results-container'); // You should have this container in your HTML
+        resultsContainer.innerHTML = '<h2>答错的题目:</h2>';
+        resultsContainer.appendChild(incorrectAnswersList);
+    }
 }
 
 
@@ -264,9 +292,7 @@ async function submitAnswers() {
     
     // Call a function to display the score to the user
     displayScore(score, questionsData.length);
-
-
-    console.log(answersData);
+    displayIncorrectAnswers()
 
     try {
         const response = await fetch('save_data.php', {
@@ -283,9 +309,9 @@ async function submitAnswers() {
 
         const responseData = await response.json();
         console.log(responseData);
-        alert('Thank you for submitting your answers!');
+       // alert('Thank you for submitting your answers!');
     } catch (error) {
         console.error('Error submitting answers:', error);
-        alert('There was a problem submitting your answers. Please try again.');
+       // alert('There was a problem submitting your answers. Please try again.');
     }
 }

@@ -6,73 +6,26 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css">
     <link rel="stylesheet" href="quiz.css">
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-    <script src="js_functions.js" defer></script> <!-- Use defer to ensure the script executes after the document is parsed -->
+    <script src="js_functions.js"></script>
     <title>Quiz Interface</title>
+    <div class="logo-container">
+            <img src="https://www.jssc.edu.cn/_upload/tpl/00/ab/171/template171/images/logo.png" alt="Organization Logo">
+    </div>
 </head>
 <body>
 
-    <div class="logo-container">
-        <a href="/">
-            <img src="https://www.jssc.edu.cn/_upload/tpl/00/ab/171/template171/images/logo.png" alt="Organization Logo">
-        </a>
-    </div>
-    <h1 class="chinese-listening-test-title">初级汉语听力课堂测试</h1>
+<h1 class="chinese-listening-test-title">初级汉语听力课堂测试</h1>
 
-<div class="welcome-screen">
-
-    <form id="student-info-form" class="student-info-form">
-        <label for="student-name">姓名:</label>
-        <input type="text" id="student-name" name="studentName" placeholder="Enter your name" required>
-        
-        <label for="student-id">学号:</label>
-        <input type="text" id="student-id" name="studentId" placeholder="Enter your ID number" required>
-        
-        <button type="submit" id="start-quiz-button" class="nav-button">Start Quiz</button>
-    </form>
-
-    <div class="contact-info">
-        问题联系：高志晏 （zgao@jssc.edu.cn)
-    </div>
-</div>
-
-<div class="survey-container" style="display: none;"> <!-- Initially hidden -->
+<div class="survey-container">
     <div id="question-container"><!-- Questions will be injected here by JavaScript --></div>
-    <button id="prev-button" class="nav-button">上一个</button>
-    <button id="next-button" class="nav-button">下一个</button>
-    <button id="submit-button" class="nav-button">提交答案</button>
-
-    <div class="contact-info">
-        问题联系：高志晏 （zgao@jssc.edu.cn)
-    </div>
+    <button id="prev-button" class="nav-button">Previous</button>
+    <button id="next-button" class="nav-button">Next</button>
+    <button id="submit-button" class="nav-button">Submit Survey</button>
 </div>
-
-<div id="progress-container" style="display: none;"> <!-- Initially hidden -->
+<div id="progress-container">
     <div id="progress-bar" style="width: 0%;"></div>
 </div>
-
-<script>
-    /* Ensure you have an event listener on the form submission to start the quiz. */
-
-    document.getElementById('student-info-form').addEventListener('submit', function(event) {
-        event.preventDefault();
-        
-        // Retrieve student name and ID
-        const studentName = document.getElementById('student-name').value.trim();
-        const studentId = document.getElementById('student-id').value.trim();
-        
-        // You may want to validate the name and ID or store them in localStorage/sessionStorage
-        
-        // Hide welcome screen
-        document.querySelector('.welcome-screen').style.display = 'none';
-        
-        // Display the survey container and progress bar
-        document.querySelector('.survey-container').style.display = 'block';
-        document.getElementById('progress-container').style.display = 'block';
-        
-        // Initialize the quiz
-        fetchAndCreateQuestions(); // Assuming this function exists in your js_functions.js.
-    });
-</script>
+<div id="results-container"></div>
 
 </body>
 </html>
