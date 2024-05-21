@@ -3,28 +3,34 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>在线图书馆系统</title>
-    <link rel="stylesheet" href="styles.css">
+    <title>George & Ivy's Book Haven</title>
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
     <div class="container">
         <header>
-            <h1>在线图书馆系统</h1>
-            <input type="text" id="search" placeholder="搜索书籍...">
+            <img src="logo.jpg" alt="IG" class="header-image">
+            <h1>Ivy & George's Book Haven</h1>
         </header>
-        <main>
+        <div class="main-content">
             <div class="sidebar">
-                <ul id="categories">
-                    <!-- 分类将被插入这里 -->
-                </ul>
+                <h2>Library Statistics</h2>
+                <p>Number of Books: <span id="num-books"></span></p>
+                <p>Number of Publishers: <span id="num-publishers"></span></p>
+                <canvas id="booksChart"></canvas>
             </div>
             <div class="content">
+                <input type="text" id="search" placeholder="Search by title, author, ISBN, or publisher">
+                <div id="search-results" style="display: none;">
+                    <!-- Search results will be displayed here -->
+                </div>
                 <div id="books-grid">
-                    <!-- 书籍数据将被插入这里 -->
+                    <!-- Initial 10 books will be displayed here -->
                 </div>
             </div>
-        </main>
+        </div>
     </div>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script src="script.js"></script>
 </body>
 </html>
