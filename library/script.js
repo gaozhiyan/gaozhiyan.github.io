@@ -4,7 +4,7 @@ document.addEventListener('DOMContentLoaded', function () {
     const categoriesList = document.getElementById('categories');
 
     // 读取 CSV 文件
-    fetch('/mnt/data/藏书.csv')
+    fetch('藏书.csv')
         .then(response => response.text())
         .then(data => {
             const books = parseCSV(data);
