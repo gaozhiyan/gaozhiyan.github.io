@@ -3,24 +3,31 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>George & Ivy's Book Haven</title>
+    <title>Ivy & George's Book Haven</title>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
     <div class="container">
         <header>
-            <img src="logo.jpg" alt="IG" class="header-image">
-            <h1>Ivy & George's Book Haven</h1>
+            <div class="header-content">
+                <img src="logo.jpg" alt="IG" class="header-image">
+                <h1>Ivy & George's Book Haven</h1>
+            </div>
         </header>
         <div class="main-content">
             <div class="sidebar">
                 <h2>Library Statistics</h2>
                 <p>Number of Books: <span id="num-books"></span></p>
                 <p>Number of Publishers: <span id="num-publishers"></span></p>
-                <canvas id="booksChart"></canvas>
+                <div id="categoryChart" style="width: 100%; height: 400px;"></div>
+                <div id="category-buttons">
+                    <!-- Category buttons will be dynamically generated -->
+                </div>
             </div>
             <div class="content">
-                <input type="text" id="search" placeholder="Search by title, author, ISBN, or publisher">
+                <div class="search-container">
+                    <input type="text" id="search" placeholder="Search by title, author, ISBN, or publisher">
+                </div>
                 <div id="search-results" style="display: none;">
                     <!-- Search results will be displayed here -->
                 </div>
@@ -30,7 +37,7 @@
             </div>
         </div>
     </div>
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/echarts/dist/echarts.min.js"></script>
     <script src="script.js"></script>
 </body>
 </html>

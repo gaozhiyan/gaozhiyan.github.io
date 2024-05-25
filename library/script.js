@@ -1,139 +1,159 @@
-document.addEventListener('DOMContentLoaded', () => {
-    const searchInput = document.getElementById('search');
-    const booksGrid = document.getElementById('books-grid');
-    const searchResults = document.getElementById('search-results');
-    const numBooksElem = document.getElementById('num-books');
-    const numPublishersElem = document.getElementById('num-publishers');
-    const booksChart = document.getElementById('booksChart').getContext('2d');
+document.addEventListener("DOMContentLoaded", function() {
+    const categories = ["All", "Psychology", "Philosophy", "Religion", "Business", "Self-help", "Social aspects", "Spiritual life", "Science", "Health", "Parenting", "Education", "Linguistics", "Fiction", "Memoir", "Humor"];
+    const categoryContainer = document.getElementById("category-buttons");
+    const booksGrid = document.getElementById("books-grid");
+    const searchInput = document.getElementById("search");
+    const searchResults = document.getElementById("search-results");
+    const numBooks = document.getElementById("num-books");
+    const numPublishers = document.getElementById("num-publishers");
+    const categoryChartElement = document.getElementById("categoryChart");
 
-    // Function to fetch book cover
-    const fetchBookCover = (isbn) => {
-        if (!isbn) {
-            return '';
-        }
-        return `https://covers.openlibrary.org/b/isbn/${isbn}-S.jpg`;
-    };
+    let books = [];
 
-    // Function to display random books on the front page
-    const displayBooks = async (booksToDisplay, gridElement) => {
-        gridElement.innerHTML = '';
-        for (const book of booksToDisplay) {
-            const coverImage = fetchBookCover(book.ISBN);
-            const bookDiv = document.createElement('div');
-            bookDiv.className = 'book';
-            bookDiv.innerHTML = `
-                <img src="${coverImage}" alt="${book['藏书名称']}">
-                <h3>${book['藏书名称']}</h3>
-                <p>${book['作者']}</p>
-                <p>${book['出版社']}</p>
-            `;
-            gridElement.appendChild(bookDiv);
-        }
-    };
-
-    // Function to display search results
-    const displaySearchResults = (books) => {
-        if (books.length === 0) {
-            searchResults.style.display = 'none';
-            return;
-        }
-
-        searchResults.style.display = 'block';
-        searchResults.innerHTML = `
-            <table>
-                <thead>
-                    <tr>
-                        <th>Cover</th>
-                        <th>Title</th>
-                        <th>Author</th>
-                        <th>Publisher</th>
-                        <th>ISBN</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    ${books.map(book => `
-                        <tr>
-                            <td><img src="${fetchBookCover(book.ISBN)}" alt="${book['藏书名称']}" style="max-width: 50px;"></td>
-                            <td>${book['藏书名称']}</td>
-                            <td>${book['作者']}</td>
-                            <td>${book['出版社']}</td>
-                            <td>${book['ISBN']}</td>
-                        </tr>
-                    `).join('')}
-                </tbody>
-            </table>
-        `;
-    };
-
-    // Function to update statistics
-    const updateStatistics = (books) => {
-        const numBooks = books.length;
-        const publishers = new Set(books.map(book => book['category']));
-
-        numBooksElem.textContent = numBooks;
-        numPublishersElem.textContent = publishers.size;
-
-        // Create chart data
-        const publisherCounts = {};
-        publishers.forEach(publisher => publisherCounts[publisher] = 0);
-        books.forEach(book => {
-            if (publisherCounts[book['category']] !== undefined) {
-                publisherCounts[book['category']]++;
-            }
-        });
-
-        // Update chart
-        new Chart(booksChart, {
-            type: 'bar',
-            data: {
-                labels: Object.keys(publisherCounts),
-                datasets: [{
-                    label: '# of Books',
-                    data: Object.values(publisherCounts),
-                    backgroundColor: 'rgba(75, 192, 192, 0.2)',
-                    borderColor: 'rgba(75, 192, 192, 1)',
-                    borderWidth: 1
-                }]
-            },
-            options: {
-                scales: {
-                    y: {
-                        beginAtZero: true
-                    }
-                }
-            }
-        });
-    };
-
-    // Fetch book data from the JSON file
-    fetch('books_updated.json')
+    // Fetch data from JSON file
+    fetch('books_with_douban_urls.json')
         .then(response => response.json())
-        .then(async (books) => {
-            // Display 10 random books
-            const shuffledBooks = books.sort(() => 0.5 - Math.random());
-            const randomBooks = shuffledBooks.slice(0, 10);
-            await displayBooks(randomBooks, booksGrid);
-
-            // Update statistics
-            updateStatistics(books);
-
-            // Search functionality
-            searchInput.addEventListener('input', () => {
-                const query = searchInput.value.toLowerCase();
-                if (!query) {
-                    searchResults.style.display = 'none';
-                    return;
-                }
-
-                const filteredBooks = books.filter(book =>
-                    book['藏书名称'].toLowerCase().includes(query) ||
-                    book['作者'].toLowerCase().includes(query) ||
-                    String(book['ISBN']).toLowerCase().includes(query) ||
-                    book['出版社'].toLowerCase().includes(query)
-                );
-
-                displaySearchResults(filteredBooks);
-            });
+        .then(data => {
+            books = data;
+            initializePage();
         })
-        .catch(error => console.error('Error fetching book data:', error));
+        .catch(error => console.error('Error fetching data:', error));
+
+    // Function to initialize the page
+    function initializePage() {
+        renderCategoryButtons();
+        renderBooks(books);
+        displayLibraryStatistics();
+        renderCategoryChart();
+    }
+
+    // Function to render category buttons
+    function renderCategoryButtons() {
+        categories.forEach(category => {
+            const button = document.createElement("button");
+            button.className = "category-btn";
+            button.textContent = category;
+            button.dataset.category = category;
+            button.addEventListener("click", function() {
+                filterBooks(category);
+            });
+            categoryContainer.appendChild(button);
+        });
+    }
+
+    // Function to check if an image file exists
+    function checkImageExists(url, callback) {
+        const img = new Image();
+        img.onload = () => callback(true);
+        img.onerror = () => callback(false);
+        img.src = url;
+    }
+
+    // Function to get the cover image URL
+    function getCoverImageUrl(isbn, callback) {
+        const imgUrl = `img/${isbn}.jpg`;
+        checkImageExists(imgUrl, (exists) => {
+            if (exists) {
+                callback(imgUrl);
+            } else {
+                callback('default-book-cover.jpg');
+            }
+        });
+    }
+
+    // Function to render books
+    function renderBooks(filteredBooks) {
+        booksGrid.innerHTML = "";
+        filteredBooks.slice(0, 10).forEach(book => {
+            const bookDiv = document.createElement("div");
+            bookDiv.className = "book";
+            bookDiv.dataset.category = book.Category;
+            getCoverImageUrl(book.ISBN, (coverImageUrl) => {
+                bookDiv.innerHTML = `
+                    <a href="${book.douban_url}" target="_blank">
+                        <img src="${coverImageUrl}" alt="${book.藏书名称}">
+                    </a>
+                    <h3>${book.藏书名称}</h3>
+                    <p>${book.作者}</p>
+                    <p>${book.出版社}</p>
+                    <p>${book.ISBN}</p>
+                `;
+                booksGrid.appendChild(bookDiv);
+            });
+        });
+    }
+
+    // Function to filter books by category
+    function filterBooks(category) {
+        const filteredBooks = category === "All" ? books : books.filter(book => book.Category === category);
+        renderBooks(filteredBooks);
+    }
+
+    // Function to search books
+    function searchBooks(query) {
+        const filteredBooks = books.filter(book => 
+            book.藏书名称.includes(query) ||
+            book.作者.includes(query) ||
+            book.出版社.includes(query) ||
+            book.ISBN.includes(query)
+        );
+        renderBooks(filteredBooks);
+    }
+
+    // Event listener for search input
+    searchInput.addEventListener("input", function() {
+        const query = searchInput.value.trim();
+        if (query) {
+            searchBooks(query);
+            searchResults.style.display = "block";
+        } else {
+            searchResults.style.display = "none";
+            renderBooks(books);
+        }
+    });
+
+    // Function to calculate and display library statistics
+    function displayLibraryStatistics() {
+        const uniquePublishers = new Set(books.map(book => book.出版社)).size;
+        numBooks.textContent = books.length;
+        numPublishers.textContent = uniquePublishers;
+    }
+
+    // Function to render category chart using ECharts
+    function renderCategoryChart() {
+        const categoryCounts = categories.map(category => ({
+            category,
+            count: books.filter(book => book.Category === category).length
+        })).filter(item => item.count > 0);
+
+        // Sort the categories by count in descending order
+        categoryCounts.sort((a, b) => b.count - a.count);
+
+        const sortedCategories = categoryCounts.map(item => item.category);
+        const sortedCounts = categoryCounts.map(item => item.count);
+
+        const chart = echarts.init(categoryChartElement);
+        const option = {
+            title: {
+                text: 'Number of Books by Category'
+            },
+            tooltip: {},
+            xAxis: {
+                type: 'category',
+                data: sortedCategories
+            },
+            yAxis: {
+                type: 'value'
+            },
+            series: [{
+                name: 'Books',
+                type: 'bar',
+                data: sortedCounts,
+                itemStyle: {
+                    color: '#007BFF'
+                }
+            }]
+        };
+        chart.setOption(option);
+    }
 });
