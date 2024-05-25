@@ -1,5 +1,5 @@
 document.addEventListener("DOMContentLoaded", function() {
-    const categories = ["All", "Psychology", "Philosophy", "Religion", "Business", "Self-help", "Social aspects", "Spiritual life", "Science", "Health", "Parenting", "Education", "Linguistics", "Fiction", "Memoir", "Humor"];
+    const categories = ["All", "Psychology", "Philosophy", "Religion", "Business","Economics","Mathematics", "Self-help", "Social aspects", "Spiritual life", "Science", "Health", "Parenting", "Education", "Linguistics", "Fiction", "Memoir", "Humor"];
     const categoryContainer = document.getElementById("category-buttons");
     const booksGrid = document.getElementById("books-grid");
     const searchInput = document.getElementById("search");
