@@ -28,7 +28,7 @@
         "作者": "Nassim Nicholas Taleb",
         "出版社": "Penguin",
         "ISBN": "9780141031484",
-        "Category": "Business",
+        "Category": "Economics",
         "douban_url": "https://book.douban.com/subject/3415699/"
     },
     {
@@ -1489,7 +1489,7 @@
     },
     {
         "藏书名称": "Yes Minister",
-        "作者": "BBC Audiobooks Ltd",
+        "作者": "Jonathan Lynn;Antony Jay",
         "出版社": "BBC Audiobooks Ltd",
         "ISBN": "9780563529446",
         "Category": "Humor",
@@ -1542,5 +1542,69 @@
         "ISBN": "9787508687513",
         "Category": "Business",
         "douban_url": "https://book.douban.com/subject/30230632/"
+    },
+    {
+        "藏书名称": "Educated",
+        "作者": "Tara Westover",
+        "出版社": "Windmill Books",
+        "ISBN": "9780099511021",
+        "Category": "Education",
+        "douban_url": "https://book.douban.com/subject/33427841/"
+    },
+    {
+        "藏书名称": "A History of the World in 100 Objects",
+        "作者": "Neil MacGregor",
+        "出版社": "Penguin",
+        "ISBN": "9780241951774",
+        "Category": "History",
+        "douban_url": "https://book.douban.com/subject/11520173/"
+    },
+    {
+        "藏书名称": "Antifragile",
+        "作者": "Nassim Nicholas Taleb",
+        "出版社": "Penguin",
+        "ISBN": "9780141038223",
+        "Category": "Economics",
+        "douban_url": "https://book.douban.com/subject/11725805/"
+    },
+    {
+        "藏书名称": "The Black Swan",
+        "作者": "Nassim Nicholas Taleb",
+        "出版社": "Penguin",
+        "ISBN": "9780141034591",
+        "Category": "Economics",
+        "douban_url": "https://book.douban.com/subject/3043907/"
+    },
+    {
+        "藏书名称": "New Ways in Teaching Connected Speech",
+        "作者": "James Dean Brown",
+        "出版社": "TESOL Press",
+        "ISBN": "9781931185769",
+        "Category": "Education",
+        "douban_url": "https://book.douban.com/subject/32101561/"
+    },
+    {
+        "藏书名称": "Statistics:A very short introduction",
+        "作者": "David J. Hand",
+        "出版社": "Oxford University Press",
+        "ISBN": "9780199233564",
+        "Category": "Mathematics",
+        "douban_url": "https://book.douban.com/subject/3148448/"
+    },
+    {
+        "藏书名称": "The Sound Pattern of English",
+        "作者": "Noam Chomsky, Morris Halle",
+        "出版社": "The MIT Press",
+        "ISBN": "9780262530972",
+        "Category": "Linguistics",
+        "douban_url": "https://book.douban.com/subject/2075318/"
+    },
+    {
+        "藏书名称": "中外文学名著描写辞典",
+        "作者": "辽宁大学中文系",
+        "出版社": "福建人民出版社",
+        "ISBN": "10173-3802",
+        "Category": "Literature",
+        "douban_url": "https://book.douban.com/subject/3023653/"
     }
 ]
