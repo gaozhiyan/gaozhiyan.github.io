@@ -64,7 +64,7 @@ document.addEventListener("DOMContentLoaded", function() {
     // Function to render books
     function renderBooks(filteredBooks) {
         booksGrid.innerHTML = "";
-        filteredBooks.slice(0, 10).forEach(book => {
+        filteredBooks.slice(0, 200).forEach(book => {
             const bookDiv = document.createElement("div");
             bookDiv.className = "book";
             bookDiv.dataset.category = book.Category;
