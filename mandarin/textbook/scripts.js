@@ -56,7 +56,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
         if (lessonNumber) {
             document.getElementById('lesson-title').textContent = `Lesson ${lessonNumber}`;
-            lessonAudio.querySelector('source').src = `audios/lesson${lessonNumber}.mp3`;
+            lessonAudio.querySelector('source').src = `audios/Lesson${lessonNumber}.mp3`;
             lessonAudio.load();
         }
     }
