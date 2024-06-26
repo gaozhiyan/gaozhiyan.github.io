@@ -3,28 +3,38 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Embedded Video</title>
     <style>
-        body {
+        body, html {
             margin: 0;
+            padding: 0;
+            width: 100%;
+            height: 100%;
             overflow: hidden;
+            background-color: #000;
+        }
+        .video-container {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
             display: flex;
             justify-content: center;
             align-items: center;
-            height: 100vh;
-            background-color: #000;
         }
         video {
-            width: 100vw;
-            height: 100vh;
+            width: 100%;
+            height: 100%;
             object-fit: cover;
         }
     </style>
 </head>
 <body>
-    <video controls>
-        <source src="https://puffin-island.oss-cn-beijing.aliyuncs.com/videos/drwho.mp4" type="video/mp4">
-        Your browser does not support the video tag.
-    </video>
+    <div class="video-container">
+        <video controls>
+            <source src="https://puffin-island.oss-cn-beijing.aliyuncs.com/videos/pronunciationClass/lesson_1_%E5%8F%A3%E8%AF%AD%E8%A1%A8%E8%BE%BE%E7%BB%B4%E5%BA%A6.mp4" type="video/mp4">
+            Your browser does not support the video tag.
+        </video>
+    </div>
 </body>
 </html>
