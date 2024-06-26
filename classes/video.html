@@ -6,35 +6,25 @@
     <title>Embedded Video</title>
     <style>
         body {
-            font-family: Arial, sans-serif;
-            background-color: #f4f4f4;
+            margin: 0;
+            overflow: hidden;
             display: flex;
             justify-content: center;
             align-items: center;
             height: 100vh;
-            margin: 0;
-        }
-        .video-container {
-            width: 80%;
-            max-width: 800px;
-            background: #fff;
-            padding: 20px;
-            box-shadow: 0 0 10px rgba(0,0,0,0.1);
-            border-radius: 8px;
+            background-color: #000;
         }
         video {
-            width: 100%;
-            border-radius: 8px;
+            width: 100vw;
+            height: 100vh;
+            object-fit: cover;
         }
     </style>
 </head>
 <body>
-    <div class="video-container">
-        <h1>Watch Dr. Who</h1>
-        <video controls>
-            <source src="https://puffin-island.oss-cn-beijing.aliyuncs.com/videos/pronunciationClass/lesson_1_%E5%8F%A3%E8%AF%AD%E8%A1%A8%E8%BE%BE%E7%BB%B4%E5%BA%A6.mp4" type="video/mp4">
-            Your browser does not support the video tag.
-        </video>
-    </div>
+    <video controls>
+        <source src="https://puffin-island.oss-cn-beijing.aliyuncs.com/videos/drwho.mp4" type="video/mp4">
+        Your browser does not support the video tag.
+    </video>
 </body>
 </html>
