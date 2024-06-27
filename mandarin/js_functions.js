@@ -113,7 +113,7 @@ async function fetchAndCreateQuestions() {
         let parsedData = parseCSVToJSON(csvText);
 
         // Randomly select 2 unique questions
-        questionsData = selectRandomQuestions(parsedData, 10);
+        questionsData = selectRandomQuestions(parsedData, 50);
 
         // Do other initializations if necessary
         userAnswers = new Array(questionsData.length).fill(null); // Initialize userAnswers with null
