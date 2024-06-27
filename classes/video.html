@@ -3,6 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Embedded Video</title>
     <style>
         body, html {
             margin: 0;
@@ -28,6 +29,28 @@
             object-fit: cover;
         }
     </style>
+    <script>
+        function disableContextMenu(event) {
+            event.preventDefault();
+        }
+
+        document.addEventListener('DOMContentLoaded', function() {
+            var video = document.querySelector('video');
+            video.setAttribute('controlsList', 'nodownload nofullscreen noremoteplayback');
+
+            document.addEventListener('contextmenu', disableContextMenu);
+          
+            // Disable F12, Ctrl+Shift+I, Ctrl+Shift+J, Ctrl+U
+            document.onkeydown = function(e) {
+                if (e.keyCode == 123 || 
+                    (e.ctrlKey && e.shiftKey && e.keyCode == 'I'.charCodeAt(0)) || 
+                    (e.ctrlKey && e.shiftKey && e.keyCode == 'J'.charCodeAt(0)) || 
+                    (e.ctrlKey && e.keyCode == 'U'.charCodeAt(0))) {
+                    return false;
+                }
+            }
+        });
+    </script>
 </head>
 <body>
     <div class="video-container">
