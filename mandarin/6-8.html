@@ -1,0 +1,823 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>汉语复习：购物与生活 (Lessons 6-8)</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        /* Custom styles with Indigo/Purple theme */
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #f3f4f6; /* bg-gray-100 */
+        }
+        .container-box {
+             max-width: 56rem; /* max-w-4xl */
+             margin-left: auto; margin-right: auto;
+             background-color: #ffffff; /* bg-white */
+             box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06); /* shadow-lg */
+             border-radius: 0.75rem; /* rounded-xl */
+             padding: 1.5rem 2rem; /* p-6 md:p-8 */
+        }
+         h1 { color: #3730a3; } /* text-indigo-800 */
+         h2 { color: #4338ca; } /* text-indigo-700 */
+
+        .question-section {
+            border: 1px solid #e5e7eb; /* gray-200 */
+            border-radius: 0.5rem; /* rounded-lg */
+            padding: 1.5rem; /* p-6 */
+            margin-bottom: 1.5rem; /* mb-6 */
+            background-color: #ffffff; /* bg-white */
+            box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05); /* shadow-sm */
+        }
+        .feedback {
+            margin-top: 0.75rem; padding: 0.5rem 1rem; border-radius: 0.375rem;
+            font-weight: 500; min-height: 2.5rem;
+        }
+        .feedback-correct {
+            background-color: #dcfce7; /* green-100 */ color: #166534; /* green-800 */
+            border: 1px solid #86efac; /* green-300 */
+        }
+        .feedback-incorrect {
+            background-color: #fee2e2; /* red-100 */ color: #991b1b; /* red-800 */
+            border: 1px solid #fca5a5; /* red-300 */
+        }
+        .pinyin {
+            font-size: 0.75rem; color: #6b7280; margin-left: 0.25rem; font-weight: 400;
+        }
+        /* Matching Game Styles */
+        .matching-item, .matching-target {
+            padding: 0.5rem 1rem; margin: 0.25rem; border: 1px solid #d1d5db; /* gray-300 */
+            border-radius: 0.375rem; cursor: pointer; transition: all 0.2s ease;
+            display: flex; align-items: baseline; background-color: #f9fafb; /* gray-50 */
+        }
+        .matching-item:hover, .matching-target:hover {
+            background-color: #e0e7ff; /* indigo-100 */ border-color: #a5b4fc; /* indigo-300 */
+        }
+        .matching-selected {
+            background-color: #c7d2fe; /* indigo-200 */ border-color: #818cf8; /* indigo-400 */
+            box-shadow: 0 0 0 2px #a5b4fc; /* ring effect */
+        }
+        .matching-correct {
+            background-color: #dcfce7; border-color: #86efac; cursor: default;
+        }
+        .matching-incorrect {
+             background-color: #fee2e2; border-color: #fca5a5;
+        }
+        /* Sentence Scramble Styles */
+        .scramble-word-button {
+            padding: 0.3rem 0.8rem; margin: 0.25rem; border: 1px solid #a5b4fc; /* indigo-300 */
+            background-color: #eef2ff; /* indigo-50 */ color: #3730a3; /* indigo-800 */
+            border-radius: 0.375rem; cursor: pointer; transition: all 0.2s ease;
+            display: inline-flex; align-items: baseline; box-shadow: 0 1px 2px 0 rgba(0,0,0,0.05);
+        }
+        .scramble-word-button:hover:not(:disabled) { background-color: #e0e7ff; /* indigo-100 */ }
+        .scramble-word-button:disabled {
+            background-color: #f3f4f6; /* gray-100 */ color: #9ca3af; border-color: #e5e7eb;
+            cursor: not-allowed; opacity: 0.7; box-shadow: none;
+        }
+        .scramble-sentence-area {
+            min-height: 3rem; border: 1px dashed #a5b4fc; /* indigo-300 */
+            background-color: #f5f3ff; /* violet-50 */ padding: 0.75rem;
+            border-radius: 0.375rem; margin-top: 0.75rem; color: #5b21b6; /* violet-700 */
+            line-height: 1.8;
+        }
+        /* Style for General Buttons */
+        button.general-button {
+            padding: 0.5rem 1.25rem; border-radius: 0.375rem; font-weight: 600; color: white;
+            background-color: #4f46e5; /* indigo-600 */ transition: all 0.2s ease;
+            cursor: pointer; margin-top: 0.5rem; margin-right: 0.5rem;
+            box-shadow: 0 1px 3px 0 rgba(0,0,0,0.1), 0 1px 2px 0 rgba(0,0,0,0.06);
+        }
+        button.general-button:hover:not(:disabled) { background-color: #4338ca; /* indigo-700 */ transform: translateY(-1px); }
+        button.general-button:disabled { background-color: #a5b4fc; /* indigo-300 */ cursor: not-allowed; box-shadow: none; transform: none;}
+        /* TF Button Specific Styles */
+        .tf-button { background-color: #64748b; /* slate-500 */ }
+        .tf-button:hover:not(:disabled) { background-color: #475569; /* slate-600 */ }
+        .tf-button.selected { background-color: #4f46e5; /* indigo-600 */ }
+        /* Reset Button Style */
+        button.reset-button { background-color: #e11d48; /* rose-600 */ }
+        button.reset-button:hover:not(:disabled) { background-color: #be123c; /* rose-700 */ }
+        .question-text-container { display: inline; }
+        /* Tab Button Styles */
+        .tab-button {
+            white-space: nowrap; padding: 0.75rem 0.5rem; /* py-3 px-2 */ border-bottom-width: 2px;
+            font-weight: 500; /* medium */ font-size: 0.875rem; /* text-sm */
+            cursor: pointer; transition: color 0.2s ease, border-color 0.2s ease;
+        }
+        .tab-button-inactive {
+             border-color: transparent; color: #6b7280; /* gray-500 */
+        }
+        .tab-button-inactive:hover {
+             color: #374151; /* gray-700 */ border-color: #d1d5db; /* gray-300 */
+        }
+        .tab-button-active {
+            border-color: #4f46e5; /* indigo-600 */ color: #4338ca; /* indigo-700 */
+        }
+        /* Radio button style */
+        input[type="radio"] {
+             color: #4f46e5; /* indigo-600 */
+        }
+        /* Text input style */
+         input[type="text"] {
+             border-color: #d1d5db; /* gray-300 */
+             border-radius: 0.375rem; /* rounded-md */
+             box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05); /* shadow-sm */
+             transition: border-color 0.2s ease, box-shadow 0.2s ease;
+         }
+         input[type="text"]:focus {
+             outline: none;
+             border-color: #6366f1; /* indigo-500 */
+             box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.3); /* focus:ring-indigo-500 with opacity */
+         }
+
+    </style>
+     <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body class="bg-gray-100 p-4 md:p-8">
+
+    <div class="container-box">
+        <h1 class="text-3xl md:text-4xl font-bold text-center mb-4">汉语复习：购物与生活</h1>
+        <p class="text-center text-gray-600 mb-10">请完成下面的练习，检验你的学习成果！</p>
+
+        <div class="mb-6 border-b border-gray-200">
+             <h2 class="text-lg font-semibold mb-2">选择课程:</h2>
+            <nav class="-mb-px flex space-x-4 overflow-x-auto pb-1" aria-label="Lesson Tabs">
+                <button onclick="changeLesson('all')" class="lesson-tab-button tab-button tab-button-active" data-lesson="all">全部课程 (L6-L8)</button>
+                <button onclick="changeLesson(6)" class="lesson-tab-button tab-button tab-button-inactive" data-lesson="6">第六课</button>
+                <button onclick="changeLesson(7)" class="lesson-tab-button tab-button tab-button-inactive" data-lesson="7">第七课</button>
+                <button onclick="changeLesson(8)" class="lesson-tab-button tab-button tab-button-inactive" data-lesson="8">第八课</button>
+            </nav>
+        </div>
+
+        <div class="mb-8 border-b border-gray-200">
+             <h2 class="text-lg font-semibold mb-2">选择题型:</h2>
+            <nav class="-mb-px flex space-x-4 overflow-x-auto pb-1" aria-label="Exercise Tabs">
+                <button onclick="showSection('mc')" class="exercise-tab-button tab-button tab-button-active" data-section="mc">选择题</button>
+                <button onclick="showSection('fib')" class="exercise-tab-button tab-button tab-button-inactive" data-section="fib">填空题</button>
+                <button onclick="showSection('match')" class="exercise-tab-button tab-button tab-button-inactive" data-section="match">连线题</button>
+                <button onclick="showSection('tf')" class="exercise-tab-button tab-button tab-button-inactive" data-section="tf">判断题</button>
+                <button onclick="showSection('scramble')" class="exercise-tab-button tab-button tab-button-inactive" data-section="scramble">连词成句</button>
+            </nav>
+        </div>
+
+        <div id="exercise-content">
+            </div>
+
+    </div>
+
+    <script>
+        // --- Utility Function to Create Pinyin Span ---
+        function createPinyinSpan(pinyinText) {
+            const span = document.createElement('span');
+            span.className = 'pinyin';
+            span.textContent = `(${pinyinText})`;
+            return span;
+        }
+
+        // --- Data Store with Lesson Property (Lessons 6-8) ---
+        const exercises = {
+            mc: [
+                // Lesson 6
+                { lesson: 6, q: ["你想知道", {hanzi:"苹果", pinyin:"píngguǒ"}, "的价格，应该问："], options: ["苹果怎么样？", "苹果多少钱？", "这是苹果吗？"], a: 1 },
+                { lesson: 6, q: ["老板", {hanzi:"(lǎobǎn)"}, "说“十块钱三斤”，这里的", {hanzi:"“斤”", pinyin:"jīn"}, "是中国的哪个单位？"], options: ["长度", "重量", "体积"], a: 1 },
+                { lesson: 6, q: "“两块五”是多少钱？", options: ["￥25.00", "￥2.50", "￥0.25"], a: 1 },
+                { lesson: 6, q: [{hanzi:"苹果", pinyin:"píngguǒ"}, "又大又甜。“又...又...”表示什么？"], options: ["或者...或者...", "不是...而是...", "既...也..."], a: 2 },
+                { lesson: 6, q: ["“", {hanzi:"香蕉", pinyin:"xiāngjiāo"}, "呢？” 这句话用“呢”来做什么？"], options: ["表示惊讶", "提出建议", "询问相关事物"], a: 2 },
+                { lesson: 6, q: "在中国买水果，问重量时常用哪个词？", options: ["公斤", "斤", "两个都常用"], a: 2 },
+                { lesson: 6, q: ["橘子", {hanzi:"(júzi)"}, "很新鲜", {hanzi:"(xīnxiān)"}, "” 中的“很”是什么作用？"], options: ["表示程度非常高", "连接名词和形容词", "表示比较"], a: 1 },
+                { lesson: 6, q: "如果你想买 2 公斤苹果，应该说：", options: ["我要买二公斤苹果。", "我要买两公斤苹果。", "我要买两斤苹果。"], a: 1 },
+                { lesson: 6, q: "老板说“七块钱一公斤”，这是什么价格？", options: ["一斤的价格", "一公斤的价格", "三斤的价格"], a: 1 },
+                { lesson: 6, q: ["“那", {hanzi:"(nà)"}, "买香蕉吧！” 中的“那”表示什么？"], options: ["在那里", "那个", "那么，就"], a: 2 },
+                // Lesson 7
+                { lesson: 7, q: ["跟", {hanzi:"售货员", pinyin:"shòuhuòyuán"}, "打招呼，用哪个更礼貌？"], options: ["喂", "你好", "您好"], a: 2 },
+                { lesson: 7, q: ["“", {hanzi:"矿泉水", pinyin:"kuàngquánshuǐ"}, "”、“", {hanzi:"牛奶", pinyin:"niúnǎi"}, "”、“", {hanzi:"饮料", pinyin:"yǐnliào"}, "”一般用哪个量词？"], options: ["个", "瓶", "盒"], a: 1 },
+                { lesson: 7, q: ["买两盒", {hanzi:"牛奶", pinyin:"niúnǎi"}, "，应该说："], options: ["买二盒牛奶", "买两盒牛奶", "买二个牛奶"], a: 1 },
+                { lesson: 7, q: ["“非常好喝”中的", {hanzi:"“非常”", pinyin:"fēicháng"}, "是什么意思？"], options: ["一点点", "不", "特别，很"], a: 2 },
+                { lesson: 7, q: "买完东西后，计算总价钱用哪个词？", options: ["再", "都", "一共"], a: 2 },
+                { lesson: 7, q: ["“这儿", {hanzi:"(zhèr)"}, "有矿泉水吗？” 是在问："], options: ["矿泉水好喝吗？", "这里卖不卖矿泉水？", "矿泉水多少钱？"], a: 1 },
+                { lesson: 7, q: "“小瓶的两块，大瓶的五块。” 这句话省略了哪个词？", options: ["钱", "饮料", "卖"], a: 0 },
+                { lesson: 7, q: ["“再", {hanzi:"(zài)"}, "买两盒牛奶” 中的“再”表示什么？"], options: ["动作重复或补充", "动作已经完成", "动作将要发生"], a: 0 },
+                { lesson: 7, q: ["学生们都", {hanzi:"(dōu)"}, "很喜欢” 中的“都”表示："], options: ["也", "全部", "很"], a: 1 },
+                { lesson: 7, q: ["哪个量词通常用于“笔记本", {hanzi:"(bǐjìběn)"}, "”？"], options: ["瓶", "盒", "个"], a: 2 },
+                // Lesson 8
+                { lesson: 8, q: ["询问“How is life in China?”，可以说："], options: ["你在中国吗？", "在中国的", {hanzi:"生活", pinyin:"shēnghuó"}, "怎么样？", "中国有意思吗？"], a: 1 },
+                { lesson: 8, q: ["“", {hanzi:"平时", pinyin:"píngshí"}, "没有意思，", {hanzi:"周末", pinyin:"zhōumò"}, "很有意思。” 这句话说明："], options: ["周末和平时一样", "周末比平时更有意思", "平时比周末更有意思"], a: 1 },
+                { lesson: 8, q: ["“", {hanzi:"看看书", pinyin:"kànkan shū"}, "”、“", {hanzi:"听听音乐", pinyin:"tīngting yīnyuè"}, "”中的动词重叠表示："], options: ["动作做了很长时间", "动作很困难", "动作时间短或轻松随意"], a: 2 },
+                { lesson: 8, q: ["现在", {hanzi:"快", pinyin:"kuài"}, "八", {hanzi:"点", pinyin:"diǎn"}, "了，我", {hanzi:"该", pinyin:"gāi"}, " ____ 了。"], options: ["睡觉 (shuìjiào)", "起床 (qǐchuáng)", "吃饭 (chīfàn)"], a: 1 },
+                { lesson: 8, q: ["他", {hanzi:"昨天", pinyin:"zuótiān"}, "晚上十二点", {hanzi:"才", pinyin:"cái"}, "____。"], options: ["起床 (qǐchuáng)", "睡觉 (shuìjiào)", "上课 (shàng kè)"], a: 1 },
+                { lesson: 8, q: ["A: 我们什么时候", {hanzi:"见面", pinyin:"jiànmiàn"}, "？ B: ", {hanzi:"一会儿", pinyin:"yíhuìr"}, "在", {hanzi:"茶馆", pinyin:"cháguǎn"}, "见吧。 “一会儿”表示："], options: ["很长时间", "一小时", "一小段时间"], a: 2 },
+                { lesson: 8, q: ["对不起，我", {hanzi:"迟到", pinyin:"chídào"}, "了十分钟", {hanzi:"(fēnzhōng)", pinyin:""}, "。 这句话的意思是："], options: ["他早到了十分钟", "他晚到了十分钟", "他准时到了"], a: 1 },
+                { lesson: 8, q: ["“你", {hanzi:"别", pinyin:"bié"}, "着急", {hanzi:"(zháojí)", pinyin:""}, "” 的意思是："], options: ["你应该着急", "不要着急", "你很着急"], a: 1 },
+                 { lesson: 8, q: "“几点了？” 是用来问：", options: ["日期", "星期几", "时间"], a: 2 },
+                { lesson: 8, q: ["“他七点就", {hanzi:"(jiù)"}, "起床了。” 这句话里的“就”表示："], options: ["动作发生得晚", "动作发生得早", "动作还没发生"], a: 1 },
+            ],
+            fib: [
+                // L6
+                { lesson: 6, q: [{hanzi:"西瓜", pinyin:"xīguā"}, "三块钱一 ____。"], a: "斤" },
+                { lesson: 6, q: [{hanzi:"橘子", pinyin:"júzi"}, "很新鲜，", {hanzi:"苹果", pinyin:"píngguǒ"}, " ____ 很新鲜。"], a: "也" },
+                { lesson: 6, q: ["十块钱 ____ 斤", {hanzi:"苹果", pinyin:"píngguǒ"}, "。"], a: "三" },
+                { lesson: 6, q: ["我们买", {hanzi:"香蕉", pinyin:"xiāngjiāo"}, " ____！ (表示建议)"], a: "吧" },
+                { lesson: 6, q: ["老板，这个苹果", {hanzi:"(píngguǒ)"}, " ____ 钱一斤？"], a: "多少" },
+                { lesson: 6, q: ["香蕉", {hanzi:"(xiāngjiāo)"}, "两 ____ 钱一斤，很便宜。"], a: "块" },
+                { lesson: 6, q: ["这种橘子", {hanzi:"(júzi)"}, " ____ 大 ____ 甜。"], a: "又" }, // Requires two blanks
+                { lesson: 6, q: ["五块钱一 ____ ", {hanzi:"(gōngjīn)", pinyin:""}, "。"], a: "公斤" },
+                { lesson: 6, q: ["这个西瓜", {hanzi:"(xīguā)"}, " ____ 好吃", {hanzi:"(hǎochī)", pinyin:""}, "。"], a: "很" }, // Accept 非常 too
+                { lesson: 6, q: ["A: 苹果", {hanzi:"(píngguǒ)"}, "十块钱三斤。 B: ____，有点儿贵。"], a: "哦" }, // Accept 嗯 too
+                // L7
+                { lesson: 7, q: [{hanzi:"牛奶", pinyin:"niúnǎi"}, "多少钱一 ____？"], a: "盒" },
+                { lesson: 7, q: ["请问，这儿", {hanzi:"(zhèr)"}, " ____ ", {hanzi:"矿泉水", pinyin:"kuàngquánshuǐ"}, "吗？"], a: "有" },
+                { lesson: 7, q: ["我买了一瓶", {hanzi:"饮料", pinyin:"yǐnliào"}, "，想 ____ 买一个", {hanzi:"笔记本", pinyin:"bǐjìběn"}, "。"], a: "再" },
+                { lesson: 7, q: "这些东西 ____ 二十块钱。", a: "一共" },
+                { lesson: 7, q: ["大瓶", {hanzi:"(píng)"}, "的五 ____，小瓶的两块。"], a: "块" },
+                { lesson: 7, q: ["这种", {hanzi:"(zhǒng)"}, "饮料", {hanzi:"(yǐnliào)"}, "好喝", {hanzi:"(hǎohē)"}, "吗？"], a: "?" },
+                { lesson: 7, q: ["____ 好喝，学生们都很喜欢。"], a: "非常" },
+                { lesson: 7, q: ["____ 您钱，谢谢。"], a: "给" },
+                { lesson: 7, q: ["买一 ____ 小瓶的矿泉水", {hanzi:"(kuàngquánshuǐ)", pinyin:""}, "。"], a: "瓶" },
+                { lesson: 7, q: ["再买一 ____ 笔记本", {hanzi:"(bǐjìběn)", pinyin:""}, "。"], a: "个" },
+                // L8
+                { lesson: 8, q: ["在中国的", {hanzi:"生活", pinyin:"shēnghuó"}, " ____？"], a: "怎么样" },
+                { lesson: 8, q: ["他", {hanzi:"平时", pinyin:"píngshí"}, {hanzi:"上午", pinyin:"shàngwǔ"}, " ____ 课。"], a: "上" },
+                { lesson: 8, q: [{hanzi:"晚上", pinyin:"wǎnshang"}, "他喜欢 ____ ", {hanzi:"音乐", pinyin:"yīnyuè"}, "。"], a: ["听听", "听"] },
+                { lesson: 8, q: ["现在几", {hanzi:"点", pinyin:"diǎn"}, "了？ ____ 七点了。"], a: "快" },
+                { lesson: 8, q: ["他八点上课，但是八点半 ____ 到", {hanzi:"教室", pinyin:"jiàoshì"}, "。"], a: "才" },
+                { lesson: 8, q: ["我们", {hanzi:"先", pinyin:"xiān"}, "吃饭，____ 去看电影。"], a: "再" }, // or 然后
+                { lesson: 8, q: ["我的", {hanzi:"家", pinyin:"jiā"}, " ____ ", {hanzi:"学校", pinyin:"xuéxiào"}, "很近。"], a: "离" },
+                 { lesson: 8, q: ["太晚", {hanzi:"(wǎn)"}, "了，你 ____ 睡觉", {hanzi:"(shuìjiào)"}, "了。"], a: "该" },
+                { lesson: 8, q: ["请等", {hanzi:"(děng)"}, "我 ____，我马上来。"], a: "一会儿" },
+                { lesson: 8, q: ["你别", {hanzi:"(bié)"}, " ____，还有时间", {hanzi:"(shíjiān)", pinyin:""}, "。"], a: "着急" },
+            ],
+            match: [
+                // L6 - Combine into one set of 10
+                {   lesson: 6,
+                    prompt: "请将左侧的词语和右侧的意思或单位连线：",
+                    items: [ { hanzi: "苹果", pinyin: "píngguǒ" }, { hanzi: "香蕉", pinyin: "xiāngjiāo" }, { hanzi: "西瓜", pinyin: "xīguā" }, { hanzi: "橘子", pinyin: "júzi" }, { hanzi: "多少钱", pinyin:"duōshǎo qián"}, { hanzi: "斤", pinyin:"jīn"}, { hanzi: "便宜", pinyin:"piányi"}, { hanzi: "公斤", pinyin:"gōngjīn"}, { hanzi: "两块", pinyin:"liǎng kuài"}, { hanzi: "两块五", pinyin:"liǎng kuài wǔ"} ],
+                    targets: [ { hanzi: "Orange", pinyin: "" }, { hanzi: "Watermelon", pinyin: "" }, { hanzi: "Apple", pinyin: "" }, { hanzi: "Banana", pinyin: "" }, { hanzi: "Cheap", pinyin: "" }, { hanzi: "How much?", pinyin: "" }, { hanzi: "500g", pinyin: "" }, { hanzi: "1000g", pinyin: "" }, { hanzi: "￥2.00", pinyin: "" }, { hanzi: "￥2.50", pinyin: "" } ],
+                    correctPairs: { "苹果": "Apple", "香蕉": "Banana", "西瓜": "Watermelon", "橘子": "Orange", "多少钱": "How much?", "斤": "500g", "便宜": "Cheap", "公斤": "1000g", "两块": "￥2.00", "两块五": "￥2.50" }
+                },
+                // L7 - Combine into one set of 10
+                {   lesson: 7,
+                    prompt: "请将左侧的词语和右侧的意思或量词连线：",
+                    items: [ { hanzi: "矿泉水", pinyin: "kuàngquánshuǐ" }, { hanzi: "牛奶", pinyin: "niúnǎi" }, { hanzi: "饮料", pinyin: "yǐnliào" }, { hanzi: "笔记本", pinyin: "bǐjìběn" }, { hanzi: "瓶", pinyin:"píng"}, { hanzi: "盒", pinyin:"hé"}, { hanzi: "个", pinyin:"ge"}, { hanzi: "好喝", pinyin:"hǎohē"}, { hanzi: "一共", pinyin:"yígòng"}, { hanzi: "再", pinyin:"zài"} ],
+                    targets: [ { hanzi: "Notebook", pinyin: "" }, { hanzi: "Beverage", pinyin: "" }, { hanzi: "Mineral Water", pinyin: "" }, { hanzi: "Milk", pinyin: "" }, { hanzi: "Measure word (box)", pinyin: "" }, { hanzi: "Measure word (general)", pinyin: "" }, { hanzi: "Measure word (bottle)", pinyin: "" }, { hanzi: "Altogether", pinyin: "" }, { hanzi: "Again/in addition", pinyin: "" }, { hanzi: "Tasty (drinks)", pinyin: "" } ],
+                    correctPairs: { "矿泉水": "Mineral Water", "牛奶": "Milk", "饮料": "Beverage", "笔记本": "Notebook", "瓶": "Measure word (bottle)", "盒": "Measure word (box)", "个": "Measure word (general)", "好喝": "Tasty (drinks)", "一共": "Altogether", "再": "Again/in addition" }
+                },
+                // L8 - Combine into one set of 10
+                {   lesson: 8,
+                    prompt: "请将左侧的词语和右侧的意思或时间连线：",
+                    items: [ { hanzi: "起床", pinyin: "qǐchuáng" }, { hanzi: "上课", pinyin: "shàng kè" }, { hanzi: "聊天儿", pinyin: "liáotiānr" }, { hanzi: "睡觉", pinyin: "shuìjiào" }, { hanzi: "昨天", pinyin:"zuótiān"}, { hanzi: "一会儿", pinyin:"yíhuìr"}, { hanzi: "已经", pinyin:"yǐjīng"}, { hanzi: "别", pinyin:"bié"}, { hanzi: "才", pinyin:"cái"}, { hanzi: "就", pinyin:"jiù"} ],
+                    targets: [ { hanzi: "Get up", pinyin: "" }, { hanzi: "Attend class", pinyin: "" }, { hanzi: "Chat", pinyin: "" }, { hanzi: "Sleep", pinyin: "" }, { hanzi: "Yesterday", pinyin: "" }, { hanzi: "A little while", pinyin: "" }, { hanzi: "Already", pinyin: "" }, { hanzi: "Don't", pinyin: "" }, { hanzi: "Not until (late)", pinyin: "" }, { hanzi: "As early as", pinyin: "" } ],
+                    correctPairs: { "起床": "Get up", "上课": "Attend class", "聊天儿": "Chat", "睡觉": "Sleep", "昨天": "Yesterday", "一会儿": "A little while", "已经": "Already", "别": "Don't", "才": "Not until (late)", "就": "As early as" }
+                }
+            ],
+            tf: [
+                // L6
+                { lesson: 6, q: ["在中国买水果，重量单位只用", {hanzi:"“公斤”", pinyin:"gōngjīn"}, "。"], a: false },
+                { lesson: 6, q: "“两块五”意思是 25 块钱。", a: false },
+                { lesson: 6, q: ["“又大又甜”表示又大又咸。"], a: false },
+                { lesson: 6, q: ["“斤”是中国常用的重量单位，等于 500 克。"], a: true },
+                { lesson: 6, q: ["“公斤”比“斤”重。"], a: true },
+                { lesson: 6, q: ["说“两斤”比说“二斤”更常用。"], a: true },
+                { lesson: 6, q: ["“呢”用在句末只能表示疑问。"], a: false },
+                { lesson: 6, q: ["“吧”可以用在陈述句末尾，表示不太确定。"], a: true },
+                { lesson: 6, q: ["形容词前面一定要加“很”。"], a: false },
+                { lesson: 6, q: ["“好吃”可以用来形容水果。"], a: true },
+                // L7
+                { lesson: 7, q: ["问", {hanzi:"饮料", pinyin:"yǐnliào"}, "好不好喝，可以说“好吃吗？”。"], a: false },
+                { lesson: 7, q: ["买两个", {hanzi:"本子", pinyin:"běnzi"}, "，应该说“买二个本子”。"], a: false },
+                { lesson: 7, q: "“一共”是用来问为什么的。", a: false },
+                { lesson: 7, q: ["“您好”比“你好”更礼貌。"], a: true },
+                { lesson: 7, q: ["“售货员”是指买东西的人。"], a: false },
+                { lesson: 7, q: ["“这儿”和“这里”意思一样。"], a: true },
+                { lesson: 7, q: ["“再”只能表示动作重复。"], a: false },
+                { lesson: 7, q: ["“都”可以放在名词后面。"], a: false },
+                { lesson: 7, q: ["量词“瓶”可以用来数书。"], a: false },
+                { lesson: 7, q: ["“给您钱”是付款时礼貌的说法。"], a: true },
+                // L8
+                { lesson: 8, q: ["“", {hanzi:"平时", pinyin:"píngshí"}, "”指的是", {hanzi:"周末", pinyin:"zhōumò"}, "。"], a: false },
+                { lesson: 8, q: ["动词重叠，比如“看看”，表示动作持续了很久。"], a: false },
+                { lesson: 8, q: ["“", {hanzi:"没有意思", pinyin:"méiyǒu yìsi"}, "”表示“很有趣”。"], a: false },
+                { lesson: 8, q: ["“快八点了”表示现在已经是八点。"], a: false },
+                { lesson: 8, q: ["“他九点才来”表示他来得很早。"], a: false },
+                { lesson: 8, q: ["“别说话”的意思是“请说话”。"], a: false },
+                 { lesson: 8, q: ["“该...了”表示建议或时间到了。"], a: true },
+                { lesson: 8, q: ["“就”和“才”都可以表示动作发生的时间，但意思相反。"], a: true },
+                { lesson: 8, q: ["“离”可以用来表示时间距离。"], a: false },
+                { lesson: 8, q: ["“点”和“小时”都可以表示时间长度。"], a: false },
+            ],
+             scramble: [
+                // L6
+                { lesson: 6, q: "请用以下词语组成句子：", words: [{hanzi:"钱", pinyin:"qián"}, {hanzi:"多少", pinyin:"duōshǎo"}, {hanzi:"苹果", pinyin:"píngguǒ"}, {hanzi:"一斤", pinyin:"yì jīn"}, {hanzi:"？", pinyin:""}], a: "苹果一斤多少钱？" },
+                { lesson: 6, q: "请用以下词语组成句子：", words: [{hanzi:"新鲜", pinyin:"xīnxiān"}, {hanzi:"很", pinyin:"hěn"}, {hanzi:"橘子", pinyin:"júzi"}, {hanzi:"。", pinyin:""}], a: "橘子很新鲜。" },
+                { lesson: 6, q: "请用以下词语组成句子：", words: [{hanzi:"吧", pinyin:"ba"}, {hanzi:"买", pinyin:"mǎi"}, {hanzi:"那", pinyin:"nà"}, {hanzi:"香蕉", pinyin:"xiāngjiāo"}, {hanzi:"。", pinyin:""}], a: "那买香蕉吧。" },
+                { lesson: 6, q: "请用以下词语组成句子：", words: [{hanzi:"甜", pinyin:"tián"}, {hanzi:"又", pinyin:"yòu"}, {hanzi:"大", pinyin:"dà"}, {hanzi:"又", pinyin:"yòu"}, {hanzi:"苹果", pinyin:"píngguǒ"}, {hanzi:"。", pinyin:""}], a: "苹果又大又甜。" },
+                { lesson: 6, q: "请用以下词语组成句子：", words: [{hanzi:"老板", pinyin:"lǎobǎn"}, {hanzi:"两块", pinyin:"liǎng kuài"}, {hanzi:"香蕉", pinyin:"xiāngjiāo"}, {hanzi:"说", pinyin:"shuō"}, {hanzi:"一斤", pinyin:"yì jīn"}, {hanzi:"。", pinyin:""}], a: "老板说香蕉两块一斤。" },
+                { lesson: 6, q: "请用以下词语组成句子：", words: [{hanzi:"公斤", pinyin:"gōngjīn"}, {hanzi:"西瓜", pinyin:"xīguā"}, {hanzi:"多少钱", pinyin:"duōshǎo qián"}, {hanzi:"一", pinyin:"yī"}, {hanzi:"？", pinyin:""}], a: "西瓜一公斤多少钱？" },
+                { lesson: 6, q: "请用以下词语组成句子：", words: [{hanzi:"也", pinyin:"yě"}, {hanzi:"便宜", pinyin:"piányi"}, {hanzi:"香蕉", pinyin:"xiāngjiāo"}, {hanzi:"很", pinyin:"hěn"}, {hanzi:"。", pinyin:""}], a: "香蕉也很便宜。" },
+                { lesson: 6, q: "请用以下词语组成句子：", words: [{hanzi:"三斤", pinyin:"sān jīn"}, {hanzi:"苹果", pinyin:"píngguǒ"}, {hanzi:"十块钱", pinyin:"shí kuài qián"}, {hanzi:"。", pinyin:""}], a: "苹果十块钱三斤。" },
+                { lesson: 6, q: "请用以下词语组成句子：", words: [{hanzi:"呢", pinyin:"ne"}, {hanzi:"橘子", pinyin:"júzi"}, {hanzi:"多少钱", pinyin:"duōshǎo qián"}, {hanzi:"？", pinyin:""}], a: "橘子多少钱呢？" },
+                { lesson: 6, q: "请用以下词语组成句子：", words: [{hanzi:"这个", pinyin:"zhège"}, {hanzi:"很", pinyin:"hěn"}, {hanzi:"西瓜", pinyin:"xīguā"}, {hanzi:"大", pinyin:"dà"}, {hanzi:"。", pinyin:""}], a: "这个西瓜很大。" },
+                // L7
+                { lesson: 7, q: "请用以下词语组成句子：", words: [{hanzi:"吗", pinyin:"ma"}, {hanzi:"有", pinyin:"yǒu"}, {hanzi:"这儿", pinyin:"zhèr"}, {hanzi:"牛奶", pinyin:"niúnǎi"}, {hanzi:"？", pinyin:""}], a: "这儿有牛奶吗？" },
+                { lesson: 7, q: "请用以下词语组成句子：", words: [{hanzi:"两盒", pinyin:"liǎng hé"}, {hanzi:"买", pinyin:"mǎi"}, {hanzi:"再", pinyin:"zài"}, {hanzi:"牛奶", pinyin:"niúnǎi"}, {hanzi:"我", pinyin:"wǒ"}, {hanzi:"。", pinyin:""}], a: "我再买两盒牛奶。" },
+                { lesson: 7, q: "请用以下词语组成句子：", words: [{hanzi:"喜欢", pinyin:"xǐhuān"}, {hanzi:"都", pinyin:"dōu"}, {hanzi:"学生们", pinyin:"xuéshengmen"}, {hanzi:"很", pinyin:"hěn"}, {hanzi:"。", pinyin:""}], a: "学生们都很喜欢。" },
+                { lesson: 7, q: "请用以下词语组成句子：", words: [{hanzi:"好喝", pinyin:"hǎohē"}, {hanzi:"饮料", pinyin:"yǐnliào"}, {hanzi:"非常", pinyin:"fēicháng"}, {hanzi:"这种", pinyin:"zhè zhǒng"}, {hanzi:"。", pinyin:""}], a: "这种饮料非常好喝。" },
+                { lesson: 7, q: "请用以下词语组成句子：", words: [{hanzi:"钱", pinyin:"qián"}, {hanzi:"多少", pinyin:"duōshǎo"}, {hanzi:"一盒", pinyin:"yì hé"}, {hanzi:"牛奶", pinyin:"niúnǎi"}, {hanzi:"？", pinyin:""}], a: "牛奶一盒多少钱？" },
+                { lesson: 7, q: "请用以下词语组成句子：", words: [{hanzi:"一个", pinyin:"yí ge"}, {hanzi:"买", pinyin:"mǎi"}, {hanzi:"笔记本", pinyin:"bǐjìběn"}, {hanzi:"再", pinyin:"zài"}, {hanzi:"。", pinyin:""}], a: "再买一个笔记本。" },
+                { lesson: 7, q: "请用以下词语组成句子：", words: [{hanzi:"给", pinyin:"gěi"}, {hanzi:"钱", pinyin:"qián"}, {hanzi:"您", pinyin:"nín"}, {hanzi:"。", pinyin:""}], a: "给您钱。" },
+                { lesson: 7, q: "请用以下词语组成句子：", words: [{hanzi:"大瓶的", pinyin:"dà píng de"}, {hanzi:"五块", pinyin:"wǔ kuài"}, {hanzi:"，", pinyin:""}, {hanzi:"两块", pinyin:"liǎng kuài"}, {hanzi:"小瓶的", pinyin:"xiǎo píng de"}, {hanzi:"。", pinyin:""}], a: "小瓶的两块，大瓶的五块。" },
+                { lesson: 7, q: "请用以下词语组成句子：", words: [{hanzi:"吗", pinyin:"ma"}, {hanzi:"好喝", pinyin:"hǎohē"}, {hanzi:"饮料", pinyin:"yǐnliào"}, {hanzi:"？", pinyin:""}], a: "饮料好喝吗？" },
+                { lesson: 7, q: "请用以下词语组成句子：", words: [{hanzi:"一共", pinyin:"yígòng"}, {hanzi:"钱", pinyin:"qián"}, {hanzi:"多少", pinyin:"duōshǎo"}, {hanzi:"？", pinyin:""}], a: "一共多少钱？" },
+                 // L8
+                { lesson: 8, q: "请用以下词语组成句子：", words: [{hanzi:"起床", pinyin:"qǐchuáng"}, {hanzi:"了", pinyin:"le"}, {hanzi:"该", pinyin:"gāi"}, {hanzi:"。", pinyin:""}], a: "该起床了。" },
+                { lesson: 8, q: "请用以下词语组成句子：", words: [{hanzi:"才", pinyin:"cái"}, {hanzi:"他", pinyin:"tā"}, {hanzi:"来", pinyin:"lái"}, {hanzi:"九点", pinyin:"jiǔ diǎn"}, {hanzi:"。", pinyin:""}], a: "他九点才来。" },
+                { lesson: 8, q: "请用以下词语组成句子：", words: [{hanzi:"离", pinyin:"lí"}, {hanzi:"近", pinyin:"jìn"}, {hanzi:"学校", pinyin:"xuéxiào"}, {hanzi:"很", pinyin:"hěn"}, {hanzi:"家", pinyin:"jiā"}, {hanzi:"。", pinyin:""}], a: "家离学校很近。" },
+                { lesson: 8, q: "请用以下词语组成句子：", words: [{hanzi:"了", pinyin:"le"}, {hanzi:"几点", pinyin:"jǐ diǎn"}, {hanzi:"现在", pinyin:"xiànzài"}, {hanzi:"？", pinyin:""}], a: "现在几点了？" },
+                { lesson: 8, q: "请用以下词语组成句子：", words: [{hanzi:"一会儿", pinyin:"yíhuìr"}, {hanzi:"见", pinyin:"jiàn"}, {hanzi:"在", pinyin:"zài"}, {hanzi:"门口", pinyin:"ménkǒu"}, {hanzi:"。", pinyin:""}], a: "一会儿在门口见。" },
+                { lesson: 8, q: "请用以下词语组成句子：", words: [{hanzi:"别", pinyin:"bié"}, {hanzi:"着急", pinyin:"zháojí"}, {hanzi:"你", pinyin:"nǐ"}, {hanzi:"。", pinyin:""}], a: "你别着急。" },
+                { lesson: 8, q: "请用以下词语组成句子：", words: [{hanzi:"我", pinyin:"wǒ"}, {hanzi:"昨天", pinyin:"zuótiān"}, {hanzi:"才", pinyin:"cái"}, {hanzi:"十二点", pinyin:"shí'èr diǎn"}, {hanzi:"睡觉", pinyin:"shuìjiào"}, {hanzi:"。", pinyin:""}], a: "我昨天十二点才睡觉。" },
+                { lesson: 8, q: "请用以下词语组成句子：", words: [{hanzi:"就", pinyin:"jiù"}, {hanzi:"他", pinyin:"tā"}, {hanzi:"六点", pinyin:"liù diǎn"}, {hanzi:"起床", pinyin:"qǐchuáng"}, {hanzi:"了", pinyin:"le"}, {hanzi:"。", pinyin:""}], a: "他六点就起床了。" },
+                { lesson: 8, q: "请用以下词语组成句子：", words: [{hanzi:"怎么办", pinyin:"zěnmebàn"}, {hanzi:"迟到", pinyin:"chídào"}, {hanzi:"了", pinyin:"le"}, {hanzi:"我", pinyin:"wǒ"}, {hanzi:"？", pinyin:""}], a: "我迟到了怎么办？" },
+                { lesson: 8, q: "请用以下词语组成句子：", words: [{hanzi:"聊天儿", pinyin:"liáotiānr"}, {hanzi:"喝茶", pinyin:"hē chá"}, {hanzi:"去", pinyin:"qù"}, {hanzi:"我们", pinyin:"wǒmen"}, {hanzi:"吧", pinyin:"ba"}, {hanzi:"。", pinyin:""}], a: "我们去喝茶聊天儿吧。" },
+            ]
+        };
+
+        // --- Global State ---
+        let currentLessonScope = 'all';
+        let currentExerciseType = 'mc';
+        let currentQuestionIndex = 0;
+        let score = 0;
+        let sectionData = [];
+        let selectedMatcher = { item: null, itemElement: null, target: null, targetElement: null };
+
+        // --- DOM Elements ---
+        const contentArea = document.getElementById('exercise-content');
+        const lessonTabButtons = document.querySelectorAll('.lesson-tab-button');
+        const exerciseTabButtons = document.querySelectorAll('.exercise-tab-button');
+
+        // --- Functions ---
+
+        function shuffleArray(array) {
+            for (let i = array.length - 1; i > 0; i--) {
+                const j = Math.floor(Math.random() * (i + 1));
+                [array[i], array[j]] = [array[j], array[i]];
+            }
+            return array;
+        }
+
+        function updateTabStyles(buttons, activeDataAttribute, activeValue) {
+             buttons.forEach(button => {
+                const buttonValue = button.getAttribute(activeDataAttribute);
+                if (buttonValue == activeValue) {
+                    button.classList.remove('tab-button-inactive');
+                    button.classList.add('tab-button-active');
+                } else {
+                    button.classList.remove('tab-button-active');
+                    button.classList.add('tab-button-inactive');
+                }
+            });
+        }
+
+        function filterExercises() {
+            const allExercisesOfType = exercises[currentExerciseType] || [];
+            if (currentLessonScope === 'all') {
+                 // When 'all' is selected, include lessons 6, 7, 8
+                sectionData = shuffleArray(allExercisesOfType.filter(q => q.lesson === 6 || q.lesson === 7 || q.lesson === 8));
+            } else {
+                const lessonNum = parseInt(currentLessonScope);
+                if (!isNaN(lessonNum)) {
+                    sectionData = shuffleArray(allExercisesOfType.filter(q => q.lesson === lessonNum));
+                } else {
+                    sectionData = [];
+                }
+            }
+             if (sectionData.length === 0) {
+                console.warn(`No questions found for lesson ${currentLessonScope} and type ${currentExerciseType}`);
+             }
+        }
+
+
+        function changeLesson(lessonScope) {
+            currentLessonScope = lessonScope;
+            updateTabStyles(lessonTabButtons, 'data-lesson', currentLessonScope);
+            currentExerciseType = 'mc'; // Reset to MC when changing lesson
+            updateTabStyles(exerciseTabButtons, 'data-section', currentExerciseType);
+            showSection(currentExerciseType);
+        }
+
+        function showSection(exerciseType) {
+            currentExerciseType = exerciseType;
+            updateTabStyles(exerciseTabButtons, 'data-section', currentExerciseType);
+            currentQuestionIndex = 0;
+            score = 0;
+            selectedMatcher = { item: null, itemElement: null, target: null, targetElement: null };
+            filterExercises();
+            loadQuestion();
+        }
+
+
+        function loadQuestion() {
+            contentArea.innerHTML = '';
+            if (currentQuestionIndex >= sectionData.length) {
+                if (sectionData.length === 0) {
+                    contentArea.innerHTML = `<p class="text-center text-gray-600 p-4">当前选择下没有找到题目。</p>`;
+                } else {
+                    showCompletionMessage();
+                }
+                return;
+            }
+
+            const questionData = sectionData[currentQuestionIndex];
+            const questionDiv = document.createElement('div');
+            questionDiv.className = 'question-section';
+            questionDiv.setAttribute('data-index', currentQuestionIndex);
+
+            const progressText = `问题 ${currentQuestionIndex + 1} / ${sectionData.length}`;
+            const progressElement = document.createElement('p');
+            progressElement.className = 'text-sm text-gray-500 mb-3';
+            progressElement.textContent = progressText;
+            questionDiv.appendChild(progressElement);
+
+            const questionTextContainer = document.createElement('p');
+            questionTextContainer.className = 'text-lg font-medium text-gray-800 mb-4 question-text-container';
+            const questionContent = questionData.q || questionData.prompt;
+            if (Array.isArray(questionContent)) {
+                questionContent.forEach(part => {
+                    if (typeof part === 'string') {
+                        questionTextContainer.appendChild(document.createTextNode(part));
+                    } else if (typeof part === 'object' && part.hanzi) {
+                        questionTextContainer.appendChild(document.createTextNode(part.hanzi));
+                        if (part.pinyin) {
+                            questionTextContainer.appendChild(createPinyinSpan(part.pinyin));
+                        }
+                    }
+                });
+            } else {
+                questionTextContainer.textContent = questionContent;
+            }
+            questionDiv.appendChild(questionTextContainer);
+
+            switch (currentExerciseType) {
+                case 'mc': loadMultipleChoice(questionDiv, questionData); break;
+                case 'fib': loadFillInBlank(questionDiv, questionData); break;
+                case 'match': loadMatching(questionDiv, questionData); break;
+                case 'tf': loadTrueFalse(questionDiv, questionData); break;
+                case 'scramble': loadSentenceScramble(questionDiv, questionData); break;
+            }
+
+            const feedbackDiv = document.createElement('div');
+            feedbackDiv.id = `feedback-${currentQuestionIndex}`;
+            feedbackDiv.className = 'feedback';
+            questionDiv.appendChild(feedbackDiv);
+
+            if (currentExerciseType !== 'match') {
+                const buttonContainer = document.createElement('div');
+                if (currentExerciseType === 'scramble') {
+                     buttonContainer.className = 'mt-4 flex justify-between items-center';
+                     const leftButtons = document.createElement('div');
+                     const resetButton = document.createElement('button');
+                     resetButton.className = 'general-button reset-button';
+                     resetButton.textContent = '重置';
+                     resetButton.onclick = () => resetScramble(currentQuestionIndex);
+                     leftButtons.appendChild(resetButton);
+                     buttonContainer.appendChild(leftButtons);
+                } else {
+                     buttonContainer.className = 'mt-4 flex justify-end';
+                }
+
+                const rightButtons = document.createElement('div');
+                const checkButton = document.createElement('button');
+                checkButton.className = 'general-button';
+                checkButton.textContent = '检查答案';
+                checkButton.onclick = () => checkAnswer(currentQuestionIndex);
+                rightButtons.appendChild(checkButton);
+
+                const nextButton = document.createElement('button');
+                nextButton.id = `next-button-${currentQuestionIndex}`;
+                nextButton.className = 'general-button';
+                nextButton.textContent = '下一题';
+                nextButton.onclick = () => loadQuestion();
+                nextButton.disabled = true;
+                nextButton.style.marginLeft = '0.5rem';
+                rightButtons.appendChild(nextButton);
+
+                buttonContainer.appendChild(rightButtons);
+                questionDiv.appendChild(buttonContainer);
+            }
+            contentArea.appendChild(questionDiv);
+        }
+
+        // --- Question Type Loaders ---
+        function loadMultipleChoice(container, data) {
+            data.options.forEach((option, index) => {
+                const label = document.createElement('label');
+                label.className = 'block mb-2 p-3 border rounded-md hover:bg-indigo-50 cursor-pointer transition duration-150 ease-in-out';
+                const input = document.createElement('input');
+                input.type = 'radio';
+                input.name = `q${currentQuestionIndex}`;
+                input.value = index;
+                input.className = 'mr-2 text-indigo-600 focus:ring-indigo-500';
+                label.appendChild(input);
+                if (typeof option === 'object' && option.hanzi) {
+                    label.appendChild(document.createTextNode(option.hanzi));
+                     if (option.pinyin) { label.appendChild(createPinyinSpan(option.pinyin)); }
+                } else { label.appendChild(document.createTextNode(option)); }
+                container.appendChild(label);
+            });
+        }
+        function loadFillInBlank(container, data) {
+            const input = document.createElement('input');
+            input.type = 'text';
+            input.id = `fib-input-${currentQuestionIndex}`;
+            input.className = 'mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm';
+            input.placeholder = '请输入答案';
+            container.appendChild(input);
+        }
+        function loadMatching(container, data) {
+            const matchingArea = document.createElement('div');
+            matchingArea.className = 'flex flex-col md:flex-row justify-between';
+            const itemsDiv = document.createElement('div');
+            itemsDiv.id = `match-items-${currentQuestionIndex}`;
+            itemsDiv.className = 'flex flex-col space-y-2 mb-4 md:mb-0 md:mr-4';
+            const shuffledItems = shuffleArray([...data.items]);
+            shuffledItems.forEach(itemData => {
+                const item = document.createElement('div');
+                item.className = 'matching-item';
+                item.dataset.hanzi = itemData.hanzi;
+                item.textContent = itemData.hanzi;
+                if (itemData.pinyin) { item.appendChild(createPinyinSpan(itemData.pinyin)); }
+                item.onclick = () => selectMatcher(itemData.hanzi, item, 'item');
+                itemsDiv.appendChild(item);
+            });
+            const targetsDiv = document.createElement('div');
+            targetsDiv.id = `match-targets-${currentQuestionIndex}`;
+            targetsDiv.className = 'flex flex-col space-y-2';
+             const shuffledTargets = shuffleArray([...data.targets]);
+            shuffledTargets.forEach(targetData => {
+                const target = document.createElement('div');
+                target.className = 'matching-target';
+                target.dataset.hanzi = targetData.hanzi;
+                target.textContent = targetData.hanzi;
+                 if (targetData.pinyin) { target.appendChild(createPinyinSpan(targetData.pinyin)); }
+                target.onclick = () => selectMatcher(targetData.hanzi, target, 'target');
+                targetsDiv.appendChild(target);
+            });
+            matchingArea.appendChild(itemsDiv);
+            matchingArea.appendChild(targetsDiv);
+            container.appendChild(matchingArea);
+             const remainingCounter = document.createElement('p');
+            remainingCounter.id = `match-counter-${currentQuestionIndex}`;
+            remainingCounter.className = 'text-sm text-gray-600 mt-4';
+            remainingCounter.textContent = `剩余配对: ${data.items.length}`;
+            container.appendChild(remainingCounter);
+        }
+        function loadTrueFalse(container, data) {
+            const buttonGroup = document.createElement('div');
+            buttonGroup.className = 'flex space-x-4';
+            const trueButton = document.createElement('button');
+            trueButton.className = 'general-button tf-button';
+            trueButton.textContent = '对';
+            trueButton.onclick = () => selectTrueFalse(true, trueButton, buttonGroup);
+            buttonGroup.appendChild(trueButton);
+            const falseButton = document.createElement('button');
+            falseButton.className = 'general-button tf-button';
+            falseButton.textContent = '错';
+            falseButton.onclick = () => selectTrueFalse(false, falseButton, buttonGroup);
+            buttonGroup.appendChild(falseButton);
+            container.appendChild(buttonGroup);
+             container.dataset.selectedValue = '';
+        }
+        function loadSentenceScramble(container, data) {
+            const wordBank = document.createElement('div');
+            wordBank.id = `scramble-bank-${currentQuestionIndex}`;
+            wordBank.className = 'mb-4 p-3 bg-indigo-50 rounded border border-indigo-200';
+            const shuffledWords = shuffleArray([...data.words]);
+            shuffledWords.forEach((wordData, index) => {
+                const button = document.createElement('button');
+                button.className = 'scramble-word-button';
+                button.dataset.hanzi = wordData.hanzi;
+                button.textContent = wordData.hanzi;
+                if (wordData.pinyin) { button.appendChild(createPinyinSpan(wordData.pinyin)); }
+                button.onclick = () => addWordToSentence(wordData.hanzi, button, currentQuestionIndex);
+                wordBank.appendChild(button);
+            });
+            container.appendChild(wordBank);
+            const sentenceArea = document.createElement('div');
+            sentenceArea.id = `scramble-sentence-${currentQuestionIndex}`;
+            sentenceArea.className = 'scramble-sentence-area';
+            sentenceArea.textContent = '';
+            container.appendChild(sentenceArea);
+        }
+
+
+        // --- Answer Checking (FIXED Scramble Check - Remove ALL spaces) ---
+        function checkAnswer(index) {
+             if (index >= sectionData.length) index = sectionData.length - 1;
+             if (index < 0) return; // Added safety check
+
+            const questionData = sectionData[index];
+            const feedbackDiv = document.getElementById(`feedback-${index}`);
+             if (!feedbackDiv) { console.error(`Feedback div not found for index ${index}`); return; } // Safety check
+            let isCorrect = false;
+            let userAnswer;
+             const questionDiv = feedbackDiv.closest('.question-section');
+             if (!questionDiv) { console.error(`Question div not found for index ${index}`); return; } // Safety check
+
+            switch (currentExerciseType) {
+                case 'mc':
+                    const selectedOption = questionDiv.querySelector(`input[name="q${index}"]:checked`);
+                    if (selectedOption) {
+                        userAnswer = parseInt(selectedOption.value);
+                        isCorrect = (userAnswer === questionData.a);
+                        questionDiv.querySelectorAll(`input[name="q${index}"]`).forEach(rb => rb.disabled = true);
+                    } else { displayFeedback(feedbackDiv, false, null, '请选择一个答案！'); return; }
+                    break;
+                case 'fib':
+                    const inputElement = document.getElementById(`fib-input-${index}`);
+                    if (!inputElement) { console.error(`FIB input not found for index ${index}`); return; } // Safety check
+                    userAnswer = inputElement.value.trim();
+                    if (!userAnswer) { displayFeedback(feedbackDiv, false, null, '请输入答案！'); return; }
+                    if (Array.isArray(questionData.a)) { isCorrect = questionData.a.some(ans => ans === userAnswer); }
+                    else { isCorrect = (userAnswer === questionData.a); }
+                    inputElement.disabled = true;
+                    break;
+                 case 'tf':
+                    const selectedValue = questionDiv.dataset.selectedValue;
+                    if (selectedValue === '') { displayFeedback(feedbackDiv, false, null, '请选择“对”或“错”！'); return; }
+                    userAnswer = (selectedValue === 'true');
+                    isCorrect = (userAnswer === questionData.a);
+                    questionDiv.querySelectorAll('.tf-button').forEach(btn => btn.disabled = true);
+                    break;
+                 case 'scramble':
+                     const sentenceArea = document.getElementById(`scramble-sentence-${index}`);
+                     if (!sentenceArea) { console.error(`Scramble area not found for index ${index}`); return; } // Safety check
+                     userAnswer = sentenceArea.textContent;
+
+                     // Remove ALL spaces from both user answer and correct answer before comparing
+                     const normalizedUserAnswer = userAnswer.replace(/\s+/g, '');
+                     const normalizedCorrectAnswer = questionData.a.replace(/\s+/g, '');
+
+                     isCorrect = (normalizedUserAnswer === normalizedCorrectAnswer);
+
+                     questionDiv.querySelectorAll('.scramble-word-button').forEach(btn => btn.disabled = true);
+                     const resetButton = questionDiv.querySelector('.reset-button');
+                     if(resetButton) resetButton.disabled = true;
+                     break;
+                 case 'match': return;
+                 default: console.error(`Unknown exercise type: ${currentExerciseType}`); return; // Handle unknown type
+            }
+             displayFeedback(feedbackDiv, isCorrect, questionData.a);
+             if (isCorrect) { score++; }
+             const nextButton = document.getElementById(`next-button-${index}`);
+             if (nextButton) { nextButton.disabled = false; }
+             const checkButton = questionDiv.querySelector('.general-button:not(.reset-button):not(#next-button-' + index + ')');
+             if(checkButton) checkButton.disabled = true;
+
+             // Increment index only if it matches the one being checked
+             if (currentQuestionIndex === index) {
+                 currentQuestionIndex++;
+             }
+        }
+
+        // --- Specific Logic for Question Types ---
+        function selectMatcher(hanzi, element, type) {
+            if (element.classList.contains('matching-correct') || element.classList.contains('matching-incorrect')) { return; }
+             const questionIndex = parseInt(element.closest('.question-section').dataset.index);
+             const feedbackDiv = document.getElementById(`feedback-${questionIndex}`);
+             if (!feedbackDiv) return;
+             feedbackDiv.textContent = '';
+            if (type === 'item') {
+                if (selectedMatcher.itemElement) selectedMatcher.itemElement.classList.remove('matching-selected');
+                selectedMatcher.item = hanzi; selectedMatcher.itemElement = element; element.classList.add('matching-selected');
+            } else {
+                if (selectedMatcher.targetElement) selectedMatcher.targetElement.classList.remove('matching-selected');
+                selectedMatcher.target = hanzi; selectedMatcher.targetElement = element; element.classList.add('matching-selected');
+            }
+            if (selectedMatcher.item && selectedMatcher.target) { checkMatch(questionIndex); }
+        }
+        function checkMatch(questionIndex) {
+            if (questionIndex < 0 || questionIndex >= sectionData.length) return;
+            const questionData = sectionData[questionIndex];
+            const feedbackDiv = document.getElementById(`feedback-${questionIndex}`);
+            const itemElement = selectedMatcher.itemElement;
+            const targetElement = selectedMatcher.targetElement;
+            if (!feedbackDiv || !itemElement || !targetElement) return;
+
+            const isCorrect = (questionData.correctPairs[selectedMatcher.item] === selectedMatcher.target);
+            if (isCorrect) {
+                itemElement.classList.remove('matching-selected', 'matching-item'); targetElement.classList.remove('matching-selected', 'matching-target');
+                itemElement.classList.add('matching-correct'); targetElement.classList.add('matching-correct');
+                itemElement.onclick = null; targetElement.onclick = null;
+                displayFeedback(feedbackDiv, true);
+                 const itemsContainer = document.getElementById(`match-items-${questionIndex}`);
+                 const counter = document.getElementById(`match-counter-${questionIndex}`);
+                 if (itemsContainer && counter) {
+                    const remaining = itemsContainer.querySelectorAll('.matching-item:not(.matching-correct)').length;
+                    counter.textContent = `剩余配对: ${remaining}`;
+                    if (remaining === 0) {
+                         if (currentQuestionIndex === questionIndex) { currentQuestionIndex++; }
+                        setTimeout(loadQuestion, 1000);
+                    }
+                 }
+            } else {
+                itemElement.classList.add('matching-incorrect'); targetElement.classList.add('matching-incorrect');
+                const correctTargetHanzi = questionData.correctPairs[selectedMatcher.item];
+                displayFeedback(feedbackDiv, false, correctTargetHanzi);
+                 setTimeout(() => {
+                     itemElement.classList.remove('matching-selected', 'matching-incorrect'); targetElement.classList.remove('matching-selected', 'matching-incorrect');
+                     if (!feedbackDiv.classList.contains('feedback-correct')) { feedbackDiv.textContent = ''; feedbackDiv.className = 'feedback'; }
+                 }, 1500);
+            }
+            selectedMatcher = { item: null, itemElement: null, target: null, targetElement: null };
+            if(itemElement) itemElement.classList.remove('matching-selected');
+            if(targetElement) targetElement.classList.remove('matching-selected');
+        }
+        function selectTrueFalse(value, buttonElement, buttonGroup) {
+             const container = buttonElement.closest('.question-section');
+             if (!container) return;
+             container.dataset.selectedValue = value;
+             buttonGroup.querySelectorAll('.tf-button').forEach(btn => { btn.classList.remove('selected'); });
+             buttonElement.classList.add('selected');
+        }
+        function addWordToSentence(hanzi, buttonElement, index) {
+            const sentenceArea = document.getElementById(`scramble-sentence-${index}`);
+            if (!sentenceArea) return;
+            const currentText = sentenceArea.textContent;
+            const needsSpace = currentText.length > 0 && !/\s$/.test(currentText) && !/^[，？。！]/.test(hanzi);
+            if (needsSpace) { sentenceArea.textContent += ' '; }
+            sentenceArea.textContent += hanzi;
+            buttonElement.disabled = true;
+        }
+        function resetScramble(index) {
+            const sentenceArea = document.getElementById(`scramble-sentence-${index}`);
+            const wordBank = document.getElementById(`scramble-bank-${index}`);
+            const feedbackDiv = document.getElementById(`feedback-${index}`);
+            const questionDiv = feedbackDiv?.closest('.question-section');
+
+            if (!sentenceArea || !wordBank || !feedbackDiv || !questionDiv) return;
+
+            sentenceArea.textContent = '';
+            wordBank.querySelectorAll('.scramble-word-button').forEach(btn => { btn.disabled = false; });
+            feedbackDiv.textContent = ''; feedbackDiv.className = 'feedback';
+            const checkButton = questionDiv.querySelector('.general-button:not(.reset-button):not(#next-button-' + index + ')');
+            if(checkButton) checkButton.disabled = false;
+            const nextButton = document.getElementById(`next-button-${index}`);
+            if (nextButton) { nextButton.disabled = true; }
+        }
+
+        // --- Feedback and Completion ---
+        function displayFeedback(element, isCorrect, correctAnswer, customMessage = '') {
+            if (!element) return;
+            if (customMessage) { element.textContent = customMessage; element.className = 'feedback feedback-incorrect'; return; }
+            if (isCorrect) { element.textContent = '正确！'; element.className = 'feedback feedback-correct'; }
+            else {
+                 let feedbackText = '错误. ';
+                 if (currentExerciseType === 'mc') {
+                    const dataIdx = parseInt(element.id.split('-')[1]); // Get index from element ID
+                     if (dataIdx >= 0 && dataIdx < sectionData.length) {
+                         const correctOptionText = sectionData[dataIdx]?.options[correctAnswer] || '';
+                         feedbackText += `正确答案是: ${correctOptionText}`;
+                     } else { feedbackText += `无法获取正确答案。`; }
+                 } else if (currentExerciseType === 'fib' || currentExerciseType === 'scramble') {
+                     const answerToShow = Array.isArray(correctAnswer) ? correctAnswer.join(' / ') : correctAnswer;
+                     feedbackText += `正确答案是: ${answerToShow}`;
+                 } else if (currentExerciseType === 'tf') {
+                      feedbackText += `正确答案是: ${correctAnswer ? '对' : '错'}`;
+                 } else if (currentExerciseType === 'match' && correctAnswer) {
+                     feedbackText += `应该匹配 "${correctAnswer}"`;
+                 }
+                 element.textContent = feedbackText; element.className = 'feedback feedback-incorrect';
+            }
+        }
+        function showCompletionMessage() {
+            let lessonName = "全部课程 (L6-L8)"; // Default for 'all' scope in this version
+            if (currentLessonScope == 6) lessonName = "第六课";
+            if (currentLessonScope == 7) lessonName = "第七课";
+            if (currentLessonScope == 8) lessonName = "第八课";
+            // Removed L9-12 references
+
+            const scorePercentage = sectionData.length > 0 ? Math.round((score / sectionData.length) * 100) : 0;
+            let completionHTML = `
+                <div class="text-center p-6 bg-green-50 rounded-lg border border-green-200">
+                    <h2 class="text-2xl font-semibold text-green-800 mb-3">恭喜你完成本节练习！</h2>`;
+            if (sectionData.length > 0) {
+                 completionHTML += `<p class="text-lg text-green-700">你的得分: ${score} / ${sectionData.length} (${scorePercentage}%)</p>`;
+            } else {
+                 completionHTML += `<p class="text-lg text-gray-600">本次没有题目。</p>`;
+            }
+            completionHTML += `<button onclick="changeLesson('${currentLessonScope}')" class="general-button mt-4">再试一次 (${lessonName})</button>
+                </div> `;
+            contentArea.innerHTML = completionHTML;
+        }
+
+        // --- Initial Load ---
+         document.addEventListener('DOMContentLoaded', () => {
+            changeLesson('all'); // Start with "All Lessons (L6-L8)" selected
+         });
+
+    </script>
+
+</body>
+</html>
