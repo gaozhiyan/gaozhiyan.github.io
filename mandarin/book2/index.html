@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>初级汉语听力练习</title>
+    <!-- Tailwind CSS for styling -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@400;500;700&display=swap" rel="stylesheet">
+    <style>
+        body { font-family: 'Noto Sans SC', sans-serif; }
+        details > summary {
+            list-style: none;
+            cursor: pointer;
+            padding: 0.5rem 1rem;
+            background-color: #f9fafb;
+            border-radius: 0.5rem;
+            transition: background-color 0.2s ease-in-out;
+            display: inline-flex;
+            align-items: center;
+            color: #4b5563;
+            border: 1px solid #e5e7eb;
+        }
+        details > summary::-webkit-details-marker { display: none; }
+        details > summary:hover { background-color: #f3f4f6; }
+        .details-content {
+            padding: 1rem;
+            margin-top: 0.5rem;
+            background-color: #f9fafb;
+            border: 1px solid #e5e7eb;
+            border-radius: 0.5rem;
+        }
+        .chevron { transition: transform 0.3s ease-in-out; margin-left: 0.5rem; }
+        details[open] .chevron { transform: rotate(180deg); }
+        .correct { background-color: #10b981 !important; color: white !important; border-color: #059669 !important; }
+        .incorrect { background-color: #ef4444 !important; color: white !important; border-color: #dc2626 !important; }
+        .question-card {
+            background-color: white;
+            padding: 1.5rem;
+            border-radius: 0.75rem;
+            box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
+        }
+        .tab-container .tab-content { display: none; }
+        .tab-container .tab-content.active { display: block; }
+        .tab-buttons button {
+            padding: 0.75rem 1.5rem;
+            font-weight: 500;
+            color: #4b5563;
+            border-bottom: 2px solid transparent;
+            transition: all 0.3s ease;
+        }
+        .tab-buttons button.active { color: #3b82f6; border-bottom-color: #3b82f6; }
+        #sticky-audio-player {
+            position: -webkit-sticky;
+            position: sticky;
+            top: 0;
+            z-index: 50;
+            transition: top 0.3s;
+        }
+        /* Custom Audio Player Styles */
+        .progress-bar-container {
+            height: 8px;
+            background-color: #e5e7eb;
+            cursor: pointer;
+        }
+        .progress-bar {
+            background-color: #3b82f6;
+            height: 100%;
+            width: 0%;
+        }
+        /* Volume Slider Styles */
+        input[type=range].volume-slider {
+            -webkit-appearance: none;
+            width: 100px;
+            background: transparent;
+        }
+        input[type=range].volume-slider:focus { outline: none; }
+        input[type=range].volume-slider::-webkit-slider-runnable-track {
+            width: 100%;
+            height: 6px;
+            cursor: pointer;
+            background: #d1d5db;
+            border-radius: 9999px;
+        }
+        input[type=range].volume-slider::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            height: 16px;
+            width: 16px;
+            border-radius: 50%;
+            background: #3b82f6;
+            cursor: pointer;
+            margin-top: -5px;
+        }
+    </style>
+</head>
+<body class="bg-gray-50 text-gray-800">
+
+    <div class="container mx-auto max-w-4xl p-4 sm:p-6 md:p-8">
+        <header class="text-center mb-8">
+            <h1 class="text-3xl sm:text-4xl font-bold text-gray-900">初级汉语听力练习</h1>
+        </header>
+
+        <!-- Sticky Audio Player -->
+        <div id="sticky-audio-player" class="bg-white p-4 rounded-lg shadow-lg mb-8 space-y-3">
+            <h3 id="audio-player-title" class="font-semibold text-lg"></h3>
+            <audio id="global-audio-player" class="hidden"></audio>
+
+            <!-- Main Controls -->
+            <div class="flex items-center space-x-4">
+                <button id="play-pause-btn" class="p-2 rounded-full bg-blue-500 text-white hover:bg-blue-600 transition focus:outline-none">
+                    <svg id="play-icon" class="w-6 h-6" fill="currentColor" viewBox="0 0 20 20"><path d="M4.018 15.132A1.25 1.25 0 012.5 14.059V5.94a1.25 1.25 0 011.518-1.073l8.442 4.059a1.25 1.25 0 010 2.146l-8.442 4.059z"></path></svg>
+                    <svg id="pause-icon" class="w-6 h-6 hidden" fill="currentColor" viewBox="0 0 20 20"><path d="M5.75 4.5a.75.75 0 00-1.5 0v11a.75.75 0 001.5 0v-11zM14.25 4.5a.75.75 0 00-1.5 0v11a.75.75 0 001.5 0v-11z"></path></svg>
+                </button>
+                 <div class="flex items-center space-x-2 text-sm font-mono text-gray-500">
+                    <span id="current-time">00:00</span>
+                    <span>/</span>
+                    <span id="duration">00:00</span>
+                </div>
+                <div class="flex-grow progress-bar-container rounded-full overflow-hidden" id="progress-container">
+                    <div class="progress-bar" id="progress-bar"></div>
+                </div>
+            </div>
+
+            <!-- Secondary Controls -->
+             <div class="flex items-center justify-end space-x-4">
+                <div class="flex items-center space-x-2">
+                    <button id="volume-btn" class="text-gray-500 hover:text-blue-500 transition focus:outline-none">
+                        <svg id="volume-high-icon" class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.536 8.464a5 5 0 010 7.072m2.828-9.9a9 9 0 010 12.728M5.586 15H4a1 1 0 01-1-1v-4a1 1 0 011-1h1.586l4.707-4.707C10.923 3.663 12 4.109 12 5v14c0 .891-1.077 1.337-1.707.707L5.586 15z"></path></svg>
+                        <svg id="volume-muted-icon" class="w-6 h-6 hidden" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5.586 15H4a1 1 0 01-1-1v-4a1 1 0 011-1h1.586l4.707-4.707C10.923 3.663 12 4.109 12 5v14c0 .891-1.077 1.337-1.707.707L5.586 15zM17 14l-4-4m0 4l4-4"></path></svg>
+                    </button>
+                    <input type="range" id="volume-slider" min="0" max="1" step="0.01" value="1" class="volume-slider">
+                </div>
+                <button id="speed-btn" class="text-sm font-semibold text-gray-600 bg-gray-100 hover:bg-gray-200 transition px-3 py-1 rounded-full focus:outline-none">1x</button>
+            </div>
+        </div>
+
+
+        <!-- Tab Navigation & Content -->
+        <div class="tab-container">
+            <div class="tab-buttons flex justify-center border-b mb-8">
+                <button onclick="openLesson(event, 'lesson-1')" class="tab-link active">第一单元</button>
+                <button onclick="openLesson(event, 'lesson-2')" class="tab-link">第二单元</button>
+                <button onclick="openLesson(event, 'lesson-3')" class="tab-link">第三单元</button>
+                <button onclick="openLesson(event, 'lesson-4')" class="tab-link">第四单元</button>
+                <button onclick="openLesson(event, 'lesson-5')" class="tab-link">第五单元</button>
+            </div>
+
+            <div id="lesson-1" class="tab-content active"><main class="space-y-8"><section><h2 class="text-2xl font-bold mb-4 pb-2 border-b-2 border-blue-500">一、判断对错</h2><div id="lesson-1-tf-questions" class="space-y-6"></div></section><section><h2 class="text-2xl font-bold mb-4 pb-2 border-b-2 border-green-500">二、选择正确答案</h2><div id="lesson-1-mc-questions" class="space-y-6"></div></section></main></div>
+            <div id="lesson-2" class="tab-content"><main class="space-y-8"><section><h2 class="text-2xl font-bold mb-4 pb-2 border-b-2 border-blue-500">一、判断对错</h2><div id="lesson-2-tf-questions" class="space-y-6"></div></section><section><h2 class="text-2xl font-bold mb-4 pb-2 border-b-2 border-green-500">二、选择正确答案</h2><div id="lesson-2-mc-questions" class="space-y-6"></div></section></main></div>
+            <div id="lesson-3" class="tab-content"><main class="space-y-8"><section><h2 class="text-2xl font-bold mb-4 pb-2 border-b-2 border-blue-500">一、判断对错</h2><div id="lesson-3-tf-questions" class="space-y-6"></div></section><section><h2 class="text-2xl font-bold mb-4 pb-2 border-b-2 border-green-500">二、选择正确答案</h2><div id="lesson-3-mc-questions" class="space-y-6"></div></section></main></div>
+            <div id="lesson-4" class="tab-content"><main class="space-y-8"><section><h2 class="text-2xl font-bold mb-4 pb-2 border-b-2 border-blue-500">一、判断对错</h2><div id="lesson-4-tf-questions" class="space-y-6"></div></section><section><h2 class="text-2xl font-bold mb-4 pb-2 border-b-2 border-green-500">二、选择正确答案</h2><div id="lesson-4-mc-questions" class="space-y-6"></div></section></main></div>
+            <div id="lesson-5" class="tab-content"><main class="space-y-8"><section><h2 class="text-2xl font-bold mb-4 pb-2 border-b-2 border-blue-500">一、判断对错</h2><div id="lesson-5-tf-questions" class="space-y-6"></div></section><section><h2 class="text-2xl font-bold mb-4 pb-2 border-b-2 border-green-500">二、选择正确答案</h2><div id="lesson-5-mc-questions" class="space-y-6"></div></section></main></div>
+        </div>
+    </div>
+
+    <script>
+        const lessonsData = {
+            "lesson-1": { audioTitle: "第一单元: 听力录音 (YKTLB 01-4)", audioSrc: "audios/lesson-01.mp3", tf: [{id:1,display:"★ 这个菜可能是四川菜。",context:"这个菜是辣的，不是甜的。",answer:!0},{id:2,display:"★ 他不喜欢吃四川菜。",context:"除了四川菜，我还喜欢吃鲁菜。",answer:!1},{id:3,display:"★ 小明这次考试的成绩很好。",context:"小明这次考试考得很不错。",answer:!0},{id:4,display:"★ 这里一共有三个国家的学生。",context:"除了韩国学生，这里还有美国学生和英国学生。",answer:!0},{id:5,display:"★ 他可能不经常吃米饭。",context:"他是意大利人，很会做面条儿，可是不会做米饭。",answer:!0}], mc: [{id:6,question:"问：女的会做西红柿炒鸡蛋吗？",dialogue:["男：你会做西红柿炒鸡蛋吗？","女：我不但会做，而且做得非常好吃。"],options:["A. 不会做","B. 很会做","C. 不太会做"],answer:"B"},{id:7,question:"问：男的住在几层？",dialogue:["女：你也住在这儿？你住在哪儿？","男：我住在三层301房间，有空儿来玩儿吧。"],options:["A. 二层","B. 一层","C. 三层"],answer:"C"},{id:8,question:"问：学校附近的面馆儿怎么样？",dialogue:["男：学校附近有好吃的面馆儿吗？","女：有一家很有名的面馆儿，很干净，做的面条儿也很好吃。"],options:["A. 很好","B. 不太干净","C. 面条儿做得不好吃"],answer:"A"},{id:9,question:"问：男的可能是谁？",dialogue:["女：你多长时间能做完今天的作业？","男：二十分钟就够了。妈妈，做完了我能出去玩儿吗？"],options:["A. 儿子","B. 妈妈","C. 爸爸"],answer:"A"},{id:10,question:"问：下面不正确的是哪项？",dialogue:["男：你最近在忙什么？","女：我最近在跟中国老师学打太极拳，所以每天早上都很早起床。"],options:["A. 女的在跟中国老师学习","B. 女的早上起来很晚","C. 女的在学打太极拳"],answer:"B"}]},
+            "lesson-2": { audioTitle: "第二单元: 听力录音", audioSrc: "audios/lesson-02.mp3", tf: [{id:1,display:"★ 他等的人可能迟到了。",context:"我都等你半个多小时了，你怎么才来？",answer:!0},{id:2,display:"★ 不要一边吃饭一边看电视。",context:"一边吃饭一边看电视对身体不好。",answer:!0},{id:3,display:"★ 他同意小王的要求。",context:"我还没决定要不要同意小王的要求。",answer:!1},{id:4,display:"★ 小王很着急。",context:"小王别着急，离会议开始还有半个多小时呢。",answer:!1},{id:5,display:"★ 现在他喜欢跑步了。",context:"我以前不喜欢跑步，现在越来越喜欢。跑步让我越来越健康。",answer:!0}], mc: [{id:6,question:"问：怎么才能学好法语？",dialogue:["男：你的法语说得真好。法语很难学吧？","女：我觉得很容易，一点儿也不难，每天练习就行了。"],options:["A. 多听","B. 多练习","C. 早点儿学习"],answer:"B"},{id:7,question:"问：男的为什么要得第一名？",dialogue:["男：去法国的飞机票。我还没去过法国呢，所以这次一定要得第一名。"],options:["A. 想去法国","B. 奖品很贵","C. 没得过第一名"],answer:"A"},{id:8,question:"问：下面正确的是哪项？",dialogue:["男：你怎么那么了解中国？你去过吗？","女：没有。不过我们班有很多来自中国的留学生，他们经常跟我讲中国的事。"],options:["A. 男的是中国人","B. 女的有中国朋友","C. 女的不了解中国"],answer:"B"},{id:9,question:"问：男的为什么让女的参加比赛？",dialogue:["女：我们公司要举办一个英语比赛，你说我要不要参加。","男：当然要参加。你的发音跟美国人一样好。如果参加，我相信你一定能得第一名。"],options:["A. 女的发音好","B. 女的会说英语","C. 男的想得第一名"],answer:"A"},{id:10,question:"问：下面正确的是哪项？",dialogue:["男：明天我们要去爬泰山，太棒了！","女：泰山是很有名的山，来山东一定要爬泰山。不过我担心山上会冷，所以明天你要多穿点儿衣服。"],options:["A. 山上不冷","B. 泰山在山东","C. 男的不喜欢爬山"],answer:"B"}]},
+            "lesson-3": { audioTitle: "第三单元: 听力录音 (YKTLB 03-4)", audioSrc: "haudios/lesson-03.mp3", tf: [{id:1,display:"★ 他喜欢喝茶。",context:"我不喜欢喝咖啡，但是每天都要喝两杯茶。",answer:!0},{id:2,display:"★ 她买的新裤子太小了。",context:"你看，我长高了，旧裤子都有点儿小了。",answer:!1},{id:3,display:"★ 他今天开车去公司。",context:"我的车坏了，不能开车去公司了。",answer:!1},{id:4,display:"★ 冰箱里有吃的东西。",context:"我买了水果和牛奶，都放在冰箱里了。",answer:!0},{id:5,display:"★ 小王的车是新的、黑色的。",context:"小王在二手店买了这个黑色的车。",answer:!1}], mc: [{id:6,question:"问：女的想吃什么？",dialogue:["男：我们买点儿水果吃吧，香蕉很新鲜，苹果也不错。","女：天这么热，还是买点儿西瓜吧。"],options:["A. 西瓜","B. 苹果","C. 香蕉"],answer:"A"},{id:7,question:"问：男的电脑多少钱？",dialogue:["女：你的电脑真不错，是最新那种，一定很贵吧？","男：原价六千，因为我是学生，可以打折，又便宜了两百块钱。"],options:["A. 5200块","B. 5800块","C. 6000块"],answer:"B"},{id:8,question:"问：男的可能买几号的票？",dialogue:["男：你好，我买了一张7号去上海的车票，但有事不能去了，想换一张晚一点儿的票。","女：8号的票没有了，最早的是9号的。"],options:["A. 7号","B. 8号","C. 9号"],answer:"C"},{id:9,question:"问：女的想干什么？",dialogue:["女：我的汉语书丢了，你知道去哪儿能买到新的吗？","男：在网上买吧，便宜。你今天买了，明天或者后天就能送到你家。"],options:["A. 上网","B. 买书","C. 回家"],answer:"B"},{id:10,question:"问：女的为什么不想带伞？",dialogue:["男：今天可能会下雨，你别忘了带伞。","女：不一定下雨吧。如果下雨了，就在超市买一把伞，也不贵。"],options:["A. 不一定会下雨","B. 伞很便宜","C. 伞太重了"],answer:"A"}]},
+            "lesson-4": { audioTitle: "第四单元: 听力录音 (YKTLB 04-4)", audioSrc: "audios/lesson-04.mp3", tf: [{id:1,display:"★ 这个商店只能用现金付钱。",context:"我们商店可以用银行卡和现金，但还不能用支付宝和微信。",answer:!1},{id:2,display:"★ 除了电视，他还想买个空调。",context:"我想在淘宝上买个电视，还想买个空调，可是不知道选哪个好。",answer:!0},{id:3,display:"★ 他买水给小丽喝。",context:"我渴了，小丽，你能借我点儿钱买瓶矿泉水喝吗？我没带现金。",answer:!1},{id:4,display:"★ 他觉得便宜的东西质量也可能不错。",context:"有句话叫“便宜没好货，好货不便宜”，可是我觉得有时候便宜也有好货。",answer:!0},{id:5,display:"★ 他觉得那件长的比较好。",context:"那件长的衬衫比较适合你，不大不小，穿起来很合适，就买它吧。",answer:!0}], mc: [{id:6,question:"问：男的可能是谁？",dialogue:["男：您好，有什么可以帮您的吗？","女：我想给我妈妈买件衣服，可是不知道哪件合适。"],options:["A. 售货员","B. 女的朋友","C. 服务员"],answer:"A"},{id:7,question:"问：男的在买什么？",dialogue:["女：您好，得买大号的裤子。","男：可是我很瘦，穿大号的不行，中号的应该可以。"],options:["A. 鞋","B. 衣服","C. 裤子"],answer:"C"},{id:8,question:"问：男的想做什么？",dialogue:["男：你好，我的手机没电了，能用一下你的手机吗？我想给我的朋友打个电话。","女：不好意思，我手机的电也不多了，一会儿还有个重要的电话。"],options:["A. 充电","B. 聊天儿","C. 借手机"],answer:"C"},{id:9,question:"问：男的要参加文化活动吗？",dialogue:["女：这个周末有一个文化活动，听起来很有意思，你要参加吗？","男：我还想是去找我的朋友吧。平时他很忙，没有空儿跟我玩儿，所以我只能周末去找他。"],options:["A. 参加","B. 不参加","C. 还没决定"],answer:"B"},{id:10,question:"问：下面不正确的是哪项？",dialogue:["男：你在淘宝买过东西吗？质量怎么样？","女：当然买过，我现在都不去商店。家里吃的、用的都是在淘宝买的，又方便又便宜，质量也不错。"],options:["A. 在淘宝买东西很方便","B. 女的在淘宝买过吃的","C. 男的经常在淘宝买东西"],answer:"C"}]},
+            "lesson-5": { audioTitle: "第五单元: 听力录音 (YKTLB 05-4)", audioSrc: "audios/lesson-05.mp3", tf: [{id:1,display:"★ 他没去过北京。",context:"我小时候去过北京，但是现在都忘了，所以还想再去一次。",answer:!1},{id:2,display:"★ 汉字课对他很有帮助。",context:"上了汉字课以后，我更深入地了解了汉字文化，学汉字也更容易了。",answer:!0},{id:3,display:"★ 他想知道这个句子什么意思。",context:"这个句子是什么意思，你能给我解释一下吗？我的汉语不太好。",answer:!0},{id:4,display:"★ 他的汉语进步很大。",context:"以前我不会说汉语，来中国学习了一年后，我可以用很流利地用汉语聊天儿了。",answer:!0},{id:5,display:"★ 他可能不是大学生。",context:"我也很想上好的大学，可是一看书就想睡觉，一学习就觉得累，所以很早就参加工作了。",answer:!0}], mc: [{id:6,question:"问：这次的活动谁可能不需要参加？",dialogue:["男：这次的运动会，学生们都要参加吗？","女：是的，不但中国学生要参加，而且留学生也要参加。"],options:["A. 教师","B. 留学生","C. 中国学生"],answer:"A"},{id:7,question:"问：他们的儿子为什么成绩不好？",dialogue:["女：儿子的学习成绩怎么越来越差？","男：他不愿意学习。每天一回家就玩儿手机，快睡觉的时候才开始写作业，成绩怎么能好？"],options:["A. 爱玩儿手机","B. 睡很长时间","C. 不写作业"],answer:"A"},{id:8,question:"问：下面正确的是哪项？",dialogue:["男：老师，明天我有事，不能来上课了，想跟您请个假。","女：明天我们有很重要的考试，最好不要请假。"],options:["A. 老师同意请假","B. 明天没有考试","C. 男的明天有事"],answer:"C"},{id:9,question:"问：男的会照顾狗吗？",dialogue:["女：我要去青岛几天，你能帮我照顾一下我的狗吗？","男：行，别担心。我以前照顾过我妹妹的狗，后来还和那只狗成了好朋友呢。"],options:["A. 会","B. 不会","C. 男的不喜欢狗"],answer:"A"},{id:10,question:"问：下面正确的是哪项？",dialogue:["男：到了中国要认真学习。注意安全，晚上别一个人出去。","女：好的，爸爸，您别担心。我一到中国就给您打电话。"],options:["A. 爸爸不担心女儿","B. 女的要去中国学习","C. 女的不能一个人出去"],answer:"B"}]}
+        };
+
+        function createChevron(){const e=document.createElementNS("http://www.w3.org/2000/svg","svg");e.setAttribute("class","chevron h-5 w-5 text-gray-500"),e.setAttribute("viewBox","0 0 20 20"),e.setAttribute("fill","currentColor");const t=document.createElementNS("http://www.w3.org/2000/svg","path");return t.setAttribute("fill-rule","evenodd"),t.setAttribute("d","M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z"),t.setAttribute("clip-rule","evenodd"),e.appendChild(t),e}
+        function populateQuestions(e,t,o){const n=document.getElementById(`${e}-tf-questions`),a=document.getElementById(`${e}-mc-questions`);n.innerHTML="",a.innerHTML="",t.forEach(e=>{const t=document.createElement("div");t.className="question-card space-y-4",t.innerHTML=`\n                    <p class="text-lg font-medium">${e.id}. ${e.display}</p>\n                    <details>\n                        <summary>显示/隐藏原句<span class="chevron-container"></span></summary>\n                        <div class="details-content"><p class="text-gray-600">${e.context}</p></div>\n                    </details>\n                    <div class="flex items-center space-x-4 pt-2">\n                        <button data-answer="true" class="tf-btn flex-1 py-2 px-4 bg-white border border-gray-300 rounded-md shadow-sm hover:bg-gray-100 transition">✓ (对)</button>\n                        <button data-answer="false" class="tf-btn flex-1 py-2 px-4 bg-white border border-gray-300 rounded-md shadow-sm hover:bg-gray-100 transition">✗ (错)</button>\n                    </div>\n                `,t.querySelector("summary .chevron-container").appendChild(createChevron()),n.appendChild(t);const o=t.querySelector(".flex");o.querySelectorAll(".tf-btn").forEach(t=>{t.addEventListener("click",()=>{const n=t.dataset.answer==="true"===e.answer;o.querySelectorAll(".tf-btn").forEach(e=>e.disabled=!0),n?t.classList.add("correct"):(t.classList.add("incorrect"),o.querySelector(`[data-answer="${e.answer}"]`).classList.add("correct"))})})}),o.forEach(e=>{const t=document.createElement("div");t.className="question-card space-y-4";let o="",n="";e.dialogue.forEach(e=>{o+=`<p class="text-gray-700">${e}</p>`}),e.options.forEach(e=>{n+=`<button data-option="${e.split(".")[0]}" class="mc-btn block w-full text-left py-2 px-4 bg-white border border-gray-300 rounded-md shadow-sm hover:bg-gray-100 transition">${e}</button>`}),t.innerHTML=`\n                    <p class="text-lg font-medium">${e.id}. ${e.question}</p>\n                    <details>\n                        <summary>显示/隐藏对话<span class="chevron-container"></span></summary>\n                        <div class="details-content space-y-1">${o}</div>\n                    </details>\n                    <div class="options-container space-y-2 pt-2">${n}</div>\n                `,t.querySelector("summary .chevron-container").appendChild(createChevron()),a.appendChild(t);const s=t.querySelector(".options-container");s.querySelectorAll(".mc-btn").forEach(t=>{t.addEventListener("click",()=>{const o=t.dataset.option===e.answer;s.querySelectorAll(".mc-btn").forEach(e=>e.disabled=!0),o?t.classList.add("correct"):(t.classList.add("incorrect"),s.querySelector(`[data-option="${e.answer}"]`)?.classList.add("correct"))})})})}
+        function openLesson(e,t){let o,n,a;n=document.getElementsByClassName("tab-content");for(o=0;o<n.length;o++)n[o].classList.remove("active");a=document.getElementsByClassName("tab-link");for(o=0;o<a.length;o++)a[o].classList.remove("active");document.getElementById(t).classList.add("active"),e.currentTarget.classList.add("active");const s=lessonsData[t],l=document.getElementById("global-audio-player"),i=document.getElementById("audio-player-title");i.textContent=s.audioTitle,l.dataset.currentLesson!==t&&(l.src=s.audioSrc,l.dataset.currentLesson=t,l.load(),l.play())}
+        document.addEventListener("DOMContentLoaded",()=>{for(const e in lessonsData)populateQuestions(e,lessonsData[e].tf,lessonsData[e].mc);const e="lesson-1",t=lessonsData[e],o=document.getElementById("global-audio-player"),n=document.getElementById("audio-player-title");n.textContent=t.audioTitle,o.src=t.audioSrc,o.dataset.currentLesson=e,document.querySelector(".tab-link").classList.add("active"),document.querySelector(".tab-content").classList.add("active");const a=document.getElementById("play-pause-btn"),s=document.getElementById("play-icon"),l=document.getElementById("pause-icon"),i=document.getElementById("progress-bar"),d=document.getElementById("progress-container"),r=document.getElementById("current-time"),c=document.getElementById("duration"),u=document.getElementById("speed-btn"),m=document.getElementById("volume-btn"),v=document.getElementById("volume-high-icon"),h=document.getElementById("volume-muted-icon"),p=document.getElementById("volume-slider"),g=[.75,1,1.25,1.5,2];let y=1;function b(e){const t=Math.floor(e/60),o=Math.floor(e%60);return`${String(t).padStart(2,"0")}:${String(o).padStart(2,"0")}`}a.addEventListener("click",()=>{o.paused?(o.play(),s.classList.add("hidden"),l.classList.remove("hidden")):(o.pause(),s.classList.remove("hidden"),l.classList.add("hidden"))}),o.addEventListener("play",()=>{s.classList.add("hidden"),l.classList.remove("hidden")}),o.addEventListener("pause",()=>{s.classList.remove("hidden"),l.classList.add("hidden")}),o.addEventListener("timeupdate",()=>{const e=o.currentTime/o.duration*100;i.style.width=`${e}%`,r.textContent=b(o.currentTime)}),o.addEventListener("loadedmetadata",()=>{c.textContent=b(o.duration)}),d.addEventListener("click",e=>{const t=e.offsetX/d.offsetWidth;o.currentTime=t*o.duration}),u.addEventListener("click",()=>{y=(y+1)%g.length,o.playbackRate=g[y],u.textContent=`${g[y]}x`}),p.addEventListener("input",e=>{o.volume=e.target.value,o.muted=!1}),o.addEventListener("volumechange",()=>{o.muted||o.volume===0?(v.classList.add("hidden"),h.classList.remove("hidden")):(v.classList.remove("hidden"),h.classList.add("hidden")),o.muted||(p.value=o.volume)}),m.addEventListener("click",()=>{o.muted=!o.muted})});
+    </script>
+</body>
+</html>
