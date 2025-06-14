@@ -1,0 +1,250 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>初级汉语听力综合测试</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@400;500;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Noto Sans SC', sans-serif;
+        }
+        .question-card {
+            background-color: white;
+            border-radius: 0.75rem;
+            box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
+        }
+        .option-btn {
+            transition: all 0.2s ease-in-out;
+        }
+        .correct {
+            background-color: #10b981 !important;
+            color: white !important;
+            border-color: #059669 !important;
+        }
+        .incorrect {
+            background-color: #ef4444 !important;
+            color: white !important;
+            border-color: #dc2626 !important;
+        }
+        .disabled-options .option-btn:not(.selected) {
+            background-color: #f3f4f6;
+            color: #6b7280;
+            cursor: not-allowed;
+        }
+        #sticky-audio-player {
+            position: -webkit-sticky;
+            position: sticky;
+            top: 0;
+            z-index: 50;
+        }
+        .tab-content {
+            display: none;
+        }
+        .tab-content.active {
+            display: block;
+        }
+        .tab-link.active {
+            border-color: #3b82f6;
+            color: #3b82f6;
+        }
+    </style>
+</head>
+<body class="bg-gray-50 text-gray-800">
+
+    <div class="container mx-auto max-w-4xl p-4 sm:p-6 md:p-8">
+        <header class="text-center mb-8">
+            <h1 class="text-3xl sm:text-4xl font-bold text-gray-900">初级汉语听力综合测试</h1>
+            <p class="text-gray-600 mt-2">请听录音，然后回答问题。</p>
+        </header>
+
+        <!-- Sticky Audio Player -->
+        <div id="sticky-audio-player" class="p-4 bg-white rounded-lg shadow-md mb-6">
+            <h3 id="audio-player-title" class="font-semibold text-lg mb-2">Part 1 Audio</h3>
+            <audio id="main-audio-player" controls class="w-full">
+                <source src="audios/book2-test-1.wav" type="audio/wav">
+                您的浏览器不支持音频播放。
+            </audio>
+        </div>
+
+        <!-- Tab Navigation -->
+        <div class="mb-8 border-b-2 border-gray-200">
+            <nav class="flex -mb-px space-x-6">
+                <button class="tab-link active py-4 px-1 border-b-2 font-medium text-lg" onclick="openPart(event, 'part1')">
+                    第一部分：判断对错
+                </button>
+                <button class="tab-link py-4 px-1 border-b-2 border-transparent font-medium text-lg hover:text-gray-700 hover:border-gray-300" onclick="openPart(event, 'part2')">
+                    第二部分：选择正确答案
+                </button>
+            </nav>
+        </div>
+
+        <main id="quiz-container">
+            <!-- Part 1: True/False -->
+            <section id="part1" class="tab-content active space-y-6">
+                <!-- Questions will be injected here -->
+            </section>
+
+            <!-- Part 2: Multiple Choice -->
+            <section id="part2" class="tab-content space-y-6">
+                <!-- Questions will be injected here -->
+            </section>
+            
+            <!-- Submission and Results -->
+            <div id="results-section" class="text-center pt-12">
+                <button id="submit-btn" class="bg-blue-600 text-white font-bold py-3 px-8 rounded-lg hover:bg-blue-700 transition shadow-lg">
+                    Check Answers & Show Score
+                </button>
+                <div id="score-container" class="mt-8 text-2xl font-bold text-gray-800 hidden"></div>
+                 <button id="reset-btn" class="mt-4 bg-gray-500 text-white font-bold py-2 px-6 rounded-lg hover:bg-gray-600 transition shadow-md hidden">
+                    Retake Test
+                </button>
+            </div>
+        </main>
+    </div>
+
+    <script>
+        const quizData = {
+            part1: [
+                { id: 1, statement: "★ 他不喜欢吃四川菜。", answer: false },
+                { id: 2, statement: "★ 他可能不经常吃米饭。", answer: true },
+                { id: 3, statement: "★ 他等的人可能迟到了。", answer: true },
+                { id: 4, statement: "★ 现在他喜欢跑步了。", answer: true },
+                { id: 5, statement: "★ 他今天开车去公司。", answer: false },
+                { id: 6, statement: "★ 小王的车是新的、黑色的。", answer: false },
+                { id: 7, statement: "★ 他觉得便宜的东西质量也可能不错。", answer: true },
+                { id: 8, statement: "★ 他买水给小丽喝。", answer: false },
+                { id: 9, statement: "★ 他没去过北京。", answer: false },
+                { id: 10, statement: "★ 汉字课对他很有帮助。", answer: true },
+                { id: 11, statement: "★ 他现在可以进图书馆看书。", answer: false },
+                { id: 12, statement: "★ 今天天气很好，很暖和。", answer: false }
+            ],
+            part2: [
+                { id: 13, question: "问：女的会做西红柿炒鸡蛋吗？", options: ["a. 不会做", "b. 很会做", "c. 不太会做"], answer: "b" },
+                { id: 14, question: "问：下面不正确的是哪项？", options: ["a. 女的在跟中国老师学习", "b. 女的早上起来很晚", "c. 女的在学打太极拳"], answer: "b" },
+                { id: 15, question: "问：男的为什么要得第一名？", options: ["a. 想去法国", "b. 奖品很贵", "c. 没得过第一名"], answer: "a" },
+                { id: 16, question: "问：男的为什么让女的参加比赛？", options: ["a. 女的发音好", "b. 女的会说英语", "c. 男的想得第一名"], answer: "a" },
+                { id: 17, question: "问：男的电脑多少钱？", options: ["a. 5200块", "b. 5800块", "c. 6000块"], answer: "b" },
+                { id: 18, question: "问：男的可能买几号的票？", options: ["a. 7号", "b. 8号", "c. 9号"], answer: "c" },
+                { id: 19, question: "问：男的想做什么？", options: ["a. 充电", "b. 聊天儿", "c. 借手机"], answer: "c" },
+                { id: 20, question: "问：下面不正确的是哪项？", options: ["a. 在淘宝买东西很方便", "b. 女的在淘宝买过吃的", "c. 男的经常在淘宝买东西"], answer: "c" },
+                { id: 21, question: "问：他们的儿子为什么成绩不好？", options: ["a. 爱玩儿手机", "b. 睡很长时间", "c. 不写作业"], answer: "a" },
+                { id: 22, question: "问：下面正确的是哪项？", options: ["a. 老师同意请假", "b. 明天没有考试", "c. 男的明天有事"], answer: "c" },
+                { id: 23, question: "问：男的应该怎么去火车站？", options: ["a. 在第一个路口向右转", "b. 在第二个路口向左转", "c. 在第二个路口向右转"], answer: "c" },
+                { id: 24, question: "问：男的买了哪件衬衫？", options: ["a. 黑色的", "b. 白色的", "c. 两件都买了"], answer: "b" },
+                { id: 25, question: "问：关于女的，下面哪项是正确的？", options: ["a. 她这个周末要去工作。", "b. 她一个人去爬山。", "c. 她觉得这个周末天气会很好。"], answer: "c" }
+            ]
+        };
+
+        const userAnswers = {};
+
+        function renderQuiz() {
+            const tfContainer = document.getElementById('part1');
+            const mcContainer = document.getElementById('part2');
+            tfContainer.innerHTML = '';
+            mcContainer.innerHTML = '';
+
+            quizData.part1.forEach(q => {
+                const card = document.createElement('div');
+                card.className = 'question-card p-6';
+                card.innerHTML = `<p class="text-lg font-medium mb-4">${q.id}. ${q.statement}</p><div class="flex space-x-4" data-question-id="${q.id}"><button class="option-btn flex-1 py-2 px-4 bg-white border border-gray-300 rounded-md shadow-sm hover:bg-gray-100" data-value="true">a. 对 (True)</button><button class="option-btn flex-1 py-2 px-4 bg-white border border-gray-300 rounded-md shadow-sm hover:bg-gray-100" data-value="false">b. 错 (False)</button></div>`;
+                tfContainer.appendChild(card);
+            });
+
+            quizData.part2.forEach(q => {
+                const card = document.createElement('div');
+                card.className = 'question-card p-6';
+                let optionsHTML = '';
+                q.options.forEach(opt => {
+                    const value = opt.split('.')[0];
+                    optionsHTML += `<button class="option-btn block w-full text-left py-2 px-4 mb-2 bg-white border border-gray-300 rounded-md shadow-sm hover:bg-gray-100" data-value="${value}">${opt}</button>`;
+                });
+                card.innerHTML = `<p class="text-lg font-medium mb-4">${q.id}. ${q.question}</p><div class="space-y-2" data-question-id="${q.id}">${optionsHTML}</div>`;
+                mcContainer.appendChild(card);
+            });
+
+            document.querySelectorAll('.option-btn').forEach(btn => {
+                btn.addEventListener('click', (e) => {
+                    const questionId = e.currentTarget.parentElement.dataset.questionId;
+                    const value = e.currentTarget.dataset.value;
+                    userAnswers[questionId] = value;
+                    e.currentTarget.parentElement.querySelectorAll('.option-btn').forEach(b => b.classList.remove('ring-2', 'ring-blue-500', 'selected'));
+                    e.currentTarget.classList.add('ring-2', 'ring-blue-500', 'selected');
+                });
+            });
+        }
+        
+        function checkAnswers() {
+            let score = 0;
+            const totalQuestions = quizData.part1.length + quizData.part2.length;
+
+            quizData.part1.forEach(q => {
+                const questionEl = document.querySelector(`[data-question-id='${q.id}']`);
+                const isCorrect = (userAnswers[q.id] === String(q.answer));
+                if (isCorrect) score++;
+                const selectedBtn = questionEl.querySelector(`[data-value='${userAnswers[q.id]}']`);
+                const correctBtn = questionEl.querySelector(`[data-value='${String(q.answer)}']`);
+                if(selectedBtn) selectedBtn.classList.add(isCorrect ? 'correct' : 'incorrect');
+                if(correctBtn) correctBtn.classList.add('correct');
+                questionEl.classList.add('disabled-options');
+                questionEl.querySelectorAll('.option-btn').forEach(b => b.disabled = true);
+            });
+
+            quizData.part2.forEach(q => {
+                const questionEl = document.querySelector(`[data-question-id='${q.id}']`);
+                const isCorrect = (userAnswers[q.id] === q.answer);
+                if (isCorrect) score++;
+                const selectedBtn = questionEl.querySelector(`[data-value='${userAnswers[q.id]}']`);
+                const correctBtn = questionEl.querySelector(`[data-value='${q.answer}']`);
+                if(selectedBtn) selectedBtn.classList.add(isCorrect ? 'correct' : 'incorrect');
+                if(correctBtn) correctBtn.classList.add('correct');
+                questionEl.classList.add('disabled-options');
+                questionEl.querySelectorAll('.option-btn').forEach(b => b.disabled = true);
+            });
+            
+            const scoreContainer = document.getElementById('score-container');
+            scoreContainer.textContent = `Your Score: ${score} / ${totalQuestions}`;
+            scoreContainer.classList.remove('hidden');
+            
+            document.getElementById('submit-btn').classList.add('hidden');
+            document.getElementById('reset-btn').classList.remove('hidden');
+        }
+
+        function resetQuiz() {
+            Object.keys(userAnswers).forEach(key => delete userAnswers[key]);
+            document.getElementById('score-container').classList.add('hidden');
+            document.getElementById('submit-btn').classList.remove('hidden');
+            document.getElementById('reset-btn').classList.add('hidden');
+            renderQuiz();
+        }
+
+        function openPart(evt, partName) {
+            document.querySelectorAll('.tab-content').forEach(el => el.classList.remove('active'));
+            document.querySelectorAll('.tab-link').forEach(el => el.classList.remove('active'));
+            
+            document.getElementById(partName).classList.add('active');
+            evt.currentTarget.classList.add('active');
+
+            const audioPlayer = document.getElementById('main-audio-player');
+            const audioTitle = document.getElementById('audio-player-title');
+            if (partName === 'part1') {
+                audioPlayer.src = 'audios/book2-test-1.wav';
+                audioTitle.textContent = 'Part 1 Audio';
+            } else {
+                audioPlayer.src = 'audios/book2-test-2.wav';
+                audioTitle.textContent = 'Part 2 Audio';
+            }
+            audioPlayer.load();
+        }
+
+        document.addEventListener('DOMContentLoaded', () => {
+            renderQuiz();
+            document.getElementById('submit-btn').addEventListener('click', checkAnswers);
+            document.getElementById('reset-btn').addEventListener('click', resetQuiz);
+        });
+    </script>
+</body>
+</html>
