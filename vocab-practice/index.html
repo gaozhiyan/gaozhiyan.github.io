@@ -51,6 +51,81 @@
                     <button class="btn btn-secondary" onclick="showSection('test')">
                         📝 测试练习
                     </button>
+                    <button class="btn btn-outline" onclick="showSection('sync')">
+                        ☁️ 云同步设置
+                    </button>
+                </div>
+            </section>
+
+            <!-- 云同步设置 -->
+            <section id="sync-section" class="section">
+                <div class="section-header">
+                    <button class="btn-back" onclick="showSection('home')">← 返回</button>
+                    <h2>云同步设置</h2>
+                </div>
+
+                <div class="sync-settings">
+                    <div class="setting-card">
+                        <h3>GitHub Gist 同步</h3>
+                        <p class="setting-description">
+                            使用GitHub Gist来同步您的学习进度，实现跨设备数据同步。
+                        </p>
+                        
+                        <div class="setting-group">
+                            <label for="gist-token">GitHub访问令牌：</label>
+                            <input type="password" id="gist-token" placeholder="请输入GitHub Personal Access Token" />
+                            <small class="help-text">
+                                需要创建一个具有gist权限的Personal Access Token
+                            </small>
+                        </div>
+                        
+                        <div class="setting-group">
+                            <label for="gist-id">Gist ID：</label>
+                            <input type="text" id="gist-id" placeholder="请输入Gist ID（可选，留空将自动创建）" />
+                            <small class="help-text">
+                                如果已有Gist，请输入ID；否则将自动创建新的Gist
+                            </small>
+                        </div>
+                        
+                        <div class="setting-group">
+                            <label class="checkbox-label">
+                                <input type="checkbox" id="auto-sync" />
+                                <span class="checkmark"></span>
+                                启用自动同步
+                            </label>
+                            <small class="help-text">
+                                在学习过程中自动同步进度数据
+                            </small>
+                        </div>
+                        
+                        <div class="sync-actions">
+                            <button class="btn btn-primary" onclick="saveSyncSettings()">
+                                保存设置
+                            </button>
+                            <button class="btn btn-secondary" onclick="testSync()">
+                                测试连接
+                            </button>
+                            <button class="btn btn-outline" onclick="manualSync()">
+                                手动同步
+                            </button>
+                        </div>
+                        
+                        <div class="sync-status" id="sync-status">
+                            <p>同步状态：<span id="sync-status-text">未配置</span></p>
+                            <p>最后同步：<span id="last-sync-time">从未同步</span></p>
+                        </div>
+                    </div>
+                    
+                    <div class="setting-card">
+                        <h3>使用说明</h3>
+                        <ol class="instructions">
+                            <li>访问 <a href="https://github.com/settings/tokens" target="_blank">GitHub Settings > Personal access tokens</a></li>
+                            <li>点击"Generate new token"创建新令牌</li>
+                            <li>勾选"gist"权限</li>
+                            <li>复制生成的令牌并粘贴到上方输入框</li>
+                            <li>保存设置并测试连接</li>
+                        </ol>
+                    </div>
                 </div>
             </section>
 
@@ -64,19 +139,39 @@
                     </div>
                 </div>
 
-                <div class="study-container">
-                    <div class="flashcard" id="flashcard">
-                        <div class="flashcard-inner">
-                            <div class="flashcard-front">
-                                <div class="word-chinese" id="word-chinese">点击开始学习</div>
-                                <div class="card-hint">点击翻转查看英文</div>
-                            </div>
-                            <div class="flashcard-back">
-                                <div class="word-english" id="word-english">Click to start learning</div>
-                                <div class="card-hint">点击翻转查看中文</div>
-                            </div>
+                <!-- 学习设置 -->
+                <div class="study-settings">
+                    <div class="setting-group">
+                        <label>学习分类：</label>
+                        <select id="categorySelect" class="category-select" onchange="setStudyCategory(this.value)">
+                            <option value="all">全部分类</option>
+                        </select>
+                    </div>
+                    
+                    <div class="setting-group">
+                        <label>学习顺序：</label>
+                        <div class="option-buttons">
+                            <button class="option-btn active" data-order="sequential" onclick="setStudyOrder('sequential')">顺序学习</button>
+                            <button class="option-btn" data-order="random" onclick="setStudyOrder('random')">随机学习</button>
                         </div>
                     </div>
+                </div>
+
+                <div class="study-container">
+                    <div class="flashcard" id="flashcard">
+                    <div class="flashcard-inner">
+                        <div class="flashcard-front">
+                            <div class="category-label" id="category-label-front">综合概念</div>
+                            <div class="word-chinese" id="word-chinese">点击开始学习</div>
+                            <div class="card-hint">点击翻转查看英文</div>
+                        </div>
+                        <div class="flashcard-back">
+                            <div class="category-label" id="category-label-back">综合概念</div>
+                            <div class="word-english" id="word-english">Click to start learning</div>
+                            <div class="card-hint">点击翻转查看中文</div>
+                        </div>
+                    </div>
+                </div>
 
                     <div class="study-controls">
                         <button class="btn btn-outline" onclick="previousWord()">上一个</button>
@@ -119,17 +214,45 @@
                     </div>
                 </div>
 
-                <div class="test-container">
-                    <div class="test-question" id="test-question">
-                        <h3 id="question-text">准备开始测试</h3>
-                        <div class="test-options" id="test-options">
-                            <!-- 选项将通过JavaScript动态生成 -->
+                <!-- 测试设置 -->
+                <div class="test-settings" id="test-settings">
+                    <div class="setting-group">
+                        <h3>题目数量</h3>
+                        <div class="option-buttons">
+                            <button class="option-btn active" data-count="10">10题</button>
+                            <button class="option-btn" data-count="20">20题</button>
+                            <button class="option-btn" data-count="50">50题</button>
+                        </div>
+                    </div>
+
+                    <div class="setting-group">
+                        <h3>题型选择</h3>
+                        <div class="option-buttons">
+                            <button class="option-btn active" data-type="choice">选择题</button>
+                            <button class="option-btn" data-type="fill">填空题</button>
                         </div>
                     </div>
 
                     <div class="test-controls">
                         <button class="btn btn-primary" onclick="startTest()">开始测试</button>
+                    </div>
+                </div>
+
+                <div class="test-container" id="test-container" style="display:none;">
+                    <div class="test-question" id="test-question">
+                        <h3 id="question-text">准备开始测试</h3>
+                        <div class="test-options" id="test-options">
+                            <!-- 选项将通过JavaScript动态生成 -->
+                        </div>
+                        <div class="fill-blank-container" id="fill-blank-container" style="display:none;">
+                            <input type="text" id="fill-blank-input" placeholder="请输入答案">
+                            <button class="btn btn-primary" onclick="submitFillBlank()">提交答案</button>
+                        </div>
+                    </div>
+
+                    <div class="test-controls">
                         <button class="btn btn-secondary" onclick="nextQuestion()" style="display:none;" id="next-btn">下一题</button>
+                        <button class="btn btn-outline" onclick="backToSettings()">返回设置</button>
                     </div>
 
                     <div class="test-result" id="test-result" style="display:none;">
@@ -163,6 +286,11 @@
                 <span class="nav-label">测试</span>
             </button>
         </nav>
+
+        <!-- 版权声明 -->
+        <footer class="copyright">
+            <p>&copy; 江苏航运学院公共英语教研室</p>
+        </footer>
     </div>
 
     <script src="app.js"></script>

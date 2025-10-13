@@ -1,0 +1,2138 @@
+{
+  "metadata": {
+    "total_count": 300,
+    "categories": {
+      "政治理论与思想": 14,
+      "党的建设": 13,
+      "战略目标与理念": 32,
+      "社会建设": 17,
+      "综合概念": 3,
+      "经济发展": 14,
+      "政治制度": 15,
+      "法治建设": 5,
+      "区域发展战略": 6,
+      "科技创新": 6,
+      "发展理念": 2,
+      "价值观与文化": 13,
+      "荣誉奖励": 1,
+      "精神品质": 5,
+      "社会治理": 3,
+      "国际关系": 19,
+      "历史文化传统": 11,
+      "青年教育": 2,
+      "军事国防": 3,
+      "民族文化": 2,
+      "传统文化艺术": 61,
+      "生态文明": 9,
+      "传统哲学思想": 4,
+      "传统体育武术": 4,
+      "传统节日习俗": 10,
+      "中医药文化": 4,
+      "地理名胜": 22
+    },
+    "created_at": "2024-10-13",
+    "version": "1.0"
+  },
+  "vocabulary": [
+    {
+      "id": 1,
+      "chinese": "习近平新时代中国特色社会主义思想",
+      "english": "Xi Jinping Thought on Socialism with Chinese Characteristics for a New Era",
+      "category": "政治理论与思想",
+      "status": "unknown"
+    },
+    {
+      "id": 2,
+      "chinese": "中国共产党",
+      "english": "the Communist Party of China (the CPC)",
+      "category": "党的建设",
+      "status": "unknown"
+    },
+    {
+      "id": 3,
+      "chinese": "中国梦",
+      "english": "Chinese Dream",
+      "category": "战略目标与理念",
+      "status": "unknown"
+    },
+    {
+      "id": 4,
+      "chinese": "毛泽东思想",
+      "english": "Mao Zedong Thought",
+      "category": "政治理论与思想",
+      "status": "unknown"
+    },
+    {
+      "id": 5,
+      "chinese": "邓小平理论",
+      "english": "Deng Xiaoping Theory",
+      "category": "政治理论与思想",
+      "status": "unknown"
+    },
+    {
+      "id": 6,
+      "chinese": "“三个代表”重要思想",
+      "english": "the Theory of Three Represents",
+      "category": "政治理论与思想",
+      "status": "unknown"
+    },
+    {
+      "id": 7,
+      "chinese": "科学发展观",
+      "english": "Scientific Outlook on Development",
+      "category": "政治理论与思想",
+      "status": "unknown"
+    },
+    {
+      "id": 8,
+      "chinese": "改革开放",
+      "english": "reform and opening up",
+      "category": "战略目标与理念",
+      "status": "unknown"
+    },
+    {
+      "id": 9,
+      "chinese": "“两个一百年”奋斗目标",
+      "english": "the Two Centenary Goals",
+      "category": "战略目标与理念",
+      "status": "unknown"
+    },
+    {
+      "id": 10,
+      "chinese": "第一个百年奋斗目标",
+      "english": "the First Centenary Goal",
+      "category": "战略目标与理念",
+      "status": "unknown"
+    },
+    {
+      "id": 11,
+      "chinese": "第二个百年奋斗目标",
+      "english": "the Second Centenary Goal",
+      "category": "战略目标与理念",
+      "status": "unknown"
+    },
+    {
+      "id": 12,
+      "chinese": "中国特色社会主义",
+      "english": "socialism with Chinese characteristics",
+      "category": "政治理论与思想",
+      "status": "unknown"
+    },
+    {
+      "id": 13,
+      "chinese": "社会主义现代化",
+      "english": "socialist modernization",
+      "category": "战略目标与理念",
+      "status": "unknown"
+    },
+    {
+      "id": 14,
+      "chinese": "社会主义现代化国家",
+      "english": "a modern socialist country",
+      "category": "战略目标与理念",
+      "status": "unknown"
+    },
+    {
+      "id": 15,
+      "chinese": "中国特色社会主义根本制度、基本制度、重要制度",
+      "english": "the fundamental",
+      "category": "政治理论与思想",
+      "status": "unknown"
+    },
+    {
+      "id": 16,
+      "chinese": "中国特色社会主义伟大事业",
+      "english": "the great cause of Chinese socialism",
+      "category": "政治理论与思想",
+      "status": "unknown"
+    },
+    {
+      "id": 17,
+      "chinese": "中国特色社会主义道路",
+      "english": "the path of socialism with Chinese characteristics",
+      "category": "政治理论与思想",
+      "status": "unknown"
+    },
+    {
+      "id": 18,
+      "chinese": "党的建设新的伟大工程",
+      "english": "the great new project of Party building",
+      "category": "党的建设",
+      "status": "unknown"
+    },
+    {
+      "id": 19,
+      "chinese": "以人民为中心的发展思想",
+      "english": "the people-centered philosophy of development",
+      "category": "战略目标与理念",
+      "status": "unknown"
+    },
+    {
+      "id": 20,
+      "chinese": "共同富裕",
+      "english": "shared prosperity// common prosperity",
+      "category": "社会建设",
+      "status": "unknown"
+    },
+    {
+      "id": 21,
+      "chinese": "“五位一体”总体布局",
+      "english": "the Five-sphere Integrated Plan",
+      "category": "战略目标与理念",
+      "status": "unknown"
+    },
+    {
+      "id": 22,
+      "chinese": "“四个全面”战略布局",
+      "english": "the Four-pronged Comprehensive Strategy",
+      "category": "综合概念",
+      "status": "unknown"
+    },
+    {
+      "id": 23,
+      "chinese": "“四个自信”",
+      "english": "the Four-sphere Confidence",
+      "category": "战略目标与理念",
+      "status": "unknown"
+    },
+    {
+      "id": 24,
+      "chinese": "中国方案",
+      "english": "Chinese Approach",
+      "category": "战略目标与理念",
+      "status": "unknown"
+    },
+    {
+      "id": 25,
+      "chinese": "全面建成小康社会",
+      "english": "the building of a moderately prosperous society in all respects",
+      "category": "社会建设",
+      "status": "unknown"
+    },
+    {
+      "id": 26,
+      "chinese": "“十四五”规划",
+      "english": "the 14th Five-Year Plan",
+      "category": "战略目标与理念",
+      "status": "unknown"
+    },
+    {
+      "id": 27,
+      "chinese": "三大攻坚战",
+      "english": "three tough battles",
+      "category": "经济发展",
+      "status": "unknown"
+    },
+    {
+      "id": 28,
+      "chinese": "顶层设计",
+      "english": "top-level design",
+      "category": "战略目标与理念",
+      "status": "unknown"
+    },
+    {
+      "id": 29,
+      "chinese": "人民当家作主",
+      "english": "people’s position/status as masters of the country",
+      "category": "政治制度",
+      "status": "unknown"
+    },
+    {
+      "id": 30,
+      "chinese": "《中华人民共和国宪法》",
+      "english": "the Constitution of the People’s Republic of China",
+      "category": "法治建设",
+      "status": "unknown"
+    },
+    {
+      "id": 31,
+      "chinese": "全面依法治国",
+      "english": "to advance law-based governance in all respects",
+      "category": "法治建设",
+      "status": "unknown"
+    },
+    {
+      "id": 32,
+      "chinese": "社会主义法制",
+      "english": "socialist legal system",
+      "category": "社会建设",
+      "status": "unknown"
+    },
+    {
+      "id": 33,
+      "chinese": "法治国家、法治政府、法治社会",
+      "english": "a law-based country",
+      "category": "法治建设",
+      "status": "unknown"
+    },
+    {
+      "id": 34,
+      "chinese": "法律援助",
+      "english": "legal aid",
+      "category": "法治建设",
+      "status": "unknown"
+    },
+    {
+      "id": 35,
+      "chinese": "司法公正",
+      "english": "judicial justice",
+      "category": "法治建设",
+      "status": "unknown"
+    },
+    {
+      "id": 36,
+      "chinese": "社会稳定",
+      "english": "social stability",
+      "category": "社会建设",
+      "status": "unknown"
+    },
+    {
+      "id": 37,
+      "chinese": "社会公平正义",
+      "english": "social fairness and justice",
+      "category": "社会建设",
+      "status": "unknown"
+    },
+    {
+      "id": 38,
+      "chinese": "实事求是",
+      "english": "to seek truth from facts",
+      "category": "政治理论与思想",
+      "status": "unknown"
+    },
+    {
+      "id": 39,
+      "chinese": "集中力量办大事",
+      "english": "to pool all our resources to complete major missions//to pool our efforts to accomplish big tasks",
+      "category": "社会建设",
+      "status": "unknown"
+    },
+    {
+      "id": 40,
+      "chinese": "国务院",
+      "english": "State Council",
+      "category": "政治制度",
+      "status": "unknown"
+    },
+    {
+      "id": 41,
+      "chinese": "全国人民代表大会",
+      "english": "National People’s Congress (NPC)",
+      "category": "政治制度",
+      "status": "unknown"
+    },
+    {
+      "id": 42,
+      "chinese": "爱国统一战线",
+      "english": "patriotic United Front",
+      "category": "政治制度",
+      "status": "unknown"
+    },
+    {
+      "id": 43,
+      "chinese": "祖国内地；大陆",
+      "english": "the Chinese mainland",
+      "category": "政治制度",
+      "status": "unknown"
+    },
+    {
+      "id": 44,
+      "chinese": "和平统一",
+      "english": "peaceful reunification",
+      "category": "政治制度",
+      "status": "unknown"
+    },
+    {
+      "id": 45,
+      "chinese": "特别行政区",
+      "english": "special administrative region",
+      "category": "政治制度",
+      "status": "unknown"
+    },
+    {
+      "id": 46,
+      "chinese": "“一国两制”",
+      "english": "one country",
+      "category": "政治制度",
+      "status": "unknown"
+    },
+    {
+      "id": 47,
+      "chinese": "香港回归",
+      "english": "Hong Kong’s return to China",
+      "category": "政治制度",
+      "status": "unknown"
+    },
+    {
+      "id": 48,
+      "chinese": "东方之珠",
+      "english": "the Pearl of the Orient",
+      "category": "政治制度",
+      "status": "unknown"
+    },
+    {
+      "id": 49,
+      "chinese": "台湾海峡；两岸",
+      "english": "Taiwan Straits",
+      "category": "政治制度",
+      "status": "unknown"
+    },
+    {
+      "id": 50,
+      "chinese": "一个中国原则",
+      "english": "one-China principle",
+      "category": "政治制度",
+      "status": "unknown"
+    },
+    {
+      "id": 51,
+      "chinese": "“九二共识”",
+      "english": "the 1992 Consensus",
+      "category": "政治制度",
+      "status": "unknown"
+    },
+    {
+      "id": 52,
+      "chinese": "“港人治港”、“澳人治澳”",
+      "english": "the people of Hong Kong administer Hong Kong",
+      "category": "政治制度",
+      "status": "unknown"
+    },
+    {
+      "id": 53,
+      "chinese": "（海峡）两岸关系",
+      "english": "cross-Straits relations",
+      "category": "政治制度",
+      "status": "unknown"
+    },
+    {
+      "id": 54,
+      "chinese": "“两个维护”",
+      "english": "the Two Upholds",
+      "category": "党的建设",
+      "status": "unknown"
+    },
+    {
+      "id": 55,
+      "chinese": "“四个意识”",
+      "english": "the Four Consciousnesses",
+      "category": "党的建设",
+      "status": "unknown"
+    },
+    {
+      "id": 56,
+      "chinese": "全心全意为人民服务",
+      "english": "to serve the people wholeheartedly",
+      "category": "党的建设",
+      "status": "unknown"
+    },
+    {
+      "id": 57,
+      "chinese": "不忘初心，牢记使命",
+      "english": "to remain/stay true to our original aspiration and founding mission",
+      "category": "党的建设",
+      "status": "unknown"
+    },
+    {
+      "id": 58,
+      "chinese": "反腐败",
+      "english": "anti-corruption",
+      "category": "党的建设",
+      "status": "unknown"
+    },
+    {
+      "id": 59,
+      "chinese": "党的基本理论、基本路线、基本方略",
+      "english": "the Party’s underlying theories",
+      "category": "党的建设",
+      "status": "unknown"
+    },
+    {
+      "id": 60,
+      "chinese": "伟大斗争、伟大工程、伟大事业、伟大梦想",
+      "english": "the great struggle",
+      "category": "党的建设",
+      "status": "unknown"
+    },
+    {
+      "id": 61,
+      "chinese": "党的全面领导",
+      "english": "overall Party leadership",
+      "category": "党的建设",
+      "status": "unknown"
+    },
+    {
+      "id": 62,
+      "chinese": "马克思主义执政党",
+      "english": "Marxist governing party",
+      "category": "政治理论与思想",
+      "status": "unknown"
+    },
+    {
+      "id": 63,
+      "chinese": "群众路线",
+      "english": "mass line",
+      "category": "党的建设",
+      "status": "unknown"
+    },
+    {
+      "id": 64,
+      "chinese": "批评和自我批评",
+      "english": "criticism and self-criticism",
+      "category": "党的建设",
+      "status": "unknown"
+    },
+    {
+      "id": 65,
+      "chinese": "党性",
+      "english": "Party consciousness// Party spirit",
+      "category": "党的建设",
+      "status": "unknown"
+    },
+    {
+      "id": 66,
+      "chinese": "重要战略机遇期",
+      "english": "important period of strategic opportunity",
+      "category": "战略目标与理念",
+      "status": "unknown"
+    },
+    {
+      "id": 67,
+      "chinese": "建设世界科技强国",
+      "english": "to build China into a world leader in science and technology",
+      "category": "战略目标与理念",
+      "status": "unknown"
+    },
+    {
+      "id": 68,
+      "chinese": "习近平新时代中国特色社会主义经济思想",
+      "english": "the Xi Jinping thought on the economy of socialism with Chinese characteristics in the new era",
+      "category": "政治理论与思想",
+      "status": "unknown"
+    },
+    {
+      "id": 69,
+      "chinese": "经济全球化",
+      "english": "economic globalization",
+      "category": "经济发展",
+      "status": "unknown"
+    },
+    {
+      "id": 70,
+      "chinese": "四个现代化",
+      "english": "Four Modernizations",
+      "category": "战略目标与理念",
+      "status": "unknown"
+    },
+    {
+      "id": 71,
+      "chinese": "实体经济",
+      "english": "real economy",
+      "category": "经济发展",
+      "status": "unknown"
+    },
+    {
+      "id": 72,
+      "chinese": "新发展理念",
+      "english": "new development philosophy",
+      "category": "战略目标与理念",
+      "status": "unknown"
+    },
+    {
+      "id": 73,
+      "chinese": "创新发展",
+      "english": "innovative development",
+      "category": "战略目标与理念",
+      "status": "unknown"
+    },
+    {
+      "id": 74,
+      "chinese": "协调发展",
+      "english": "coordinated development",
+      "category": "战略目标与理念",
+      "status": "unknown"
+    },
+    {
+      "id": 75,
+      "chinese": "现代化经济体系",
+      "english": "modern economic system",
+      "category": "战略目标与理念",
+      "status": "unknown"
+    },
+    {
+      "id": 76,
+      "chinese": "新常态",
+      "english": "new normal",
+      "category": "战略目标与理念",
+      "status": "unknown"
+    },
+    {
+      "id": 77,
+      "chinese": "高质量发展",
+      "english": "high-quality development",
+      "category": "战略目标与理念",
+      "status": "unknown"
+    },
+    {
+      "id": 78,
+      "chinese": "长江经济带",
+      "english": "the Yangtze River Economic Belt",
+      "category": "经济发展",
+      "status": "unknown"
+    },
+    {
+      "id": 79,
+      "chinese": "长江三角洲",
+      "english": "the Yangtze River Delta",
+      "category": "区域发展战略",
+      "status": "unknown"
+    },
+    {
+      "id": 80,
+      "chinese": "珠江三角洲",
+      "english": "the Pearl River Delta",
+      "category": "区域发展战略",
+      "status": "unknown"
+    },
+    {
+      "id": 81,
+      "chinese": "粤港澳大湾区",
+      "english": "the Guangdong-Hong Kong-Macao Greater Bay Area",
+      "category": "区域发展战略",
+      "status": "unknown"
+    },
+    {
+      "id": 82,
+      "chinese": "京津冀协同发展",
+      "english": "coordinated development of the Beijing-Tianjin-Hebei Region",
+      "category": "区域发展战略",
+      "status": "unknown"
+    },
+    {
+      "id": 83,
+      "chinese": "国家大数据战略",
+      "english": "national big data strategy",
+      "category": "科技创新",
+      "status": "unknown"
+    },
+    {
+      "id": 84,
+      "chinese": "经济体制改革",
+      "english": "economic reform",
+      "category": "经济发展",
+      "status": "unknown"
+    },
+    {
+      "id": 85,
+      "chinese": "社会主义市场经济",
+      "english": "socialist market economy",
+      "category": "经济发展",
+      "status": "unknown"
+    },
+    {
+      "id": 86,
+      "chinese": "创新驱动发展战略",
+      "english": "innovation-driven development strategy",
+      "category": "战略目标与理念",
+      "status": "unknown"
+    },
+    {
+      "id": 87,
+      "chinese": "创新型国家",
+      "english": "an innovative country",
+      "category": "战略目标与理念",
+      "status": "unknown"
+    },
+    {
+      "id": 88,
+      "chinese": "“互联网+”行动计划",
+      "english": "“Internet Plus” action plan",
+      "category": "科技创新",
+      "status": "unknown"
+    },
+    {
+      "id": 89,
+      "chinese": "大众创业、万众创新",
+      "english": "mass entrepreneurship and innovation",
+      "category": "战略目标与理念",
+      "status": "unknown"
+    },
+    {
+      "id": 90,
+      "chinese": "东北地区全面振兴",
+      "english": "comprehensive revitalization of the northeast",
+      "category": "区域发展战略",
+      "status": "unknown"
+    },
+    {
+      "id": 91,
+      "chinese": "城乡融合发展",
+      "english": "integrated urban-rural development",
+      "category": "发展理念",
+      "status": "unknown"
+    },
+    {
+      "id": 92,
+      "chinese": "乡村振兴战略",
+      "english": "rural revitalization strategy",
+      "category": "社会建设",
+      "status": "unknown"
+    },
+    {
+      "id": 93,
+      "chinese": "新一轮农村改革",
+      "english": "a new round of rural reform",
+      "category": "经济发展",
+      "status": "unknown"
+    },
+    {
+      "id": 94,
+      "chinese": "“三农”",
+      "english": "agriculture",
+      "category": "经济发展",
+      "status": "unknown"
+    },
+    {
+      "id": 95,
+      "chinese": "农业现代化",
+      "english": "agricultural modernization",
+      "category": "战略目标与理念",
+      "status": "unknown"
+    },
+    {
+      "id": 96,
+      "chinese": "海洋经济",
+      "english": "marine economy",
+      "category": "经济发展",
+      "status": "unknown"
+    },
+    {
+      "id": 97,
+      "chinese": "海洋强国",
+      "english": "a strong maritime nation/country",
+      "category": "战略目标与理念",
+      "status": "unknown"
+    },
+    {
+      "id": 98,
+      "chinese": "丝绸之路经济带",
+      "english": "the Silk Road Economic Belt",
+      "category": "经济发展",
+      "status": "unknown"
+    },
+    {
+      "id": 99,
+      "chinese": "21世纪海上丝绸之路",
+      "english": "the 21st Century Maritime Silk Road",
+      "category": "区域发展战略",
+      "status": "unknown"
+    },
+    {
+      "id": 100,
+      "chinese": "蓝色伙伴关系",
+      "english": "blue partnerships",
+      "category": "经济发展",
+      "status": "unknown"
+    },
+    {
+      "id": 101,
+      "chinese": "数字经济",
+      "english": "digital economy",
+      "category": "经济发展",
+      "status": "unknown"
+    },
+    {
+      "id": 102,
+      "chinese": "深圳经济特区",
+      "english": "Shenzhen Special Economic Zone",
+      "category": "经济发展",
+      "status": "unknown"
+    },
+    {
+      "id": 103,
+      "chinese": "自由贸易区",
+      "english": "Free Trade Zone",
+      "category": "经济发展",
+      "status": "unknown"
+    },
+    {
+      "id": 104,
+      "chinese": "社会主义核心价值观",
+      "english": "core socialist values",
+      "category": "价值观与文化",
+      "status": "unknown"
+    },
+    {
+      "id": 105,
+      "chinese": "中华民族共同体意识",
+      "english": "a sense of identity of the Chinese nation",
+      "category": "价值观与文化",
+      "status": "unknown"
+    },
+    {
+      "id": 106,
+      "chinese": "中国精神",
+      "english": "Chinese spirit",
+      "category": "价值观与文化",
+      "status": "unknown"
+    },
+    {
+      "id": 107,
+      "chinese": "爱国主义教育",
+      "english": "patriotic education",
+      "category": "价值观与文化",
+      "status": "unknown"
+    },
+    {
+      "id": 108,
+      "chinese": "“七一勋章”",
+      "english": "July 1 Medal",
+      "category": "荣誉奖励",
+      "status": "unknown"
+    },
+    {
+      "id": 109,
+      "chinese": "五四运动",
+      "english": "the May 4th Movement",
+      "category": "价值观与文化",
+      "status": "unknown"
+    },
+    {
+      "id": 110,
+      "chinese": "五四精神",
+      "english": "the May 4th spirit",
+      "category": "价值观与文化",
+      "status": "unknown"
+    },
+    {
+      "id": 111,
+      "chinese": "红船精神",
+      "english": "the Red Boat spirit// the spirit of the Red Boat",
+      "category": "价值观与文化",
+      "status": "unknown"
+    },
+    {
+      "id": 112,
+      "chinese": "井冈山精神",
+      "english": "the Jinggangshan spirit// the spirit of Jinggang Mountains",
+      "category": "价值观与文化",
+      "status": "unknown"
+    },
+    {
+      "id": 113,
+      "chinese": "长征精神",
+      "english": "the spirit of the Long March",
+      "category": "价值观与文化",
+      "status": "unknown"
+    },
+    {
+      "id": 114,
+      "chinese": "“两弹一星”精神",
+      "english": "the spirit of “Two Bombs",
+      "category": "精神品质",
+      "status": "unknown"
+    },
+    {
+      "id": 115,
+      "chinese": "女排精神",
+      "english": "the spirit of the Chinese national women’s volleyball team",
+      "category": "精神品质",
+      "status": "unknown"
+    },
+    {
+      "id": 116,
+      "chinese": "钉钉子精神",
+      "english": "the perseverance to hammer away until a task is done",
+      "category": "精神品质",
+      "status": "unknown"
+    },
+    {
+      "id": 117,
+      "chinese": "企业家精神",
+      "english": "the spirit of entrepreneurship",
+      "category": "精神品质",
+      "status": "unknown"
+    },
+    {
+      "id": 118,
+      "chinese": "改革创新精神",
+      "english": "the spirit of reform and innovation",
+      "category": "战略目标与理念",
+      "status": "unknown"
+    },
+    {
+      "id": 119,
+      "chinese": "工匠精神",
+      "english": "the spirit of craftsmanship",
+      "category": "价值观与文化",
+      "status": "unknown"
+    },
+    {
+      "id": 120,
+      "chinese": "丝路精神",
+      "english": "the Silk Road spirit",
+      "category": "精神品质",
+      "status": "unknown"
+    },
+    {
+      "id": 121,
+      "chinese": "“治大国若烹小鲜”",
+      "english": "Governing a big country is as delicate as frying a small fish.",
+      "category": "社会治理",
+      "status": "unknown"
+    },
+    {
+      "id": 122,
+      "chinese": "人民日益增长的美好生活需要",
+      "english": "people’s growing expectation for a better life//people’s ever-growing need for a better life",
+      "category": "社会建设",
+      "status": "unknown"
+    },
+    {
+      "id": 123,
+      "chinese": "人的全面发展",
+      "english": "well-rounded personal development",
+      "category": "发展理念",
+      "status": "unknown"
+    },
+    {
+      "id": 124,
+      "chinese": "民间外交",
+      "english": "people-to-people diplomacy",
+      "category": "国际关系",
+      "status": "unknown"
+    },
+    {
+      "id": 125,
+      "chinese": "民间交流；人文交流",
+      "english": "people-to-people exchanges",
+      "category": "国际关系",
+      "status": "unknown"
+    },
+    {
+      "id": 126,
+      "chinese": "革命老区",
+      "english": "old revolutionary base areas",
+      "category": "历史文化传统",
+      "status": "unknown"
+    },
+    {
+      "id": 127,
+      "chinese": "工人阶级",
+      "english": "working class",
+      "category": "社会建设",
+      "status": "unknown"
+    },
+    {
+      "id": 128,
+      "chinese": "共产主义青年团；共青团",
+      "english": "Communist Youth League",
+      "category": "政治理论与思想",
+      "status": "unknown"
+    },
+    {
+      "id": 129,
+      "chinese": "五四青年节",
+      "english": "China’s Youth Day",
+      "category": "青年教育",
+      "status": "unknown"
+    },
+    {
+      "id": 130,
+      "chinese": "中国少年先锋队；少先队",
+      "english": "the Chinese Young Pioneers",
+      "category": "青年教育",
+      "status": "unknown"
+    },
+    {
+      "id": 131,
+      "chinese": "劳动模范",
+      "english": "model workers",
+      "category": "社会建设",
+      "status": "unknown"
+    },
+    {
+      "id": 132,
+      "chinese": "义务教育",
+      "english": "compulsory education",
+      "category": "科技创新",
+      "status": "unknown"
+    },
+    {
+      "id": 133,
+      "chinese": "“一票否决”",
+      "english": "one vote against meaning veto",
+      "category": "社会治理",
+      "status": "unknown"
+    },
+    {
+      "id": 134,
+      "chinese": "农民工",
+      "english": "migrant workers",
+      "category": "社会建设",
+      "status": "unknown"
+    },
+    {
+      "id": 135,
+      "chinese": "贫困地区",
+      "english": "impoverished areas",
+      "category": "社会建设",
+      "status": "unknown"
+    },
+    {
+      "id": 136,
+      "chinese": "绝对贫困",
+      "english": "absolute poverty",
+      "category": "社会建设",
+      "status": "unknown"
+    },
+    {
+      "id": 137,
+      "chinese": "脱贫",
+      "english": "poverty alleviation// poverty elimination",
+      "category": "社会建设",
+      "status": "unknown"
+    },
+    {
+      "id": 138,
+      "chinese": "精准扶贫、精准脱贫",
+      "english": "targeted poverty reduction and alleviation//targeted poverty alleviation and elimination",
+      "category": "社会建设",
+      "status": "unknown"
+    },
+    {
+      "id": 139,
+      "chinese": "健康中国行动",
+      "english": "Healthy China initiative",
+      "category": "社会建设",
+      "status": "unknown"
+    },
+    {
+      "id": 140,
+      "chinese": "全面开放体系",
+      "english": "system for opening up on all fronts",
+      "category": "战略目标与理念",
+      "status": "unknown"
+    },
+    {
+      "id": 141,
+      "chinese": "学习型社会",
+      "english": "learning society",
+      "category": "社会建设",
+      "status": "unknown"
+    },
+    {
+      "id": 142,
+      "chinese": "智慧城市",
+      "english": "smart city",
+      "category": "社会治理",
+      "status": "unknown"
+    },
+    {
+      "id": 143,
+      "chinese": "总体国家安全观",
+      "english": "holistic approach to national security",
+      "category": "军事国防",
+      "status": "unknown"
+    },
+    {
+      "id": 144,
+      "chinese": "国家安全意识",
+      "english": "awareness of national security",
+      "category": "军事国防",
+      "status": "unknown"
+    },
+    {
+      "id": 145,
+      "chinese": "国防",
+      "english": "national defense",
+      "category": "军事国防",
+      "status": "unknown"
+    },
+    {
+      "id": 146,
+      "chinese": "国防和军队现代化",
+      "english": "modernization of our national defense and armed forces",
+      "category": "战略目标与理念",
+      "status": "unknown"
+    },
+    {
+      "id": 147,
+      "chinese": "少数民族",
+      "english": "ethnic minorities",
+      "category": "民族文化",
+      "status": "unknown"
+    },
+    {
+      "id": 148,
+      "chinese": "鸦片战争",
+      "english": "Opium Wars",
+      "category": "历史文化传统",
+      "status": "unknown"
+    },
+    {
+      "id": 149,
+      "chinese": "辛亥革命",
+      "english": "the Revolution of 1911// the 1911 Revolution",
+      "category": "历史文化传统",
+      "status": "unknown"
+    },
+    {
+      "id": 150,
+      "chinese": "新文化运动",
+      "english": "the New Culture Movement",
+      "category": "价值观与文化",
+      "status": "unknown"
+    },
+    {
+      "id": 151,
+      "chinese": "南昌起义",
+      "english": "the Nanchang Uprising",
+      "category": "历史文化传统",
+      "status": "unknown"
+    },
+    {
+      "id": 152,
+      "chinese": "世界反法西斯战争",
+      "english": "the World Anti-Fascist War",
+      "category": "国际关系",
+      "status": "unknown"
+    },
+    {
+      "id": 153,
+      "chinese": "中国人民抗日战争",
+      "english": "Chinese People’s War of Resistance Against Japanese Aggression",
+      "category": "历史文化传统",
+      "status": "unknown"
+    },
+    {
+      "id": 154,
+      "chinese": "解放战争",
+      "english": "the War of Liberation",
+      "category": "历史文化传统",
+      "status": "unknown"
+    },
+    {
+      "id": 155,
+      "chinese": "中国人民解放军",
+      "english": "People’s Liberation Army (PLA)",
+      "category": "历史文化传统",
+      "status": "unknown"
+    },
+    {
+      "id": 156,
+      "chinese": "中国人民志愿军",
+      "english": "Chinese People’s Volunteers (CPV)",
+      "category": "历史文化传统",
+      "status": "unknown"
+    },
+    {
+      "id": 157,
+      "chinese": "抗美援朝战争",
+      "english": "the War to Resist U.S. Aggression and Aid Korea",
+      "category": "历史文化传统",
+      "status": "unknown"
+    },
+    {
+      "id": 158,
+      "chinese": "《义勇军进行曲》",
+      "english": "March of the Volunteers",
+      "category": "历史文化传统",
+      "status": "unknown"
+    },
+    {
+      "id": 159,
+      "chinese": "和平共处五项原则",
+      "english": "the Five Principles of Peaceful Coexistence",
+      "category": "国际关系",
+      "status": "unknown"
+    },
+    {
+      "id": 160,
+      "chinese": "杂交水稻",
+      "english": "hybrid rice",
+      "category": "科技创新",
+      "status": "unknown"
+    },
+    {
+      "id": 161,
+      "chinese": "中国高铁",
+      "english": "China Railway High-speed (CRH)// China’s high-speed railway",
+      "category": "科技创新",
+      "status": "unknown"
+    },
+    {
+      "id": 162,
+      "chinese": "中国天眼",
+      "english": "China Sky Eye",
+      "category": "科技创新",
+      "status": "unknown"
+    },
+    {
+      "id": 163,
+      "chinese": "孔子学院",
+      "english": "Confucius Institute",
+      "category": "传统文化艺术",
+      "status": "unknown"
+    },
+    {
+      "id": 164,
+      "chinese": "绿水青山就是金山银山。",
+      "english": "Lucid waters and lush mountains are invaluable assets.",
+      "category": "生态文明",
+      "status": "unknown"
+    },
+    {
+      "id": 165,
+      "chinese": "人与自然和谐共生",
+      "english": "harmony between humanity/man and nature",
+      "category": "生态文明",
+      "status": "unknown"
+    },
+    {
+      "id": 166,
+      "chinese": "可持续发展",
+      "english": "sustainable development",
+      "category": "生态文明",
+      "status": "unknown"
+    },
+    {
+      "id": 167,
+      "chinese": "绿色发展体系",
+      "english": "green development system",
+      "category": "战略目标与理念",
+      "status": "unknown"
+    },
+    {
+      "id": 168,
+      "chinese": "尊重自然、顺应自然、保护自然",
+      "english": "to respect Nature",
+      "category": "生态文明",
+      "status": "unknown"
+    },
+    {
+      "id": 169,
+      "chinese": "全球环境治理",
+      "english": "global environmental governance",
+      "category": "生态文明",
+      "status": "unknown"
+    },
+    {
+      "id": 170,
+      "chinese": "生态文明理念",
+      "english": "philosophy of ecological civilization",
+      "category": "生态文明",
+      "status": "unknown"
+    },
+    {
+      "id": 171,
+      "chinese": "“双碳”目标；碳达峰、碳中和目标",
+      "english": "carbon peaking and carbon neutrality goals",
+      "category": "生态文明",
+      "status": "unknown"
+    },
+    {
+      "id": 172,
+      "chinese": "绿色发展、循环发展、低碳发展",
+      "english": "green",
+      "category": "战略目标与理念",
+      "status": "unknown"
+    },
+    {
+      "id": 173,
+      "chinese": "节能环保",
+      "english": "energy conservation and environmental protection",
+      "category": "生态文明",
+      "status": "unknown"
+    },
+    {
+      "id": 174,
+      "chinese": "生态红线",
+      "english": "ecological red lines",
+      "category": "生态文明",
+      "status": "unknown"
+    },
+    {
+      "id": 175,
+      "chinese": "新时代中国特色社会主义外交思想",
+      "english": "the thought on foreign affairs of socialism with Chinese characteristics in the new era",
+      "category": "政治理论与思想",
+      "status": "unknown"
+    },
+    {
+      "id": 176,
+      "chinese": "中国特色大国外交",
+      "english": "major-country diplomacy with Chinese characteristics",
+      "category": "国际关系",
+      "status": "unknown"
+    },
+    {
+      "id": 177,
+      "chinese": "乒乓外交",
+      "english": "ping-pong diplomacy",
+      "category": "国际关系",
+      "status": "unknown"
+    },
+    {
+      "id": 178,
+      "chinese": "独立自主的和平外交政策",
+      "english": "independent foreign policy of peace",
+      "category": "国际关系",
+      "status": "unknown"
+    },
+    {
+      "id": 179,
+      "chinese": "新型大国关系",
+      "english": "new model of major-country relationship",
+      "category": "国际关系",
+      "status": "unknown"
+    },
+    {
+      "id": 180,
+      "chinese": "南南合作",
+      "english": "South-South cooperation",
+      "category": "综合概念",
+      "status": "unknown"
+    },
+    {
+      "id": 181,
+      "chinese": "南北对话",
+      "english": "North-South dialogue",
+      "category": "国际关系",
+      "status": "unknown"
+    },
+    {
+      "id": 182,
+      "chinese": "南北差距",
+      "english": "North-South gap",
+      "category": "国际关系",
+      "status": "unknown"
+    },
+    {
+      "id": 183,
+      "chinese": "侨胞",
+      "english": "overseas Chinese",
+      "category": "民族文化",
+      "status": "unknown"
+    },
+    {
+      "id": 184,
+      "chinese": "和平发展道路",
+      "english": "the path of peaceful development",
+      "category": "国际关系",
+      "status": "unknown"
+    },
+    {
+      "id": 185,
+      "chinese": "新型国际关系",
+      "english": "a new model/type of international relations",
+      "category": "国际关系",
+      "status": "unknown"
+    },
+    {
+      "id": 186,
+      "chinese": "战略伙伴关系",
+      "english": "strategic partnership",
+      "category": "综合概念",
+      "status": "unknown"
+    },
+    {
+      "id": 187,
+      "chinese": "人类命运共同体",
+      "english": "a global community of shared future// a community of shared future for mankind",
+      "category": "国际关系",
+      "status": "unknown"
+    },
+    {
+      "id": 188,
+      "chinese": "“一带一路”倡议",
+      "english": "Belt and Road Initiative",
+      "category": "国际关系",
+      "status": "unknown"
+    },
+    {
+      "id": 189,
+      "chinese": "文明交流互鉴",
+      "english": "exchanges and mutual learning among civilizations",
+      "category": "国际关系",
+      "status": "unknown"
+    },
+    {
+      "id": 190,
+      "chinese": "全球伙伴关系",
+      "english": "global partnership",
+      "category": "国际关系",
+      "status": "unknown"
+    },
+    {
+      "id": 191,
+      "chinese": "全球治理",
+      "english": "global governance",
+      "category": "国际关系",
+      "status": "unknown"
+    },
+    {
+      "id": 192,
+      "chinese": "利益共同体",
+      "english": "a community of shared interests",
+      "category": "国际关系",
+      "status": "unknown"
+    },
+    {
+      "id": 193,
+      "chinese": "炎黄子孙",
+      "english": "descendants of Yan and Huang",
+      "category": "传统文化艺术",
+      "status": "unknown"
+    },
+    {
+      "id": 194,
+      "chinese": "中华文明",
+      "english": "Chinese civilization",
+      "category": "历史文化传统",
+      "status": "unknown"
+    },
+    {
+      "id": 195,
+      "chinese": "古代丝绸之路",
+      "english": "ancient Silk Road",
+      "category": "国际关系",
+      "status": "unknown"
+    },
+    {
+      "id": 196,
+      "chinese": "郑和下西洋",
+      "english": "Zheng He’s voyages to the “Western Oceans”",
+      "category": "传统文化艺术",
+      "status": "unknown"
+    },
+    {
+      "id": 197,
+      "chinese": "甲骨文",
+      "english": "oracle bone inscriptions",
+      "category": "传统文化艺术",
+      "status": "unknown"
+    },
+    {
+      "id": 198,
+      "chinese": "秦始皇",
+      "english": "Qin Shi Huang",
+      "category": "传统文化艺术",
+      "status": "unknown"
+    },
+    {
+      "id": 199,
+      "chinese": "诸子百家",
+      "english": "Hundred Schools of Thought",
+      "category": "传统文化艺术",
+      "status": "unknown"
+    },
+    {
+      "id": 200,
+      "chinese": "孔子",
+      "english": "Confucius",
+      "category": "传统文化艺术",
+      "status": "unknown"
+    },
+    {
+      "id": 201,
+      "chinese": "庄子",
+      "english": "Chuang Tzu// Zhuangzi",
+      "category": "传统文化艺术",
+      "status": "unknown"
+    },
+    {
+      "id": 202,
+      "chinese": "老子",
+      "english": "Lao Tzu// Laozi",
+      "category": "传统文化艺术",
+      "status": "unknown"
+    },
+    {
+      "id": 203,
+      "chinese": "孟子",
+      "english": "Mencius// Mengzi",
+      "category": "传统文化艺术",
+      "status": "unknown"
+    },
+    {
+      "id": 204,
+      "chinese": "儒家文化",
+      "english": "Confucian culture",
+      "category": "价值观与文化",
+      "status": "unknown"
+    },
+    {
+      "id": 205,
+      "chinese": "道家文化",
+      "english": "Taoist culture",
+      "category": "价值观与文化",
+      "status": "unknown"
+    },
+    {
+      "id": 206,
+      "chinese": "宋明理学",
+      "english": "Neo-Confucianism",
+      "category": "传统哲学思想",
+      "status": "unknown"
+    },
+    {
+      "id": 207,
+      "chinese": "天人合一",
+      "english": "Oneness of Heaven and Man",
+      "category": "传统文化艺术",
+      "status": "unknown"
+    },
+    {
+      "id": 208,
+      "chinese": "五行",
+      "english": "Five Elements",
+      "category": "传统哲学思想",
+      "status": "unknown"
+    },
+    {
+      "id": 209,
+      "chinese": "阴和阳",
+      "english": "Yin and Yang",
+      "category": "传统哲学思想",
+      "status": "unknown"
+    },
+    {
+      "id": 210,
+      "chinese": "科举制度",
+      "english": "imperial examination system",
+      "category": "传统哲学思想",
+      "status": "unknown"
+    },
+    {
+      "id": 211,
+      "chinese": "京剧",
+      "english": "Peking Opera",
+      "category": "传统文化艺术",
+      "status": "unknown"
+    },
+    {
+      "id": 212,
+      "chinese": "昆曲",
+      "english": "Kunqu Opera",
+      "category": "传统文化艺术",
+      "status": "unknown"
+    },
+    {
+      "id": 213,
+      "chinese": "粤剧",
+      "english": "Cantonese Opera",
+      "category": "传统文化艺术",
+      "status": "unknown"
+    },
+    {
+      "id": 214,
+      "chinese": "木偶戏",
+      "english": "puppet show",
+      "category": "传统文化艺术",
+      "status": "unknown"
+    },
+    {
+      "id": 215,
+      "chinese": "皮影戏",
+      "english": "shadow play// shadow puppetry",
+      "category": "传统文化艺术",
+      "status": "unknown"
+    },
+    {
+      "id": 216,
+      "chinese": "相声",
+      "english": "crosstalk// comic dialogue",
+      "category": "传统文化艺术",
+      "status": "unknown"
+    },
+    {
+      "id": 217,
+      "chinese": "锣鼓",
+      "english": "gongs and drums",
+      "category": "传统文化艺术",
+      "status": "unknown"
+    },
+    {
+      "id": 218,
+      "chinese": "中国杂技",
+      "english": "Chinese acrobatics",
+      "category": "传统文化艺术",
+      "status": "unknown"
+    },
+    {
+      "id": 219,
+      "chinese": "中国陶瓷",
+      "english": "Chinese ceramics",
+      "category": "传统文化艺术",
+      "status": "unknown"
+    },
+    {
+      "id": 220,
+      "chinese": "中国象棋",
+      "english": "Chinese chess",
+      "category": "传统体育武术",
+      "status": "unknown"
+    },
+    {
+      "id": 221,
+      "chinese": "中国武术",
+      "english": "Chinese martial arts",
+      "category": "传统体育武术",
+      "status": "unknown"
+    },
+    {
+      "id": 222,
+      "chinese": "中国功夫",
+      "english": "Chinese Kung Fu",
+      "category": "传统体育武术",
+      "status": "unknown"
+    },
+    {
+      "id": 223,
+      "chinese": "太极拳",
+      "english": "Tai Chi Chuan// Tai Chi",
+      "category": "传统体育武术",
+      "status": "unknown"
+    },
+    {
+      "id": 224,
+      "chinese": "汉字",
+      "english": "Chinese characters",
+      "category": "传统文化艺术",
+      "status": "unknown"
+    },
+    {
+      "id": 225,
+      "chinese": "文言文",
+      "english": "classical Chinese// literary Chinese",
+      "category": "传统文化艺术",
+      "status": "unknown"
+    },
+    {
+      "id": 226,
+      "chinese": "繁体字",
+      "english": "traditional Chinese characters",
+      "category": "传统文化艺术",
+      "status": "unknown"
+    },
+    {
+      "id": 227,
+      "chinese": "中国书法",
+      "english": "Chinese calligraphy",
+      "category": "传统文化艺术",
+      "status": "unknown"
+    },
+    {
+      "id": 228,
+      "chinese": "国画",
+      "english": "traditional Chinese painting",
+      "category": "传统文化艺术",
+      "status": "unknown"
+    },
+    {
+      "id": 229,
+      "chinese": "中国山水画",
+      "english": "Chinese landscape painting",
+      "category": "传统文化艺术",
+      "status": "unknown"
+    },
+    {
+      "id": 230,
+      "chinese": "中国人物画",
+      "english": "Chinese figure painting",
+      "category": "传统文化艺术",
+      "status": "unknown"
+    },
+    {
+      "id": 231,
+      "chinese": "中国花鸟画",
+      "english": "Chinese flower-and-bird painting",
+      "category": "传统文化艺术",
+      "status": "unknown"
+    },
+    {
+      "id": 232,
+      "chinese": "唐诗",
+      "english": "poems of the Tang Dynasty// Tang poems",
+      "category": "传统文化艺术",
+      "status": "unknown"
+    },
+    {
+      "id": 233,
+      "chinese": "宋词",
+      "english": "Ci poems of the Song Dynasty",
+      "category": "传统文化艺术",
+      "status": "unknown"
+    },
+    {
+      "id": 234,
+      "chinese": "六艺",
+      "english": "Six Arts",
+      "category": "传统文化艺术",
+      "status": "unknown"
+    },
+    {
+      "id": 235,
+      "chinese": "八仙",
+      "english": "Eight Immortals",
+      "category": "传统文化艺术",
+      "status": "unknown"
+    },
+    {
+      "id": 236,
+      "chinese": "《牛郎织女》",
+      "english": "The Cowherd and the Weaver Girl",
+      "category": "传统文化艺术",
+      "status": "unknown"
+    },
+    {
+      "id": 237,
+      "chinese": "《孟姜女》",
+      "english": "Meng Jiangnv",
+      "category": "传统文化艺术",
+      "status": "unknown"
+    },
+    {
+      "id": 238,
+      "chinese": "《梁山伯与祝英台》",
+      "english": "Liang Shanbo and Zhu Yingtai// The Butterfly Lovers",
+      "category": "传统文化艺术",
+      "status": "unknown"
+    },
+    {
+      "id": 239,
+      "chinese": "《白蛇传》",
+      "english": "Legend of the White Snake",
+      "category": "传统文化艺术",
+      "status": "unknown"
+    },
+    {
+      "id": 240,
+      "chinese": "四大名著",
+      "english": "Four Great Classical Novels",
+      "category": "传统文化艺术",
+      "status": "unknown"
+    },
+    {
+      "id": 241,
+      "chinese": "《红楼梦》",
+      "english": "A Dream of Red Mansions// The Dream of the Red Chamber// The Story of the Stone",
+      "category": "传统文化艺术",
+      "status": "unknown"
+    },
+    {
+      "id": 242,
+      "chinese": "《水浒传》",
+      "english": "The Water Margin// Outlaws of the Marsh",
+      "category": "传统文化艺术",
+      "status": "unknown"
+    },
+    {
+      "id": 243,
+      "chinese": "《三国演义》",
+      "english": "The Romance of the Three Kingdoms",
+      "category": "传统文化艺术",
+      "status": "unknown"
+    },
+    {
+      "id": 244,
+      "chinese": "《西游记》",
+      "english": "The Journey to the West",
+      "category": "传统文化艺术",
+      "status": "unknown"
+    },
+    {
+      "id": 245,
+      "chinese": "《西厢记》",
+      "english": "The Romance of the Western Chamber",
+      "category": "传统文化艺术",
+      "status": "unknown"
+    },
+    {
+      "id": 246,
+      "chinese": "《牡丹亭》",
+      "english": "The Peony Pavilion",
+      "category": "传统文化艺术",
+      "status": "unknown"
+    },
+    {
+      "id": 247,
+      "chinese": "《孙子兵法》",
+      "english": "The Art of War",
+      "category": "传统文化艺术",
+      "status": "unknown"
+    },
+    {
+      "id": 248,
+      "chinese": "三十六计",
+      "english": "Thirty-six Strategies",
+      "category": "传统文化艺术",
+      "status": "unknown"
+    },
+    {
+      "id": 249,
+      "chinese": "四书五经",
+      "english": "The Four Books and Five Classics",
+      "category": "传统文化艺术",
+      "status": "unknown"
+    },
+    {
+      "id": 250,
+      "chinese": "《论语》",
+      "english": "The Analects of Confucius",
+      "category": "传统文化艺术",
+      "status": "unknown"
+    },
+    {
+      "id": 251,
+      "chinese": "《易经》",
+      "english": "The Book of Changes// The I Ching",
+      "category": "传统文化艺术",
+      "status": "unknown"
+    },
+    {
+      "id": 252,
+      "chinese": "《诗经》",
+      "english": "The Book of Songs",
+      "category": "传统文化艺术",
+      "status": "unknown"
+    },
+    {
+      "id": 253,
+      "chinese": "《史记》",
+      "english": "Records of the Grand Historian",
+      "category": "传统文化艺术",
+      "status": "unknown"
+    },
+    {
+      "id": 254,
+      "chinese": "四大发明",
+      "english": "Four Great Inventions",
+      "category": "传统文化艺术",
+      "status": "unknown"
+    },
+    {
+      "id": 255,
+      "chinese": "四大书院",
+      "english": "Four Great Academies",
+      "category": "传统文化艺术",
+      "status": "unknown"
+    },
+    {
+      "id": 256,
+      "chinese": "四大名绣",
+      "english": "Four Famous Embroidery Styles",
+      "category": "传统文化艺术",
+      "status": "unknown"
+    },
+    {
+      "id": 257,
+      "chinese": "文房四宝",
+      "english": "Four Treasures of the Study",
+      "category": "传统文化艺术",
+      "status": "unknown"
+    },
+    {
+      "id": 258,
+      "chinese": "宣纸",
+      "english": "Xuan paper//rice paper",
+      "category": "传统文化艺术",
+      "status": "unknown"
+    },
+    {
+      "id": 259,
+      "chinese": "四大菜系",
+      "english": "Four Great Chinese Cuisines",
+      "category": "传统文化艺术",
+      "status": "unknown"
+    },
+    {
+      "id": 260,
+      "chinese": "中国剪纸",
+      "english": "Chinese paper-cutting",
+      "category": "传统文化艺术",
+      "status": "unknown"
+    },
+    {
+      "id": 261,
+      "chinese": "春联",
+      "english": "spring couplets",
+      "category": "传统文化艺术",
+      "status": "unknown"
+    },
+    {
+      "id": 262,
+      "chinese": "中国结",
+      "english": "Chinese knot",
+      "category": "传统文化艺术",
+      "status": "unknown"
+    },
+    {
+      "id": 263,
+      "chinese": "春节",
+      "english": "Spring Festival",
+      "category": "传统节日习俗",
+      "status": "unknown"
+    },
+    {
+      "id": 264,
+      "chinese": "端午节",
+      "english": "Dragon Boat Festival",
+      "category": "传统节日习俗",
+      "status": "unknown"
+    },
+    {
+      "id": 265,
+      "chinese": "元宵节",
+      "english": "Lantern Festival",
+      "category": "传统节日习俗",
+      "status": "unknown"
+    },
+    {
+      "id": 266,
+      "chinese": "中秋节",
+      "english": "Mid-Autumn Festival",
+      "category": "传统节日习俗",
+      "status": "unknown"
+    },
+    {
+      "id": 267,
+      "chinese": "清明节",
+      "english": "Qingming Festival// Tomb-sweeping Day",
+      "category": "传统节日习俗",
+      "status": "unknown"
+    },
+    {
+      "id": 268,
+      "chinese": "重阳节",
+      "english": "Double Ninth Festival",
+      "category": "传统节日习俗",
+      "status": "unknown"
+    },
+    {
+      "id": 269,
+      "chinese": "中医",
+      "english": "traditional Chinese medicine",
+      "category": "中医药文化",
+      "status": "unknown"
+    },
+    {
+      "id": 270,
+      "chinese": "针灸",
+      "english": "acupuncture",
+      "category": "中医药文化",
+      "status": "unknown"
+    },
+    {
+      "id": 271,
+      "chinese": "《黄帝内经》",
+      "english": "The Yellow Emperor’s Inner Canon",
+      "category": "中医药文化",
+      "status": "unknown"
+    },
+    {
+      "id": 272,
+      "chinese": "《本草纲目》",
+      "english": "The Compendium of Materia Medica",
+      "category": "中医药文化",
+      "status": "unknown"
+    },
+    {
+      "id": 273,
+      "chinese": "农历",
+      "english": "lunar calendar",
+      "category": "传统节日习俗",
+      "status": "unknown"
+    },
+    {
+      "id": 274,
+      "chinese": "十二生肖",
+      "english": "twelve zodiac signs",
+      "category": "传统节日习俗",
+      "status": "unknown"
+    },
+    {
+      "id": 275,
+      "chinese": "二十四节气",
+      "english": "twenty-four solar terms",
+      "category": "传统节日习俗",
+      "status": "unknown"
+    },
+    {
+      "id": 276,
+      "chinese": "天干地支",
+      "english": "Heavenly Stems and Earthly Branches",
+      "category": "传统节日习俗",
+      "status": "unknown"
+    },
+    {
+      "id": 277,
+      "chinese": "长江",
+      "english": "the Yangtze River",
+      "category": "地理名胜",
+      "status": "unknown"
+    },
+    {
+      "id": 278,
+      "chinese": "黄河",
+      "english": "the Yellow River",
+      "category": "地理名胜",
+      "status": "unknown"
+    },
+    {
+      "id": 279,
+      "chinese": "长城",
+      "english": "the Great Wall",
+      "category": "地理名胜",
+      "status": "unknown"
+    },
+    {
+      "id": 280,
+      "chinese": "故宫",
+      "english": "the Forbidden City// the Imperial Palace",
+      "category": "地理名胜",
+      "status": "unknown"
+    },
+    {
+      "id": 281,
+      "chinese": "颐和园",
+      "english": "the Summer Palace",
+      "category": "地理名胜",
+      "status": "unknown"
+    },
+    {
+      "id": 282,
+      "chinese": "圆明园",
+      "english": "the Yuanmingyuan Garden// the Old Summer Palace",
+      "category": "地理名胜",
+      "status": "unknown"
+    },
+    {
+      "id": 283,
+      "chinese": "苏州园林",
+      "english": "Classical Gardens in Suzhou",
+      "category": "地理名胜",
+      "status": "unknown"
+    },
+    {
+      "id": 284,
+      "chinese": "拙政园",
+      "english": "the Humble Administrator’s Garden// Zhuozheng Yuan",
+      "category": "地理名胜",
+      "status": "unknown"
+    },
+    {
+      "id": 285,
+      "chinese": "敦煌莫高窟",
+      "english": "Dunhuang Mogao Grottoes// the Mogao Caves",
+      "category": "地理名胜",
+      "status": "unknown"
+    },
+    {
+      "id": 286,
+      "chinese": "都江堰水利工程",
+      "english": "Dujiangyan Water Conservancy Project// Dujiangyan Irrigation System",
+      "category": "地理名胜",
+      "status": "unknown"
+    },
+    {
+      "id": 287,
+      "chinese": "京杭大运河",
+      "english": "the Grand Canal// the Beijing-Hangzhou Grand Canal",
+      "category": "地理名胜",
+      "status": "unknown"
+    },
+    {
+      "id": 288,
+      "chinese": "少林寺",
+      "english": "Shaolin Temple",
+      "category": "地理名胜",
+      "status": "unknown"
+    },
+    {
+      "id": 289,
+      "chinese": "秦始皇兵马俑",
+      "english": "the Terrocotta Army// the Terracotta Warriors and Horses",
+      "category": "传统文化艺术",
+      "status": "unknown"
+    },
+    {
+      "id": 290,
+      "chinese": "唐三彩",
+      "english": "Tang tri-colored glazed pottery//tri-colored glazed pottery of the Tang Dynasty",
+      "category": "传统文化艺术",
+      "status": "unknown"
+    },
+    {
+      "id": 291,
+      "chinese": "喜马拉雅山脉",
+      "english": "the Himalayas",
+      "category": "地理名胜",
+      "status": "unknown"
+    },
+    {
+      "id": 292,
+      "chinese": "珠穆朗玛峰",
+      "english": "Mount Qomolangma",
+      "category": "地理名胜",
+      "status": "unknown"
+    },
+    {
+      "id": 293,
+      "chinese": "秦岭",
+      "english": "Qinling Mountains",
+      "category": "地理名胜",
+      "status": "unknown"
+    },
+    {
+      "id": 294,
+      "chinese": "青藏高原",
+      "english": "Qinghai-Tibet Plateau",
+      "category": "地理名胜",
+      "status": "unknown"
+    },
+    {
+      "id": 295,
+      "chinese": "黄土高原",
+      "english": "Loess Plateau",
+      "category": "地理名胜",
+      "status": "unknown"
+    },
+    {
+      "id": 296,
+      "chinese": "塔里木盆地",
+      "english": "Tarim Basin",
+      "category": "地理名胜",
+      "status": "unknown"
+    },
+    {
+      "id": 297,
+      "chinese": "泰山",
+      "english": "Mount Tai",
+      "category": "地理名胜",
+      "status": "unknown"
+    },
+    {
+      "id": 298,
+      "chinese": "布达拉宫",
+      "english": "Potala Palace",
+      "category": "地理名胜",
+      "status": "unknown"
+    },
+    {
+      "id": 299,
+      "chinese": "四合院",
+      "english": "siheyuan (courtyard)",
+      "category": "地理名胜",
+      "status": "unknown"
+    },
+    {
+      "id": 300,
+      "chinese": "祠堂",
+      "english": "ancestral temple",
+      "category": "地理名胜",
+      "status": "unknown"
+    }
+  ]
+}

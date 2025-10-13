@@ -8,7 +8,28 @@ class VocabularyApp {
         this.testQuestions = [];
         this.currentQuestionIndex = 0;
         this.testScore = 0;
+        this.testSettings = {
+            questionCount: 10,
+            questionType: 'choice' // 'choice' or 'fill'
+        };
+        this.studySettings = {
+            order: 'sequential', // 'sequential' 或 'random'
+            category: 'all' // 'all' 或具体分类名称
+        };
+        this.shuffledIndices = []; // 存储随机排序的索引
         
+        // 当前分类的词汇列表
+        this.filteredVocabulary = [];
+        
+        // 云同步设置
+        this.syncSettings = {
+            enabled: false,
+            gistId: null,
+            accessToken: null,
+            lastSyncTime: null,
+            autoSync: false
+        };
+        this.loadSyncSettings();
         this.init();
     }
 
@@ -18,26 +39,54 @@ class VocabularyApp {
         this.updateStats();
         this.setupEventListeners();
         this.renderWordList();
+        this.populateCategorySelect(); // 填充分类选择器
+        
+        // 启动时进行自动同步
+        setTimeout(() => {
+            this.autoSync();
+        }, 2000);
     }
 
     // 加载词汇数据
     async loadVocabulary() {
         try {
-            const response = await fetch('思政词汇300个.csv');
-            const csvText = await response.text();
-            this.parseCSV(csvText);
+            const response = await fetch('vocabulary.json');
+            const jsonData = await response.text();
+            this.parseJSON(jsonData);
         } catch (error) {
             console.error('加载词汇数据失败:', error);
-            // 如果无法加载CSV，使用示例数据
-            this.vocabulary = [
-                { chinese: '习近平新时代中国特色社会主义思想', english: 'Xi Jinping Thought on Socialism with Chinese Characteristics for a New Era' },
-                { chinese: '中国共产党', english: 'the Communist Party of China (the CPC)' },
-                { chinese: '中国梦', english: 'Chinese Dream' }
-            ];
+            // 如果无法加载JSON，尝试加载CSV作为备用
+            try {
+                const csvResponse = await fetch('思政词汇300个.csv');
+                const csvText = await csvResponse.text();
+                this.parseCSV(csvText);
+            } catch (csvError) {
+                console.error('加载CSV备用数据也失败:', csvError);
+                // 使用示例数据
+                this.vocabulary = [
+                    { id: 1, chinese: '习近平新时代中国特色社会主义思想', english: 'Xi Jinping Thought on Socialism with Chinese Characteristics for a New Era', category: '政治理论', status: 'unknown' },
+                    { id: 2, chinese: '中国共产党', english: 'the Communist Party of China (the CPC)', category: '党建组织', status: 'unknown' },
+                    { id: 3, chinese: '中国梦', english: 'Chinese Dream', category: '综合概念', status: 'unknown' }
+                ];
+            }
         }
     }
 
-    // 解析CSV数据
+    // 解析JSON数据
+    parseJSON(jsonText) {
+        try {
+            const data = JSON.parse(jsonText);
+            this.vocabulary = data.vocabulary || [];
+            this.metadata = data.metadata || {};
+            console.log(`成功加载 ${this.vocabulary.length} 个词汇`);
+            console.log('分类统计:', this.metadata.categories);
+        } catch (error) {
+            console.error('解析JSON数据失败:', error);
+            this.vocabulary = [];
+        }
+    }
+
+    // 解析CSV数据（备用方法）
     parseCSV(csvText) {
         const lines = csvText.split('\n');
         this.vocabulary = [];
@@ -46,37 +95,353 @@ class VocabularyApp {
             const line = lines[i].trim();
             if (line) {
                 const columns = line.split(',');
-                if (columns.length >= 2 && columns[0] && columns[1]) {
+                // 获取中文和英文，去除空白字符
+                const chinese = columns[0] ? columns[0].trim() : '';
+                const english = columns[1] ? columns[1].trim() : '';
+                
+                // 只要中文和英文都不为空就添加
+                if (chinese && english) {
                     this.vocabulary.push({
                         id: i - 1,
-                        chinese: columns[0].trim(),
-                        english: columns[1].trim()
+                        chinese: chinese,
+                        english: english,
+                        category: '综合概念', // CSV模式下默认分类
+                        status: 'unknown'
                     });
                 }
             }
         }
+        
+        console.log(`成功加载 ${this.vocabulary.length} 个词汇（CSV格式）`);
     }
 
     // 加载用户学习进度
     loadUserProgress() {
         const saved = localStorage.getItem('vocabularyProgress');
         if (saved) {
-            this.userProgress = JSON.parse(saved);
+            try {
+                const data = JSON.parse(saved);
+                // 检查数据版本和结构
+                if (data.version && data.userProgress) {
+                    this.userProgress = data.userProgress;
+                    this.progressVersion = data.version;
+                    this.lastSaved = data.lastSaved;
+                } else {
+                    // 兼容旧版本数据
+                    this.userProgress = data;
+                    this.progressVersion = '1.0';
+                    this.lastSaved = new Date().toISOString();
+                }
+            } catch (error) {
+                console.error('加载用户进度失败:', error);
+                this.initializeDefaultProgress();
+            }
         } else {
-            this.userProgress = {};
-            this.vocabulary.forEach(word => {
+            this.initializeDefaultProgress();
+        }
+        
+        // 确保所有词汇都有进度记录
+        this.ensureAllWordsHaveProgress();
+    }
+
+    // 初始化默认进度
+    initializeDefaultProgress() {
+        this.userProgress = {};
+        this.progressVersion = '1.1';
+        this.lastSaved = new Date().toISOString();
+        this.vocabulary.forEach(word => {
+            this.userProgress[word.id] = {
+                status: 'unknown', // unknown, learning, known
+                reviewCount: 0,
+                lastReviewed: null,
+                createdAt: new Date().toISOString()
+            };
+        });
+    }
+
+    // 确保所有词汇都有进度记录
+    ensureAllWordsHaveProgress() {
+        let hasNewWords = false;
+        this.vocabulary.forEach(word => {
+            if (!this.userProgress[word.id]) {
                 this.userProgress[word.id] = {
-                    status: 'unknown', // unknown, learning, known
+                    status: 'unknown',
                     reviewCount: 0,
-                    lastReviewed: null
+                    lastReviewed: null,
+                    createdAt: new Date().toISOString()
                 };
-            });
+                hasNewWords = true;
+            }
+        });
+        
+        if (hasNewWords) {
+            this.saveUserProgress();
         }
     }
 
     // 保存用户进度
     saveUserProgress() {
-        localStorage.setItem('vocabularyProgress', JSON.stringify(this.userProgress));
+        try {
+            const progressData = {
+                version: '1.1',
+                lastSaved: new Date().toISOString(),
+                userProgress: this.userProgress,
+                totalWords: this.vocabulary.length,
+                categories: this.metadata ? Object.keys(this.metadata.categories || {}) : []
+            };
+            
+            localStorage.setItem('vocabularyProgress', JSON.stringify(progressData));
+            this.lastSaved = progressData.lastSaved;
+            
+            // 同时保存一个备份副本
+            localStorage.setItem('vocabularyProgress_backup', JSON.stringify(progressData));
+        } catch (error) {
+            console.error('保存用户进度失败:', error);
+            // 如果localStorage空间不足，尝试清理旧数据
+            this.cleanupOldData();
+        }
+    }
+
+    // 清理旧数据
+    cleanupOldData() {
+        try {
+            // 移除可能的旧版本数据
+            const keysToRemove = [];
+            for (let i = 0; i < localStorage.length; i++) {
+                const key = localStorage.key(i);
+                if (key && key.startsWith('vocab_') && key !== 'vocabularyProgress' && key !== 'vocabularyProgress_backup') {
+                    keysToRemove.push(key);
+                }
+            }
+            keysToRemove.forEach(key => localStorage.removeItem(key));
+            
+            // 重新尝试保存
+            const progressData = {
+                version: '1.1',
+                lastSaved: new Date().toISOString(),
+                userProgress: this.userProgress
+            };
+            localStorage.setItem('vocabularyProgress', JSON.stringify(progressData));
+        } catch (error) {
+            console.error('清理数据后仍无法保存:', error);
+        }
+    }
+
+    // 加载云同步设置
+    loadSyncSettings() {
+        const saved = localStorage.getItem('vocabularySyncSettings');
+        if (saved) {
+            try {
+                this.syncSettings = { ...this.syncSettings, ...JSON.parse(saved) };
+            } catch (error) {
+                console.error('加载同步设置失败:', error);
+            }
+        }
+    }
+
+    // 保存云同步设置
+    saveSyncSettings() {
+        try {
+            localStorage.setItem('vocabularySyncSettings', JSON.stringify(this.syncSettings));
+        } catch (error) {
+            console.error('保存同步设置失败:', error);
+        }
+    }
+
+    // 上传进度到GitHub Gist
+    async uploadToGist() {
+        if (!this.syncSettings.accessToken) {
+            throw new Error('请先配置GitHub访问令牌');
+        }
+
+        const progressData = {
+            version: '1.1',
+            lastSaved: new Date().toISOString(),
+            userProgress: this.userProgress,
+            totalWords: this.vocabulary.length,
+            categories: this.metadata ? Object.keys(this.metadata.categories || {}) : [],
+            deviceInfo: {
+                userAgent: navigator.userAgent,
+                timestamp: new Date().toISOString()
+            }
+        };
+
+        try {
+            let response;
+            
+            if (this.syncSettings.gistId) {
+                // 更新现有Gist
+                response = await fetch(`https://api.github.com/gists/${this.syncSettings.gistId}`, {
+                    method: 'PATCH',
+                    headers: {
+                        'Authorization': `token ${this.syncSettings.accessToken}`,
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({
+                        files: {
+                            'vocabulary-progress.json': {
+                                content: JSON.stringify(progressData, null, 2)
+                            }
+                        }
+                    })
+                });
+            } else {
+                // 创建新Gist
+                response = await fetch('https://api.github.com/gists', {
+                    method: 'POST',
+                    headers: {
+                        'Authorization': `token ${this.syncSettings.accessToken}`,
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({
+                        description: '思政英语词汇学习进度',
+                        public: false,
+                        files: {
+                            'vocabulary-progress.json': {
+                                content: JSON.stringify(progressData, null, 2)
+                            }
+                        }
+                    })
+                });
+            }
+
+            if (!response.ok) {
+                throw new Error(`上传失败: ${response.status} ${response.statusText}`);
+            }
+
+            const result = await response.json();
+            
+            // 如果是新创建的Gist，保存ID
+            if (!this.syncSettings.gistId) {
+                this.syncSettings.gistId = result.id;
+            }
+
+            this.syncSettings.lastSyncTime = new Date().toISOString();
+            this.saveSyncSettings();
+            
+            return result;
+        } catch (error) {
+            console.error('上传到Gist失败:', error);
+            throw error;
+        }
+    }
+
+    // 从GitHub Gist下载进度
+    async downloadFromGist() {
+        if (!this.syncSettings.accessToken) {
+            throw new Error('请先配置GitHub访问令牌');
+        }
+        
+        if (!this.syncSettings.gistId) {
+            throw new Error('未找到Gist ID，请先上传数据或手动输入Gist ID');
+        }
+
+        try {
+            const response = await fetch(`https://api.github.com/gists/${this.syncSettings.gistId}`, {
+                headers: {
+                    'Authorization': `token ${this.syncSettings.accessToken}`,
+                }
+            });
+
+            if (!response.ok) {
+                throw new Error(`下载失败: ${response.status} ${response.statusText}`);
+            }
+
+            const gist = await response.json();
+            const progressFile = gist.files['vocabulary-progress.json'];
+            
+            if (!progressFile) {
+                throw new Error('Gist中未找到进度文件');
+            }
+
+            const progressData = JSON.parse(progressFile.content);
+            
+            // 合并远程数据和本地数据
+            this.mergeProgressData(progressData);
+            
+            this.syncSettings.lastSyncTime = new Date().toISOString();
+            this.saveSyncSettings();
+            
+            return progressData;
+        } catch (error) {
+            console.error('从Gist下载失败:', error);
+            throw error;
+        }
+    }
+
+    // 合并进度数据
+    mergeProgressData(remoteData) {
+        if (!remoteData.userProgress) {
+            return;
+        }
+
+        // 简单的合并策略：使用最新的复习时间
+        Object.keys(remoteData.userProgress).forEach(wordId => {
+            const remoteProgress = remoteData.userProgress[wordId];
+            const localProgress = this.userProgress[wordId];
+
+            if (!localProgress) {
+                // 本地没有这个词汇的记录，直接使用远程数据
+                this.userProgress[wordId] = remoteProgress;
+            } else {
+                // 比较最后复习时间，使用更新的数据
+                const remoteTime = new Date(remoteProgress.lastReviewed || 0);
+                const localTime = new Date(localProgress.lastReviewed || 0);
+                
+                if (remoteTime > localTime) {
+                    this.userProgress[wordId] = remoteProgress;
+                } else if (remoteTime.getTime() === localTime.getTime()) {
+                    // 时间相同时，合并复习次数
+                    this.userProgress[wordId].reviewCount = Math.max(
+                        localProgress.reviewCount || 0,
+                        remoteProgress.reviewCount || 0
+                    );
+                }
+            }
+        });
+
+        // 保存合并后的数据
+        this.saveUserProgress();
+        this.updateStats();
+    }
+
+    // 自动同步
+    async autoSync() {
+        if (!this.syncSettings.enabled || !this.syncSettings.autoSync) {
+            return;
+        }
+
+        try {
+            // 先下载远程数据进行合并
+            await this.downloadFromGist();
+            // 然后上传本地数据
+            await this.uploadToGist();
+        } catch (error) {
+            console.error('自动同步失败:', error);
+        }
+    }
+
+    // 手动同步
+    async manualSync() {
+        if (!this.syncSettings.enabled) {
+            throw new Error('云同步未启用');
+        }
+
+        try {
+            // 先下载远程数据进行合并
+            await this.downloadFromGist();
+            // 然后上传本地数据
+            await this.uploadToGist();
+            
+            return {
+                success: true,
+                message: '同步成功',
+                lastSyncTime: this.syncSettings.lastSyncTime
+            };
+        } catch (error) {
+            console.error('手动同步失败:', error);
+            throw error;
+        }
     }
 
     // 更新统计数据
@@ -118,6 +483,32 @@ class VocabularyApp {
                 flashcard.classList.toggle('flipped');
             });
         }
+
+        // 测试设置选项监听
+        this.setupTestSettingsListeners();
+    }
+
+    // 设置测试选项监听器
+    setupTestSettingsListeners() {
+        // 题目数量选择
+        const countButtons = document.querySelectorAll('[data-count]');
+        countButtons.forEach(btn => {
+            btn.addEventListener('click', () => {
+                countButtons.forEach(b => b.classList.remove('active'));
+                btn.classList.add('active');
+                this.testSettings.questionCount = parseInt(btn.dataset.count);
+            });
+        });
+
+        // 题型选择
+        const typeButtons = document.querySelectorAll('[data-type]');
+        typeButtons.forEach(btn => {
+            btn.addEventListener('click', () => {
+                typeButtons.forEach(b => b.classList.remove('active'));
+                btn.classList.add('active');
+                this.testSettings.questionType = btn.dataset.type;
+            });
+        });
     }
 
     // 显示指定页面
@@ -144,80 +535,234 @@ class VocabularyApp {
 
     // 初始化学习模式
     initStudyMode() {
+        // 先筛选词汇
+        this.filterVocabularyByCategory();
+        
+        if (this.filteredVocabulary.length === 0) {
+            // 如果没有词汇，显示提示信息
+            document.querySelector('.flashcard .word').textContent = '该分类暂无词汇';
+            document.querySelector('.flashcard .translation').textContent = '';
+            document.querySelector('.study-progress').textContent = '0/0';
+            return;
+        }
+        
+        // 如果是随机模式且还没有生成随机索引，则生成
+        if (this.studySettings.order === 'random' && this.shuffledIndices.length === 0) {
+            this.generateShuffledIndices();
+        }
+        
         // 找到下一个需要学习的词汇
-        const unknownWords = this.vocabulary.filter(word => 
+        const unknownWords = this.filteredVocabulary.filter(word => 
             this.userProgress[word.id].status === 'unknown'
         );
         
         if (unknownWords.length > 0) {
-            this.currentWordIndex = this.vocabulary.findIndex(word => word.id === unknownWords[0].id);
+            if (this.studySettings.order === 'random') {
+                // 随机模式：从随机索引中找到第一个未学习的词汇
+                const unknownIndex = this.shuffledIndices.find(index => {
+                    const word = this.filteredVocabulary[index];
+                    return word && this.userProgress[word.id].status === 'unknown';
+                });
+                this.currentWordIndex = unknownIndex !== undefined ? unknownIndex : this.shuffledIndices[0];
+            } else {
+                // 顺序模式：按原来的逻辑
+                this.currentWordIndex = this.filteredVocabulary.findIndex(word => word.id === unknownWords[0].id);
+            }
         } else {
-            // 如果没有未学习的词汇，随机选择一个
-            this.currentWordIndex = Math.floor(Math.random() * this.vocabulary.length);
+            // 如果没有未学习的词汇，根据模式选择起始位置
+            if (this.studySettings.order === 'random') {
+                if (this.shuffledIndices.length === 0) {
+                    this.generateShuffledIndices();
+                }
+                this.currentWordIndex = this.shuffledIndices[0];
+            } else {
+                this.currentWordIndex = 0;
+            }
         }
         
         this.displayCurrentWord();
         this.updateStudyProgress();
     }
 
+    // 生成随机索引数组
+    generateShuffledIndices() {
+        this.shuffledIndices = Array.from({length: this.filteredVocabulary.length}, (_, i) => i);
+        // Fisher-Yates 洗牌算法
+        for (let i = this.shuffledIndices.length - 1; i > 0; i--) {
+            const j = Math.floor(Math.random() * (i + 1));
+            [this.shuffledIndices[i], this.shuffledIndices[j]] = [this.shuffledIndices[j], this.shuffledIndices[i]];
+        }
+    }
+
     // 显示当前单词
     displayCurrentWord() {
-        const word = this.vocabulary[this.currentWordIndex];
-        if (word) {
-            document.getElementById('word-chinese').textContent = word.chinese;
-            document.getElementById('word-english').textContent = word.english;
-            
-            // 重置卡片状态
-            const flashcard = document.getElementById('flashcard');
-            flashcard.classList.remove('flipped');
+        if (this.filteredVocabulary.length === 0) return;
+        
+        const word = this.filteredVocabulary[this.currentWordIndex];
+        if (!word) return;
+        
+        document.getElementById('word-chinese').textContent = word.chinese;
+        document.getElementById('word-english').textContent = word.english;
+        
+        // 更新类别标签
+        const categoryLabelFront = document.getElementById('category-label-front');
+        const categoryLabelBack = document.getElementById('category-label-back');
+        if (categoryLabelFront) {
+            categoryLabelFront.textContent = word.category || '综合概念';
         }
+        if (categoryLabelBack) {
+            categoryLabelBack.textContent = word.category || '综合概念';
+        }
+        
+        // 重置卡片状态
+        const flashcard = document.getElementById('flashcard');
+        flashcard.classList.remove('flipped');
     }
 
     // 更新学习进度显示
     updateStudyProgress() {
-        document.getElementById('current-index').textContent = this.currentWordIndex + 1;
-        document.getElementById('total-words').textContent = this.vocabulary.length;
+        if (this.studySettings.order === 'random') {
+            // 随机模式：显示当前在随机序列中的位置
+            const currentPosition = this.shuffledIndices.indexOf(this.currentWordIndex) + 1;
+            document.getElementById('current-index').textContent = currentPosition;
+        } else {
+            // 顺序模式：显示实际索引
+            document.getElementById('current-index').textContent = this.currentWordIndex + 1;
+        }
+        document.getElementById('total-words').textContent = this.filteredVocabulary.length;
     }
 
     // 上一个单词
     previousWord() {
-        this.currentWordIndex = (this.currentWordIndex - 1 + this.vocabulary.length) % this.vocabulary.length;
+        if (this.filteredVocabulary.length === 0) return;
+        
+        if (this.studySettings.order === 'random') {
+            // 随机模式：在随机序列中移动
+            const currentPosition = this.shuffledIndices.indexOf(this.currentWordIndex);
+            const previousPosition = (currentPosition - 1 + this.shuffledIndices.length) % this.shuffledIndices.length;
+            this.currentWordIndex = this.shuffledIndices[previousPosition];
+        } else {
+            // 顺序模式：按原来的逻辑
+            this.currentWordIndex = (this.currentWordIndex - 1 + this.filteredVocabulary.length) % this.filteredVocabulary.length;
+        }
         this.displayCurrentWord();
         this.updateStudyProgress();
     }
 
     // 下一个单词
     nextWord() {
-        this.currentWordIndex = (this.currentWordIndex + 1) % this.vocabulary.length;
+        if (this.filteredVocabulary.length === 0) return;
+        
+        if (this.studySettings.order === 'random') {
+            // 随机模式：在随机序列中移动
+            const currentPosition = this.shuffledIndices.indexOf(this.currentWordIndex);
+            const nextPosition = (currentPosition + 1) % this.shuffledIndices.length;
+            this.currentWordIndex = this.shuffledIndices[nextPosition];
+        } else {
+            // 顺序模式：按原来的逻辑
+            this.currentWordIndex = (this.currentWordIndex + 1) % this.filteredVocabulary.length;
+        }
         this.displayCurrentWord();
         this.updateStudyProgress();
     }
 
     // 标记为认识
     markAsKnown() {
-        const word = this.vocabulary[this.currentWordIndex];
+        if (this.filteredVocabulary.length === 0) return;
+        
+        const word = this.filteredVocabulary[this.currentWordIndex];
+        if (!word) return;
+        
         this.userProgress[word.id].status = 'known';
         this.userProgress[word.id].reviewCount++;
         this.userProgress[word.id].lastReviewed = new Date().toISOString();
         
         this.saveUserProgress();
         this.updateStats();
+        
+        // 触发自动同步
+        this.autoSync();
+        
         this.nextWord();
     }
 
     // 标记为不认识
     markAsUnknown() {
-        const word = this.vocabulary[this.currentWordIndex];
+        if (this.filteredVocabulary.length === 0) return;
+        
+        const word = this.filteredVocabulary[this.currentWordIndex];
+        if (!word) return;
+        
         this.userProgress[word.id].status = 'learning';
         this.userProgress[word.id].reviewCount++;
         this.userProgress[word.id].lastReviewed = new Date().toISOString();
         
         this.saveUserProgress();
         this.updateStats();
+        
+        // 触发自动同步
+        this.autoSync();
+        
         this.nextWord();
     }
 
-    // 渲染词汇列表
+    // 设置学习顺序
+    setStudyOrder(order) {
+        this.studySettings.order = order;
+        
+        // 更新按钮状态
+        document.querySelectorAll('[data-order]').forEach(btn => {
+            btn.classList.remove('active');
+        });
+        document.querySelector(`[data-order="${order}"]`).classList.add('active');
+        
+        // 如果切换到随机模式，重新生成随机索引
+        if (order === 'random') {
+            this.generateShuffledIndices();
+        } else {
+            // 如果切换到顺序模式，清空随机索引
+            this.shuffledIndices = [];
+        }
+        
+        // 重新初始化学习模式
+        this.initStudyMode();
+    }
+
+    // 填充分类选择器
+    populateCategorySelect() {
+        const categorySelect = document.getElementById('categorySelect');
+        if (!categorySelect || !this.metadata || !this.metadata.categories) return;
+        
+        // 清空现有选项（保留"全部分类"）
+        categorySelect.innerHTML = '<option value="all">全部分类</option>';
+        
+        // 添加各个分类选项
+        const categories = Object.keys(this.metadata.categories);
+        categories.forEach(category => {
+            const option = document.createElement('option');
+            option.value = category;
+            option.textContent = `${category} (${this.metadata.categories[category]}个)`;
+            categorySelect.appendChild(option);
+        });
+    }
+
+    // 设置学习分类
+    setStudyCategory(category) {
+        this.studySettings.category = category;
+        this.filterVocabularyByCategory();
+        this.initStudyMode();
+    }
+
+    // 根据分类筛选词汇
+    filterVocabularyByCategory() {
+        if (this.studySettings.category === 'all') {
+            this.filteredVocabulary = [...this.vocabulary];
+        } else {
+            this.filteredVocabulary = this.vocabulary.filter(word => 
+                word.category === this.studySettings.category
+            );
+        }
+    }
     renderWordList(filteredWords = null) {
         const wordList = document.getElementById('word-list');
         if (!wordList) return;
@@ -232,8 +777,9 @@ class VocabularyApp {
             wordItem.className = `word-item ${progress.status}`;
             
             wordItem.innerHTML = `
-                <div class="word-chinese-text">${word.chinese}</div>
                 <div class="word-english-text">${word.english}</div>
+                <div class="word-chinese-text">${word.chinese}</div>
+                <div class="word-category">分类: ${word.category || '综合概念'}</div>
                 <span class="word-status status-${progress.status}">
                     ${this.getStatusText(progress.status)}
                 </span>
@@ -281,20 +827,24 @@ class VocabularyApp {
 
     // 开始测试
     startTest() {
+        // 隐藏设置界面，显示测试界面
+        document.getElementById('test-settings').style.display = 'none';
+        document.getElementById('test-container').style.display = 'block';
+        
         this.generateTestQuestions();
         this.currentQuestionIndex = 0;
         this.testScore = 0;
         
-        document.querySelector('.test-controls .btn-primary').style.display = 'none';
-        document.getElementById('next-btn').style.display = 'inline-block';
+        document.getElementById('next-btn').style.display = 'none';
         document.getElementById('test-result').style.display = 'none';
+        document.getElementById('test-total').textContent = this.testSettings.questionCount;
         
         this.showCurrentQuestion();
     }
 
     // 生成测试题目
     generateTestQuestions() {
-        const questionCount = Math.min(10, this.vocabulary.length);
+        const questionCount = Math.min(this.testSettings.questionCount, this.vocabulary.length);
         const shuffled = [...this.vocabulary].sort(() => Math.random() - 0.5);
         this.testQuestions = shuffled.slice(0, questionCount);
         
@@ -303,16 +853,25 @@ class VocabularyApp {
             const correctAnswer = isChineseToEnglish ? word.english : word.chinese;
             const question = isChineseToEnglish ? word.chinese : word.english;
             
-            // 生成错误选项
-            const wrongOptions = this.generateWrongOptions(correctAnswer, isChineseToEnglish);
-            const options = [correctAnswer, ...wrongOptions].sort(() => Math.random() - 0.5);
-            
-            return {
+            let questionData = {
                 question,
-                options,
                 correctAnswer,
-                isChineseToEnglish
+                isChineseToEnglish,
+                questionType: this.testSettings.questionType
             };
+
+            // 根据题型生成题目
+            if (this.testSettings.questionType === 'choice') {
+                // 选择题：生成选项
+                const wrongOptions = this.generateWrongOptions(correctAnswer, isChineseToEnglish);
+                const options = [correctAnswer, ...wrongOptions].sort(() => Math.random() - 0.5);
+                questionData.options = options;
+            } else if (this.testSettings.questionType === 'fill') {
+                // 填空题：不需要选项
+                // questionData 已经包含了必要的信息
+            }
+            
+            return questionData;
         });
     }
 
@@ -329,21 +888,46 @@ class VocabularyApp {
     // 显示当前题目
     showCurrentQuestion() {
         const question = this.testQuestions[this.currentQuestionIndex];
-        
+        if (!question) return;
+
         document.getElementById('question-text').textContent = question.question;
         document.getElementById('test-current').textContent = this.currentQuestionIndex + 1;
-        document.getElementById('test-total').textContent = this.testQuestions.length;
-        
-        const optionsContainer = document.getElementById('test-options');
-        optionsContainer.innerHTML = '';
-        
-        question.options.forEach((option, index) => {
-            const button = document.createElement('button');
-            button.className = 'option-btn';
-            button.textContent = option;
-            button.addEventListener('click', () => this.selectOption(button, option, question.correctAnswer));
-            optionsContainer.appendChild(button);
-        });
+
+        // 隐藏所有题型界面
+        document.getElementById('test-options').style.display = 'none';
+        document.getElementById('fill-blank-container').style.display = 'none';
+
+        // 根据题型显示不同的界面
+        if (question.questionType === 'choice') {
+            // 显示选择题界面
+            document.getElementById('test-options').style.display = 'flex';
+            
+            const optionsContainer = document.getElementById('test-options');
+            optionsContainer.innerHTML = '';
+
+            question.options.forEach((option, index) => {
+                const button = document.createElement('button');
+                button.className = 'option-btn';
+                button.textContent = option;
+                button.onclick = () => this.selectOption(button, option, question.correctAnswer);
+                optionsContainer.appendChild(button);
+            });
+        } else if (question.questionType === 'fill') {
+            // 显示填空题界面
+            document.getElementById('fill-blank-container').style.display = 'flex';
+            
+            const input = document.getElementById('fill-blank-input');
+            input.value = '';
+            input.className = '';
+            input.focus();
+            
+            // 添加回车键提交功能
+            input.onkeypress = (e) => {
+                if (e.key === 'Enter') {
+                    this.submitFillBlank();
+                }
+            };
+        }
     }
 
     // 选择选项
@@ -375,32 +959,101 @@ class VocabularyApp {
             this.showTestResult();
         } else {
             this.showCurrentQuestion();
+            // 隐藏下一题按钮
             document.getElementById('next-btn').style.display = 'none';
         }
     }
 
     // 显示测试结果
     showTestResult() {
-        const accuracy = Math.round((this.testScore / this.testQuestions.length) * 100);
-        
-        document.getElementById('accuracy').textContent = `${accuracy}%`;
-        document.getElementById('correct-count').textContent = this.testScore;
-        document.getElementById('question-count').textContent = this.testQuestions.length;
-        
-        document.querySelector('.test-question').style.display = 'none';
-        document.getElementById('next-btn').style.display = 'none';
+        document.getElementById('test-container').style.display = 'none';
         document.getElementById('test-result').style.display = 'block';
+        
+        const percentage = Math.round((this.testScore / this.testQuestions.length) * 100);
+        document.getElementById('test-score').textContent = `${this.testScore}/${this.testQuestions.length}`;
+        document.getElementById('test-percentage').textContent = `${percentage}%`;
+        
+        // 根据分数显示不同的评价
+        const resultMessage = document.getElementById('result-message');
+        if (percentage >= 90) {
+            resultMessage.textContent = '优秀！继续保持！';
+            resultMessage.style.color = '#4CAF50';
+        } else if (percentage >= 70) {
+            resultMessage.textContent = '良好！还有提升空间！';
+            resultMessage.style.color = '#FF9800';
+        } else {
+            resultMessage.textContent = '需要加强练习！';
+            resultMessage.style.color = '#f44336';
+        }
+    }
+
+    // 提交填空题答案
+    submitFillBlank() {
+        const input = document.getElementById('fill-blank-input');
+        const userAnswer = input.value.trim();
+        const question = this.testQuestions[this.currentQuestionIndex];
+        
+        if (!userAnswer) {
+            // 显示输入提示而不是弹窗
+            input.placeholder = '请输入答案';
+            input.style.borderColor = '#f44336';
+            input.focus();
+            setTimeout(() => {
+                input.placeholder = '请输入答案...';
+                input.style.borderColor = '';
+            }, 2000);
+            return;
+        }
+        
+        const isCorrect = this.checkFillBlankAnswer(userAnswer, question.correctAnswer);
+        
+        if (isCorrect) {
+            input.className = 'correct';
+            this.testScore++;
+        } else {
+            input.className = 'incorrect';
+            // 显示正确答案
+            setTimeout(() => {
+                input.value = question.correctAnswer;
+            }, 1000);
+        }
+        
+        // 显示下一题按钮
+        document.getElementById('next-btn').style.display = 'inline-block';
+    }
+
+    // 检查填空题答案
+    checkFillBlankAnswer(userAnswer, correctAnswer) {
+        // 去除空格并转换为小写进行比较
+        const normalizedUser = userAnswer.toLowerCase().replace(/\s+/g, '');
+        const normalizedCorrect = correctAnswer.toLowerCase().replace(/\s+/g, '');
+        
+        // 完全匹配
+        if (normalizedUser === normalizedCorrect) {
+            return true;
+        }
+        
+        // 对于英文答案，检查是否包含主要单词
+        if (/^[a-zA-Z\s]+$/.test(correctAnswer)) {
+            const userWords = normalizedUser.split(/[^a-z]+/).filter(w => w.length > 2);
+            const correctWords = normalizedCorrect.split(/[^a-z]+/).filter(w => w.length > 2);
+            
+            // 如果用户答案包含了正确答案的主要单词，也算正确
+            return correctWords.some(word => userWords.includes(word));
+        }
+        
+        return false;
+    }
+
+    // 返回设置界面
+    backToSettings() {
+        document.getElementById('test-settings').style.display = 'block';
+        document.getElementById('test-container').style.display = 'none';
     }
 
     // 重新开始测试
     restartTest() {
-        document.querySelector('.test-question').style.display = 'block';
-        document.querySelector('.test-controls .btn-primary').style.display = 'inline-block';
-        document.getElementById('test-result').style.display = 'none';
-        
-        // 重置题目显示
-        document.getElementById('question-text').textContent = '准备开始测试';
-        document.getElementById('test-options').innerHTML = '';
+        this.startTest();
     }
 }
 
@@ -443,6 +1096,18 @@ function markAsUnknown() {
     }
 }
 
+function setStudyCategory(category) {
+    if (app) {
+        app.setStudyCategory(category);
+    }
+}
+
+function setStudyOrder(order) {
+    if (app) {
+        app.setStudyOrder(order);
+    }
+}
+
 function startTest() {
     if (app) {
         app.startTest();
@@ -455,8 +1120,144 @@ function nextQuestion() {
     }
 }
 
+// 全局函数，供HTML调用
+function submitFillBlank() {
+    if (app) {
+        app.submitFillBlank();
+    }
+}
+
+function backToSettings() {
+    if (app) {
+        app.backToSettings();
+    }
+}
+
 function restartTest() {
     if (app) {
         app.restartTest();
     }
 }
+
+// 云同步相关的全局函数
+function saveSyncSettings() {
+    const token = document.getElementById('gist-token').value.trim();
+    const gistId = document.getElementById('gist-id').value.trim();
+    const autoSync = document.getElementById('auto-sync').checked;
+    
+    if (!token) {
+        alert('请输入GitHub访问令牌');
+        return;
+    }
+    
+    app.syncSettings.accessToken = token;
+    app.syncSettings.gistId = gistId || null;
+    app.syncSettings.autoSync = autoSync;
+    app.syncSettings.enabled = true;
+    
+    app.saveSyncSettings();
+    updateSyncStatus();
+    
+    alert('同步设置已保存');
+}
+
+function testSync() {
+    if (!app.syncSettings.enabled || !app.syncSettings.accessToken) {
+        alert('请先配置并保存同步设置');
+        return;
+    }
+    
+    // 测试GitHub API连接
+    fetch('https://api.github.com/user', {
+        headers: {
+            'Authorization': `token ${app.syncSettings.accessToken}`
+        }
+    })
+    .then(response => {
+        if (response.ok) {
+            alert('连接测试成功！');
+            updateSyncStatus();
+        } else {
+            throw new Error(`连接失败: ${response.status}`);
+        }
+    })
+    .catch(error => {
+        alert(`连接测试失败: ${error.message}`);
+    });
+}
+
+function manualSync() {
+    if (!app.syncSettings.enabled) {
+        alert('请先启用云同步');
+        return;
+    }
+    
+    const button = event.target;
+    const originalText = button.textContent;
+    button.textContent = '同步中...';
+    button.disabled = true;
+    
+    app.manualSync()
+        .then(result => {
+            alert(result.message);
+            updateSyncStatus();
+        })
+        .catch(error => {
+            alert(`同步失败: ${error.message}`);
+        })
+        .finally(() => {
+            button.textContent = originalText;
+            button.disabled = false;
+        });
+}
+
+function updateSyncStatus() {
+    const statusText = document.getElementById('sync-status-text');
+    const lastSyncTime = document.getElementById('last-sync-time');
+    
+    if (statusText) {
+        if (app.syncSettings.enabled) {
+            statusText.textContent = '已配置';
+            statusText.style.color = '#059669';
+        } else {
+            statusText.textContent = '未配置';
+            statusText.style.color = '#dc2626';
+        }
+    }
+    
+    if (lastSyncTime) {
+        if (app.syncSettings.lastSyncTime) {
+            const date = new Date(app.syncSettings.lastSyncTime);
+            lastSyncTime.textContent = date.toLocaleString('zh-CN');
+        } else {
+            lastSyncTime.textContent = '从未同步';
+        }
+    }
+}
+
+function loadSyncSettingsUI() {
+    const tokenInput = document.getElementById('gist-token');
+    const gistIdInput = document.getElementById('gist-id');
+    const autoSyncCheckbox = document.getElementById('auto-sync');
+    
+    if (tokenInput && app.syncSettings.accessToken) {
+        tokenInput.value = app.syncSettings.accessToken;
+    }
+    
+    if (gistIdInput && app.syncSettings.gistId) {
+        gistIdInput.value = app.syncSettings.gistId;
+    }
+    
+    if (autoSyncCheckbox) {
+        autoSyncCheckbox.checked = app.syncSettings.autoSync;
+    }
+    
+    updateSyncStatus();
+}
+
+// 在页面加载完成后初始化同步设置UI
+document.addEventListener('DOMContentLoaded', () => {
+    setTimeout(() => {
+        loadSyncSettingsUI();
+    }, 100);
+});
