@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>思政英语词汇学习</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="manifest" href="manifest.json">
+    <meta name="theme-color" content="#2563eb">
+</head>
+<body>
+    <div class="app">
+        <!-- 导航栏 -->
+        <nav class="navbar">
+            <h1 class="app-title">思政英语词汇</h1>
+            <div class="nav-stats">
+                <span id="progress-text">0/300</span>
+            </div>
+        </nav>
+
+        <!-- 主要内容区域 -->
+        <main class="main-content">
+            <!-- 首页 -->
+            <section id="home-section" class="section active">
+                <div class="welcome-card">
+                    <h2>开始学习</h2>
+                    <p>300个思政英语词汇等你掌握</p>
+                    <div class="stats-grid">
+                        <div class="stat-item">
+                            <span class="stat-number" id="learned-count">0</span>
+                            <span class="stat-label">已学习</span>
+                        </div>
+                        <div class="stat-item">
+                            <span class="stat-number" id="mastered-count">0</span>
+                            <span class="stat-label">已掌握</span>
+                        </div>
+                        <div class="stat-item">
+                            <span class="stat-number" id="remaining-count">300</span>
+                            <span class="stat-label">待学习</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="action-buttons">
+                    <button class="btn btn-primary" onclick="showSection('study')">
+                        📚 开始学习
+                    </button>
+                    <button class="btn btn-secondary" onclick="showSection('browse')">
+                        📖 浏览词汇
+                    </button>
+                    <button class="btn btn-secondary" onclick="showSection('test')">
+                        📝 测试练习
+                    </button>
+                </div>
+            </section>
+
+            <!-- 学习模式 -->
+            <section id="study-section" class="section">
+                <div class="section-header">
+                    <button class="btn-back" onclick="showSection('home')">← 返回</button>
+                    <h2>学习模式</h2>
+                    <div class="study-progress">
+                        <span id="current-index">1</span> / <span id="total-words">300</span>
+                    </div>
+                </div>
+
+                <div class="study-container">
+                    <div class="flashcard" id="flashcard">
+                        <div class="flashcard-inner">
+                            <div class="flashcard-front">
+                                <div class="word-chinese" id="word-chinese">点击开始学习</div>
+                                <div class="card-hint">点击翻转查看英文</div>
+                            </div>
+                            <div class="flashcard-back">
+                                <div class="word-english" id="word-english">Click to start learning</div>
+                                <div class="card-hint">点击翻转查看中文</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="study-controls">
+                        <button class="btn btn-outline" onclick="previousWord()">上一个</button>
+                        <button class="btn btn-success" onclick="markAsKnown()">认识</button>
+                        <button class="btn btn-warning" onclick="markAsUnknown()">不认识</button>
+                        <button class="btn btn-outline" onclick="nextWord()">下一个</button>
+                    </div>
+                </div>
+            </section>
+
+            <!-- 浏览模式 -->
+            <section id="browse-section" class="section">
+                <div class="section-header">
+                    <button class="btn-back" onclick="showSection('home')">← 返回</button>
+                    <h2>词汇浏览</h2>
+                </div>
+
+                <div class="search-container">
+                    <input type="text" id="search-input" placeholder="搜索词汇..." class="search-input">
+                    <div class="filter-buttons">
+                        <button class="filter-btn active" data-filter="all">全部</button>
+                        <button class="filter-btn" data-filter="unknown">未学习</button>
+                        <button class="filter-btn" data-filter="learning">学习中</button>
+                        <button class="filter-btn" data-filter="known">已掌握</button>
+                    </div>
+                </div>
+
+                <div class="word-list" id="word-list">
+                    <!-- 词汇列表将通过JavaScript动态生成 -->
+                </div>
+            </section>
+
+            <!-- 测试模式 -->
+            <section id="test-section" class="section">
+                <div class="section-header">
+                    <button class="btn-back" onclick="showSection('home')">← 返回</button>
+                    <h2>测试练习</h2>
+                    <div class="test-progress">
+                        <span id="test-current">1</span> / <span id="test-total">10</span>
+                    </div>
+                </div>
+
+                <div class="test-container">
+                    <div class="test-question" id="test-question">
+                        <h3 id="question-text">准备开始测试</h3>
+                        <div class="test-options" id="test-options">
+                            <!-- 选项将通过JavaScript动态生成 -->
+                        </div>
+                    </div>
+
+                    <div class="test-controls">
+                        <button class="btn btn-primary" onclick="startTest()">开始测试</button>
+                        <button class="btn btn-secondary" onclick="nextQuestion()" style="display:none;" id="next-btn">下一题</button>
+                    </div>
+
+                    <div class="test-result" id="test-result" style="display:none;">
+                        <h3>测试完成！</h3>
+                        <div class="result-stats">
+                            <p>正确率: <span id="accuracy">0%</span></p>
+                            <p>正确题数: <span id="correct-count">0</span> / <span id="question-count">10</span></p>
+                        </div>
+                        <button class="btn btn-primary" onclick="restartTest()">重新测试</button>
+                    </div>
+                </div>
+            </section>
+        </main>
+
+        <!-- 底部导航 -->
+        <nav class="bottom-nav">
+            <button class="nav-item active" onclick="showSection('home')">
+                <span class="nav-icon">🏠</span>
+                <span class="nav-label">首页</span>
+            </button>
+            <button class="nav-item" onclick="showSection('study')">
+                <span class="nav-icon">📚</span>
+                <span class="nav-label">学习</span>
+            </button>
+            <button class="nav-item" onclick="showSection('browse')">
+                <span class="nav-icon">📖</span>
+                <span class="nav-label">浏览</span>
+            </button>
+            <button class="nav-item" onclick="showSection('test')">
+                <span class="nav-icon">📝</span>
+                <span class="nav-label">测试</span>
+            </button>
+        </nav>
+    </div>
+
+    <script src="app.js"></script>
+</body>
+</html>
