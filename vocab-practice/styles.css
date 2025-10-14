@@ -129,6 +129,12 @@ body {
     gap: 0.5rem;
 }
 
+/* 选择题控制按钮样式 */
+.choice-controls {
+    margin-top: 1.5rem;
+    text-align: center;
+}
+
 .btn-primary {
     background: #2563eb;
     color: white;
