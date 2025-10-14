@@ -252,26 +252,17 @@ def convert_csv_to_json():
     """
     vocabulary_data = []
     
-    with open('思政词汇300个.csv', 'r', encoding='utf-8') as csvfile:
+    with open('300.csv', 'r', encoding='utf-8') as csvfile:
+        csv_reader = csv.reader(csvfile)
         # 跳过第一行标题
-        next(csvfile)
+        next(csv_reader)
         
-        for line_num, line in enumerate(csvfile, start=2):
-            line = line.strip()
-            if not line:
-                continue
-                
-            # 分割CSV行
-            columns = line.split(',')
-            if len(columns) >= 2:
-                chinese = columns[0].strip()
-                english = columns[1].strip()
+        for line_num, row in enumerate(csv_reader, start=2):
+            if len(row) >= 2:
+                chinese = row[0].strip()
+                english = row[1].strip()
                 
                 if chinese and english:
-                    # 清理引号
-                    chinese = chinese.strip('"')
-                    english = english.strip('"')
-                    
                     # 获取分类
                     category = categorize_vocabulary(chinese)
                     

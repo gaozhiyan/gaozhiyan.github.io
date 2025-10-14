@@ -57,7 +57,7 @@ class VocabularyApp {
             console.error('加载词汇数据失败:', error);
             // 如果无法加载JSON，尝试加载CSV作为备用
             try {
-                const csvResponse = await fetch('思政词汇300个.csv');
+                const csvResponse = await fetch('300.csv');
                 const csvText = await csvResponse.text();
                 this.parseCSV(csvText);
             } catch (csvError) {

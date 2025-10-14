@@ -135,7 +135,7 @@
     {
       "id": 15,
       "chinese": "中国特色社会主义根本制度、基本制度、重要制度",
-      "english": "the fundamental",
+      "english": "the fundamental, basic and important systems of Chinese socialism",
       "category": "政治理论与思想",
       "status": "unknown"
     },
@@ -261,7 +261,7 @@
     {
       "id": 33,
       "chinese": "法治国家、法治政府、法治社会",
-      "english": "a law-based country",
+      "english": "a law-based country, government and society",
       "category": "法治建设",
       "status": "unknown"
     },
@@ -352,7 +352,7 @@
     {
       "id": 46,
       "chinese": "“一国两制”",
-      "english": "one country",
+      "english": "one country, two systems",
       "category": "政治制度",
       "status": "unknown"
     },
@@ -394,7 +394,7 @@
     {
       "id": 52,
       "chinese": "“港人治港”、“澳人治澳”",
-      "english": "the people of Hong Kong administer Hong Kong",
+      "english": "the people of Hong Kong administer Hong Kong, the people of Macao administer Macao//the people of Hong Kong govern Hong Kong, the people of Macao govern Macao",
       "category": "政治制度",
       "status": "unknown"
     },
@@ -443,14 +443,14 @@
     {
       "id": 59,
       "chinese": "党的基本理论、基本路线、基本方略",
-      "english": "the Party’s underlying theories",
+      "english": "the Party’s underlying theories, basic guidelines, and fundamental principles",
       "category": "党的建设",
       "status": "unknown"
     },
     {
       "id": 60,
       "chinese": "伟大斗争、伟大工程、伟大事业、伟大梦想",
-      "english": "the great struggle",
+      "english": "the great struggle, the great project, the great cause and the great dream",
       "category": "党的建设",
       "status": "unknown"
     },
@@ -688,7 +688,7 @@
     {
       "id": 94,
       "chinese": "“三农”",
-      "english": "agriculture",
+      "english": "agriculture, rural areas and rural people",
       "category": "经济发展",
       "status": "unknown"
     },
@@ -828,7 +828,7 @@
     {
       "id": 114,
       "chinese": "“两弹一星”精神",
-      "english": "the spirit of “Two Bombs",
+      "english": "the spirit of “Two Bombs, One Satellite”",
       "category": "精神品质",
       "status": "unknown"
     },
@@ -1206,7 +1206,7 @@
     {
       "id": 168,
       "chinese": "尊重自然、顺应自然、保护自然",
-      "english": "to respect Nature",
+      "english": "to respect Nature, follow Nature’s laws and protect Nature//to respect, accommodate, and protect nature",
       "category": "生态文明",
       "status": "unknown"
     },
@@ -1234,7 +1234,7 @@
     {
       "id": 172,
       "chinese": "绿色发展、循环发展、低碳发展",
-      "english": "green",
+      "english": "green, circular, and low-carbon development",
       "category": "战略目标与理念",
       "status": "unknown"
     },
