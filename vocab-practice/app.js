@@ -505,8 +505,47 @@ class VocabularyApp {
                 document.querySelectorAll('[data-type]').forEach(b => b.classList.remove('active'));
                 btn.classList.add('active');
                 this.testSettings.questionType = btn.dataset.type;
+                
+                // 重置测试状态，防止模式切换时出现状态残留
+                this.resetTestState();
             });
         });
+    }
+
+    // 重置测试状态
+    resetTestState() {
+        // 重置翻译题输入框状态
+        const input = document.getElementById('translation-input');
+        if (input) {
+            input.value = '';
+            input.disabled = false;
+            input.className = 'translation-input';
+            input.style.borderColor = '#e2e8f0';
+            input.placeholder = '请输入答案';
+        }
+        
+        // 隐藏正确答案显示区域
+        const correctAnswerSection = document.getElementById('correct-answer-section');
+        if (correctAnswerSection) {
+            correctAnswerSection.style.display = 'none';
+        }
+        
+        // 隐藏反馈区域
+        const feedback = document.getElementById('translation-feedback');
+        if (feedback) {
+            feedback.style.display = 'none';
+        }
+        
+        // 重置按钮状态
+        const submitBtn = document.getElementById('submit-translation-btn');
+        if (submitBtn) {
+            submitBtn.style.display = 'inline-block';
+        }
+        
+        const nextBtn = document.getElementById('next-btn');
+        if (nextBtn) {
+            nextBtn.style.display = 'none';
+        }
     }
 
     // 显示指定页面
