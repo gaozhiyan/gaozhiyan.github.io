@@ -207,7 +207,7 @@
             <!-- 测试模式 -->
             <section id="test-section" class="section">
                 <div class="section-header">
-                    <button class="btn-back" onclick="showSection('home')">← 返回</button>
+                    <button class="btn-back" onclick="handleTestBack()">← 返回</button>
                     <h2>测试练习</h2>
                     <div class="test-progress">
                         <span id="test-current">1</span> / <span id="test-total">10</span>
@@ -229,7 +229,8 @@
                         <h3>题型选择</h3>
                         <div class="option-buttons">
                             <button class="option-btn active" data-type="choice">选择题</button>
-                            <button class="option-btn" data-type="fill">填空题</button>
+                            <button class="option-btn" data-type="cn-to-en">中翻英</button>
+                            <button class="option-btn" data-type="en-to-cn">英翻中</button>
                         </div>
                     </div>
 
@@ -244,15 +245,36 @@
                         <div class="test-options" id="test-options">
                             <!-- 选项将通过JavaScript动态生成 -->
                         </div>
-                        <div class="fill-blank-container" id="fill-blank-container" style="display:none;">
-                            <input type="text" id="fill-blank-input" placeholder="请输入答案">
-                            <button class="btn btn-primary" onclick="submitFillBlank()">提交答案</button>
+                        <div class="translation-container" id="translation-container" style="display:none;">
+                            <!-- 答题区域 -->
+                            <div class="answer-area">
+                                <div class="question-text" id="question-text"></div>
+                                <div class="input-container">
+                                    <textarea id="translation-input" class="translation-input" placeholder="请输入答案" rows="3"></textarea>
+                                </div>
+                                
+                                <!-- 正确答案显示区域 - 移动到输入框下方 -->
+                                <div class="correct-answer-display" id="correct-answer-section" style="display:none;">
+                                    <div class="correct-label">正确答案：</div>
+                                    <div class="correct-answer" id="correct-answer"></div>
+                                </div>
+                                
+                                <div class="button-container">
+                                    <button class="submit-button" id="submit-translation-btn" onclick="submitTranslation()">
+                                        提交答案
+                                    </button>
+                                    <button class="btn btn-secondary" onclick="nextQuestion()" style="display:none;" id="next-btn">下一题</button>
+                                </div>
+                                
+                                <!-- 反馈区域 -->
+                                <div class="feedback-area" id="translation-feedback" style="display:none;">
+                                    <div class="feedback-message">
+                                        <p class="feedback-text" id="feedback-text"></p>
+                                    </div>
+                                </div>
+                            </div>
+                            </div>
                         </div>
-                    </div>
-
-                    <div class="test-controls">
-                        <button class="btn btn-secondary" onclick="nextQuestion()" style="display:none;" id="next-btn">下一题</button>
-                        <button class="btn btn-outline" onclick="backToSettings()">返回设置</button>
                     </div>
 
                     <div class="test-result" id="test-result" style="display:none;">

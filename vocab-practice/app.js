@@ -491,20 +491,18 @@ class VocabularyApp {
     // 设置测试选项监听器
     setupTestSettingsListeners() {
         // 题目数量选择
-        const countButtons = document.querySelectorAll('[data-count]');
-        countButtons.forEach(btn => {
+        document.querySelectorAll('[data-count]').forEach(btn => {
             btn.addEventListener('click', () => {
-                countButtons.forEach(b => b.classList.remove('active'));
+                document.querySelectorAll('[data-count]').forEach(b => b.classList.remove('active'));
                 btn.classList.add('active');
                 this.testSettings.questionCount = parseInt(btn.dataset.count);
             });
         });
 
         // 题型选择
-        const typeButtons = document.querySelectorAll('[data-type]');
-        typeButtons.forEach(btn => {
+        document.querySelectorAll('[data-type]').forEach(btn => {
             btn.addEventListener('click', () => {
-                typeButtons.forEach(b => b.classList.remove('active'));
+                document.querySelectorAll('[data-type]').forEach(b => b.classList.remove('active'));
                 btn.classList.add('active');
                 this.testSettings.questionType = btn.dataset.type;
             });
@@ -718,6 +716,8 @@ class VocabularyApp {
         
         // 如果切换到随机模式，重新生成随机索引
         if (order === 'random') {
+            // 确保filteredVocabulary是最新的
+            this.filterVocabularyByCategory();
             this.generateShuffledIndices();
         } else {
             // 如果切换到顺序模式，清空随机索引
@@ -849,26 +849,35 @@ class VocabularyApp {
         this.testQuestions = shuffled.slice(0, questionCount);
         
         this.testQuestions = this.testQuestions.map(word => {
-            const isChineseToEnglish = Math.random() > 0.5;
-            const correctAnswer = isChineseToEnglish ? word.english : word.chinese;
-            const question = isChineseToEnglish ? word.chinese : word.english;
-            
             let questionData = {
-                question,
-                correctAnswer,
-                isChineseToEnglish,
                 questionType: this.testSettings.questionType
             };
 
             // 根据题型生成题目
             if (this.testSettings.questionType === 'choice') {
-                // 选择题：生成选项
+                // 选择题：随机选择中翻英或英翻中
+                const isChineseToEnglish = Math.random() > 0.5;
+                const correctAnswer = isChineseToEnglish ? word.english : word.chinese;
+                const question = isChineseToEnglish ? word.chinese : word.english;
+                
+                questionData.question = question;
+                questionData.correctAnswer = correctAnswer;
+                questionData.isChineseToEnglish = isChineseToEnglish;
+                
+                // 生成选项
                 const wrongOptions = this.generateWrongOptions(correctAnswer, isChineseToEnglish);
                 const options = [correctAnswer, ...wrongOptions].sort(() => Math.random() - 0.5);
                 questionData.options = options;
-            } else if (this.testSettings.questionType === 'fill') {
-                // 填空题：不需要选项
-                // questionData 已经包含了必要的信息
+            } else if (this.testSettings.questionType === 'cn-to-en') {
+                // 中翻英
+                questionData.question = word.chinese;
+                questionData.correctAnswer = word.english;
+                questionData.isChineseToEnglish = true;
+            } else if (this.testSettings.questionType === 'en-to-cn') {
+                // 英翻中
+                questionData.question = word.english;
+                questionData.correctAnswer = word.chinese;
+                questionData.isChineseToEnglish = false;
             }
             
             return questionData;
@@ -895,7 +904,7 @@ class VocabularyApp {
 
         // 隐藏所有题型界面
         document.getElementById('test-options').style.display = 'none';
-        document.getElementById('fill-blank-container').style.display = 'none';
+        document.getElementById('translation-container').style.display = 'none';
 
         // 根据题型显示不同的界面
         if (question.questionType === 'choice') {
@@ -912,19 +921,33 @@ class VocabularyApp {
                 button.onclick = () => this.selectOption(button, option, question.correctAnswer);
                 optionsContainer.appendChild(button);
             });
-        } else if (question.questionType === 'fill') {
-            // 显示填空题界面
-            document.getElementById('fill-blank-container').style.display = 'flex';
+        } else if (question.questionType === 'cn-to-en' || question.questionType === 'en-to-cn') {
+            // 显示翻译题界面
+            document.getElementById('translation-container').style.display = 'flex';
             
-            const input = document.getElementById('fill-blank-input');
+            // 直接显示题目文本，不需要提示
+            document.getElementById('question-text').textContent = question.question;
+            
+            const input = document.getElementById('translation-input');
             input.value = '';
-            input.className = '';
+            input.className = 'translation-input';
+            input.placeholder = '请输入答案';
+            
+            // 重置反馈区域
+            const feedback = document.getElementById('translation-feedback');
+            feedback.style.display = 'none';
+            feedback.className = 'feedback-area';
+            
+            // 显示提交按钮，隐藏下一题按钮
+            document.getElementById('submit-translation-btn').style.display = 'inline-block';
+            document.getElementById('next-btn').style.display = 'none';
+            
             input.focus();
             
             // 添加回车键提交功能
             input.onkeypress = (e) => {
                 if (e.key === 'Enter') {
-                    this.submitFillBlank();
+                    this.submitTranslation();
                 }
             };
         }
@@ -954,6 +977,24 @@ class VocabularyApp {
     // 下一题
     nextQuestion() {
         this.currentQuestionIndex++;
+        
+        // 重置翻译题输入框状态
+        const input = document.getElementById('translation-input');
+        if (input) {
+            input.disabled = false;
+        }
+        
+        // 隐藏正确答案显示区域
+        const correctAnswerSection = document.getElementById('correct-answer-section');
+        if (correctAnswerSection) {
+            correctAnswerSection.style.display = 'none';
+        }
+        
+        // 隐藏反馈区域
+        const feedback = document.getElementById('translation-feedback');
+        if (feedback) {
+            feedback.style.display = 'none';
+        }
         
         if (this.currentQuestionIndex >= this.testQuestions.length) {
             this.showTestResult();
@@ -988,42 +1029,61 @@ class VocabularyApp {
     }
 
     // 提交填空题答案
-    submitFillBlank() {
-        const input = document.getElementById('fill-blank-input');
+    submitTranslation() {
+        const input = document.getElementById('translation-input');
         const userAnswer = input.value.trim();
         const question = this.testQuestions[this.currentQuestionIndex];
+        const feedback = document.getElementById('translation-feedback');
+        const feedbackText = document.getElementById('feedback-text');
+        const correctAnswerSection = document.getElementById('correct-answer-section');
+        const correctAnswerElement = document.getElementById('correct-answer');
+        const submitBtn = document.getElementById('submit-translation-btn');
         
         if (!userAnswer) {
-            // 显示输入提示而不是弹窗
+            // 显示输入提示
+            input.style.borderColor = '#ef4444';
             input.placeholder = '请输入答案';
-            input.style.borderColor = '#f44336';
             input.focus();
             setTimeout(() => {
-                input.placeholder = '请输入答案...';
-                input.style.borderColor = '';
+                input.placeholder = '请输入答案';
+                input.style.borderColor = '#e2e8f0';
             }, 2000);
             return;
         }
         
-        const isCorrect = this.checkFillBlankAnswer(userAnswer, question.correctAnswer);
+        const isCorrect = this.checkTranslationAnswer(userAnswer, question.correctAnswer);
+        
+        // 显示反馈
+        feedback.style.display = 'block';
         
         if (isCorrect) {
-            input.className = 'correct';
+            input.className = 'translation-input correct';
+            feedback.className = 'feedback-area correct';
+            feedbackText.textContent = '回答正确！';
+            correctAnswerSection.style.display = 'none';
             this.testScore++;
+            
+            // 正确时：隐藏提交按钮，显示下一题按钮
+            submitBtn.style.display = 'none';
+            document.getElementById('next-btn').style.display = 'inline-block';
         } else {
-            input.className = 'incorrect';
-            // 显示正确答案
-            setTimeout(() => {
-                input.value = question.correctAnswer;
-            }, 1000);
+            input.className = 'translation-input incorrect';
+            feedback.className = 'feedback-area incorrect';
+            feedbackText.textContent = '回答错误';
+            correctAnswerElement.textContent = question.correctAnswer;
+            correctAnswerSection.style.display = 'block';
+            
+            // 错误时：也隐藏提交按钮，显示下一题按钮
+            submitBtn.style.display = 'none';
+            document.getElementById('next-btn').style.display = 'inline-block';
         }
         
-        // 显示下一题按钮
-        document.getElementById('next-btn').style.display = 'inline-block';
+        // 禁用输入框
+        input.disabled = true;
     }
 
-    // 检查填空题答案
-    checkFillBlankAnswer(userAnswer, correctAnswer) {
+    // 检查翻译题答案
+    checkTranslationAnswer(userAnswer, correctAnswer) {
         // 去除空格并转换为小写进行比较
         const normalizedUser = userAnswer.toLowerCase().replace(/\s+/g, '');
         const normalizedCorrect = correctAnswer.toLowerCase().replace(/\s+/g, '');
@@ -1043,6 +1103,20 @@ class VocabularyApp {
         }
         
         return false;
+    }
+
+    // 处理测试模块的返回逻辑
+    handleTestBack() {
+        const testContainer = document.getElementById('test-container');
+        const testSettings = document.getElementById('test-settings');
+        
+        // 如果当前在测试进行中，返回到测试设置页面
+        if (testContainer.style.display !== 'none') {
+            this.backToSettings();
+        } else {
+            // 如果在测试设置页面，返回到首页
+            this.showSection('home');
+        }
     }
 
     // 返回设置界面
@@ -1121,9 +1195,15 @@ function nextQuestion() {
 }
 
 // 全局函数，供HTML调用
-function submitFillBlank() {
+function submitTranslation() {
     if (app) {
-        app.submitFillBlank();
+        app.submitTranslation();
+    }
+}
+
+function handleTestBack() {
+    if (app) {
+        app.handleTestBack();
     }
 }
 
