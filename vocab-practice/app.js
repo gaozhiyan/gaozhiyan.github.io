@@ -600,7 +600,12 @@ class VocabularyApp {
                     const word = this.filteredVocabulary[index];
                     return word && this.userProgress[word.id].status === 'unknown';
                 });
-                this.currentWordIndex = unknownIndex !== undefined ? unknownIndex : this.shuffledIndices[0];
+                if (unknownIndex !== undefined) {
+                    this.currentWordIndex = unknownIndex;
+                } else {
+                    // 如果随机索引中没有找到未学习的词汇，使用第一个随机索引
+                    this.currentWordIndex = this.shuffledIndices.length > 0 ? this.shuffledIndices[0] : 0;
+                }
             } else {
                 // 顺序模式：按原来的逻辑
                 this.currentWordIndex = this.filteredVocabulary.findIndex(word => word.id === unknownWords[0].id);
@@ -611,7 +616,7 @@ class VocabularyApp {
                 if (this.shuffledIndices.length === 0) {
                     this.generateShuffledIndices();
                 }
-                this.currentWordIndex = this.shuffledIndices[0];
+                this.currentWordIndex = this.shuffledIndices.length > 0 ? this.shuffledIndices[0] : 0;
             } else {
                 this.currentWordIndex = 0;
             }
@@ -675,9 +680,18 @@ class VocabularyApp {
         
         if (this.studySettings.order === 'random') {
             // 随机模式：在随机序列中移动
+            if (this.shuffledIndices.length === 0) {
+                this.generateShuffledIndices();
+            }
             const currentPosition = this.shuffledIndices.indexOf(this.currentWordIndex);
-            const previousPosition = (currentPosition - 1 + this.shuffledIndices.length) % this.shuffledIndices.length;
-            this.currentWordIndex = this.shuffledIndices[previousPosition];
+            if (currentPosition === -1) {
+                // 如果当前索引不在随机序列中，重新生成并使用第一个
+                this.generateShuffledIndices();
+                this.currentWordIndex = this.shuffledIndices.length > 0 ? this.shuffledIndices[0] : 0;
+            } else {
+                const previousPosition = (currentPosition - 1 + this.shuffledIndices.length) % this.shuffledIndices.length;
+                this.currentWordIndex = this.shuffledIndices[previousPosition];
+            }
         } else {
             // 顺序模式：按原来的逻辑
             this.currentWordIndex = (this.currentWordIndex - 1 + this.filteredVocabulary.length) % this.filteredVocabulary.length;
@@ -692,9 +706,18 @@ class VocabularyApp {
         
         if (this.studySettings.order === 'random') {
             // 随机模式：在随机序列中移动
+            if (this.shuffledIndices.length === 0) {
+                this.generateShuffledIndices();
+            }
             const currentPosition = this.shuffledIndices.indexOf(this.currentWordIndex);
-            const nextPosition = (currentPosition + 1) % this.shuffledIndices.length;
-            this.currentWordIndex = this.shuffledIndices[nextPosition];
+            if (currentPosition === -1) {
+                // 如果当前索引不在随机序列中，重新生成并使用第一个
+                this.generateShuffledIndices();
+                this.currentWordIndex = this.shuffledIndices.length > 0 ? this.shuffledIndices[0] : 0;
+            } else {
+                const nextPosition = (currentPosition + 1) % this.shuffledIndices.length;
+                this.currentWordIndex = this.shuffledIndices[nextPosition];
+            }
         } else {
             // 顺序模式：按原来的逻辑
             this.currentWordIndex = (this.currentWordIndex + 1) % this.filteredVocabulary.length;
