@@ -567,6 +567,11 @@ class VocabularyApp {
             this.initStudyMode();
         } else if (sectionName === 'browse') {
             this.renderWordList();
+        } else if (sectionName === 'test') {
+            // 初始化测试设置
+            document.getElementById('test-settings').style.display = 'block';
+            document.getElementById('test-container').style.display = 'none';
+            this.resetTestState();
         }
     }
 
@@ -1017,18 +1022,23 @@ class VocabularyApp {
 
     // 选择选项
     selectOption(button, selectedOption, correctAnswer) {
+        // 处理多个正确答案（用//分隔）
+        const correctAnswers = correctAnswer.split('//').map(answer => answer.trim());
+        const isCorrect = correctAnswers.includes(selectedOption);
+        
         // 禁用所有选项
         document.querySelectorAll('.option-btn').forEach(btn => {
             btn.style.pointerEvents = 'none';
-            if (btn.textContent === correctAnswer) {
+            // 检查按钮文本是否是任何一个正确答案
+            if (correctAnswers.includes(btn.textContent)) {
                 btn.classList.add('correct');
-            } else if (btn === button && selectedOption !== correctAnswer) {
+            } else if (btn === button && !isCorrect) {
                 btn.classList.add('incorrect');
             }
         });
         
         // 更新分数
-        if (selectedOption === correctAnswer) {
+        if (isCorrect) {
             this.testScore++;
         }
         
@@ -1146,6 +1156,20 @@ class VocabularyApp {
 
     // 检查翻译题答案
     checkTranslationAnswer(userAnswer, correctAnswer) {
+        // 处理多个正确答案（用//分隔）
+        const correctAnswers = correctAnswer.split('//').map(answer => answer.trim());
+        
+        // 对每个可能的正确答案进行检查
+        for (const answer of correctAnswers) {
+            if (this.checkSingleAnswer(userAnswer, answer)) {
+                return true;
+            }
+        }
+        
+        return false;
+    }
+    
+    checkSingleAnswer(userAnswer, correctAnswer) {
         // 去除空格并转换为小写进行比较
         const normalizedUser = userAnswer.toLowerCase().replace(/\s+/g, '');
         const normalizedCorrect = correctAnswer.toLowerCase().replace(/\s+/g, '');
